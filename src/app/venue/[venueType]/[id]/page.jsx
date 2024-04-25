@@ -59,7 +59,7 @@ function SingleVenuePage({ params }) {
                   <DialogTrigger asChild>
                     <Button
                       variant="outline"
-                      className="bg-[#2AD5A5] rounded-xl text-white"
+                      className="bg-[#2AD5A5] text-white"
                     >
                       Reserve Now
                     </Button>
@@ -220,7 +220,7 @@ function SingleVenuePage({ params }) {
                     <DialogFooter>
                       <Button
                         type="submit"
-                        className="bg-[#2AD5A5] rounded-xl text-white"
+                        className="bg-[#2AD5A5] text-white"
                         variant="outline"
                       >
                         Confirm

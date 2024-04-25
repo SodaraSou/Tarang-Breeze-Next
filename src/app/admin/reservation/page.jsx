@@ -1,4 +1,3 @@
-import AdminLayout from "@/app/AdminLayout";
 import Image from "next/image";
 import { MoreHorizontal } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -27,14 +26,25 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import AdminLayout from "@/app/AdminLayout";
+import Calendar from "@/components/Calendar";
+import ReservationForm from "@/components/ReservationForm";
 
 function ReservationPage() {
   return (
     <AdminLayout>
+      <Calendar />
       <Card className="bg-white rounded-xl">
         <CardHeader>
-          <CardTitle>Reservations</CardTitle>
-          <CardDescription>Manage your Reservations.</CardDescription>
+          <div className="flex justify-between">
+            <div>
+              <CardTitle>Reservations</CardTitle>
+              <CardDescription>Manage your Reservations.</CardDescription>
+            </div>
+            <div>
+              <ReservationForm />
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
           <Table>
