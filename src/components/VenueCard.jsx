@@ -14,12 +14,11 @@ function VenueCard({ venue }) {
           alt="Court Image"
           className="rounded-t-xl object-cover"
           height={200}
-          src="/placeholder.svg"
+          src={`https://api.tarang.site/${venue.photo}`}
           style={{
             aspectRatio: "350/200",
             objectFit: "cover",
           }}
-          width={350}
         />
         <CardHeader>
           <CardTitle>{venue.name}</CardTitle>
