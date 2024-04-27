@@ -28,6 +28,15 @@ const Login = () => {
   const [errors, setErrors] = useState([]);
   const [status, setStatus] = useState(null);
 
+  const csrf = () => axios.get("/sanctum/csrf-cookie");
+
+  useEffect(() => {
+    const fetchToken = () => {
+      csrf();
+    };
+    fetchToken();
+  }, []);
+
   useEffect(() => {
     if (router.reset?.length > 0 && errors.length === 0) {
       setStatus(atob(router.reset));
@@ -60,8 +69,8 @@ const Login = () => {
   };
   const handleGoogleLogin = async (e) => {
     e.preventDefault();
-    // await axios.get("/sanctum/csrf-cookie");
-    router.push("http://127.0.0.1:8000/auth/google/redirect");
+    await axios.get("/sanctum/csrf-cookie");
+    router.push("http://localhost:8000/auth/google/redirect");
   };
   return (
     <>
@@ -117,10 +126,10 @@ const Login = () => {
                 <a href="#">
                   <img alt="fb" className="h-[40px] w-[40px]" />
                 </a>
-                {/* <a href="https://api.tarang.site/auth/google/redirect">
+                <a href="http://localhost:8000/auth/google/redirect">
                   <img alt="google" className="h-[40px] w-[40px]" />
-                </a> */}
-                <Button onClick={handleGoogleLogin}>Google</Button>
+                </a>
+                {/* <Button onClick={handleGoogleLogin}>Google</Button> */}
               </div>
             </div>
           </form>
