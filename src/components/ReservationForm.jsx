@@ -42,7 +42,6 @@ function ReservationForm() {
     venue_id: 0,
     team_id: 1,
   });
-  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -81,6 +80,7 @@ function ReservationForm() {
       console.log("Success");
     }
   };
+  // console.log(inputData);
   if (isLoading) {
     return <Spinner />;
   }

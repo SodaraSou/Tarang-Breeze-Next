@@ -201,7 +201,6 @@ function Calendar() {
                               <DialogTrigger>
                                 <div
                                   key={index}
-                                  // className="text-sm px-2 py-1 rounded-lg mt-1 overflow-hidden border flex items-center gap-2"
                                   className={`text-sm px-2 py-1 rounded-lg mt-1 overflow-hidden border flex items-center gap-2 ${
                                     new Date(reservation.date) < new Date()
                                       ? "bg-green-300"

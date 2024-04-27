@@ -36,6 +36,26 @@ export const getReservation = async () => {
   }
 };
 
+export const updateReservation = async (updateReservation, reservationId) => {
+  try {
+    const res = await axios.put(
+      `https://api.tarang.site/api/reservation/${reservationId}`,
+      updateReservation,
+      {
+        headers: {
+          "content-type": "multipart/form-data",
+          Accept: "application/json",
+          Referer: "https://tarang.site",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
 export const deleteReservation = async (reservationId) => {
   try {
     const res = await axios.delete(
