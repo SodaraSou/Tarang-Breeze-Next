@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/lib/axios";
 
 axios.defaults.withXSRFToken = true;
 axios.defaults.withCredentials = true;

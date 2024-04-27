@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-function DatePicker({ onDateChange }) {
+function DatePicker({ onValue, onDateChange }) {
   const [date, setDate] = useState();
 
   const handleDateChange = (newDate) => {

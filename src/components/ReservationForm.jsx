@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getVenues } from "@/services/venue";
 import { createReservation } from "@/services/reservation";
 import {
   Dialog,
@@ -17,23 +19,28 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
 } from "@/components/ui/select";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
+import Spinner from "./Spinner";
 
 function ReservationForm() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["venues"],
+    queryFn: async () => await getVenues(),
+  });
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
-    data: "",
+    date: "",
     start_time: "",
     end_time: "",
-    venue_id: "",
-    team_id: 0,
+    venue_id: 0,
+    team_id: 1,
   });
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
@@ -52,8 +59,6 @@ function ReservationForm() {
       [e.target.value]: e.target.checked,
     });
   };
-  console.log(inputData);
-  console.log(teamOptions);
   const onSubmit = async (e) => {
     e.preventDefault();
     // const teamFormData = new FormData();
@@ -66,15 +71,19 @@ function ReservationForm() {
     formData.append("date", inputData.date);
     formData.append("start_time", inputData.start_time);
     formData.append("end_time", inputData.end_time);
-    formData.append("venue_id", inputData.venue_id);
+    formData.append("venue_id", parseInt(inputData.venue_id));
     formData.append("find_team", teamOptions.find_team === true ? 1 : 0);
     formData.append("find_member", teamOptions.find_member === true ? 1 : 0);
-    formData.append("team_id", resTeam.data.data.id);
+    formData.append("team_id", parseInt(inputData.team_id));
     const res = await createReservation(formData);
     if (res.status === 204) {
       console.log("Success");
     }
   };
+  // console.log(inputData);
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -89,15 +98,32 @@ function ReservationForm() {
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2 w-full">
-              <Label htmlFor="name">Venue ID</Label>
-              <Input
-                type="data"
-                className="rounded-lg"
-                placeholder="Venue ID"
-                id="venue_id"
-                onChange={onChange}
+              <Label htmlFor="name">Venue</Label>
+              <Select
+                onValueChange={(id) => {
+                  setInputData((prevState) => ({
+                    ...prevState,
+                    venue_id: id,
+                  }));
+                }}
                 required
-              />
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select venue" />
+                </SelectTrigger>
+                <SelectContent className="bg-white">
+                  <ScrollArea className="h-32">
+                    <SelectGroup>
+                      <SelectLabel>Venue</SelectLabel>
+                      {data.venues.map((venue) => (
+                        <SelectItem key={venue.id} value={venue.id.toString()}>
+                          {venue.name} - {venue.sportTypes.name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </ScrollArea>
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="name">Date</Label>
@@ -105,7 +131,7 @@ function ReservationForm() {
                 onDateChange={(date) => {
                   setInputData((prevState) => ({
                     ...prevState,
-                    start_time: date,
+                    date: date.toISOString(),
                   }));
                 }}
               />
@@ -128,9 +154,9 @@ function ReservationForm() {
                   <SelectContent className="bg-white">
                     <ScrollArea className="h-32">
                       <SelectGroup>
-                        <SelectItem value="7:00">7:00 AM</SelectItem>
-                        <SelectItem value="8:00">8:00 AM</SelectItem>
-                        <SelectItem value="9:00">9:00 AM</SelectItem>
+                        <SelectItem value="07:00">7:00 AM</SelectItem>
+                        <SelectItem value="08:00">8:00 AM</SelectItem>
+                        <SelectItem value="09:00">9:00 AM</SelectItem>
                         <SelectItem value="10:00">10:00 AM</SelectItem>
                         <SelectItem value="11:00">11:00 AM</SelectItem>
                         <SelectItem value="12:00">12:00 AM</SelectItem>
@@ -165,9 +191,9 @@ function ReservationForm() {
                   <SelectContent className="bg-white">
                     <ScrollArea className="h-32">
                       <SelectGroup>
-                        <SelectItem value="7:00">7:00 AM</SelectItem>
-                        <SelectItem value="8:00">8:00 AM</SelectItem>
-                        <SelectItem value="9:00">9:00 AM</SelectItem>
+                        <SelectItem value="07:00">7:00 AM</SelectItem>
+                        <SelectItem value="08:00">8:00 AM</SelectItem>
+                        <SelectItem value="09:00">9:00 AM</SelectItem>
                         <SelectItem value="10:00">10:00 AM</SelectItem>
                         <SelectItem value="11:00">11:00 AM</SelectItem>
                         <SelectItem value="12:00">12:00 AM</SelectItem>
@@ -188,12 +214,22 @@ function ReservationForm() {
               </div>
             </div>
             <div className="flex flex-col gap-2 w-full">
-              <Label htmlFor="name">Phone Number</Label>
-              <Input type="data" className="rounded-lg" />
+              <Label htmlFor="phone_number">Phone Number</Label>
+              <Input
+                type="text"
+                id="phone"
+                onChange={onChange}
+                className="rounded-lg"
+              />
             </div>
             <div className="flex flex-col gap-2 w-full">
               <Label htmlFor="name">Number of Player</Label>
-              <Input type="data" className="rounded-lg" />
+              <Input
+                type="number"
+                id="attendee"
+                onChange={onChange}
+                className="rounded-lg"
+              />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="name">Optional</Label>
