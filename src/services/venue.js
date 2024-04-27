@@ -29,7 +29,7 @@ export const getVenues = async () => {
       },
     });
     const data = res.data;
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     console.log(error);
@@ -70,3 +70,33 @@ export const showSingleVenue = async (id) => {
     return null;
   }
 };
+
+export const deleteVenue = async (id) => {
+  try {
+    const response = await axios.delete(`https://api.tarang.site/api/venues/${id}`,{
+      headers: { "content-type": "application/json", Accept: "application/json" },
+    });
+    console.log(response.status);
+    return response;
+  } catch(error){
+    console.log(error);
+    return null
+  }
+}
+
+export const updateVenue = async (id , venue) => {
+  try {
+    const response = await axios.post(`https://api.tarang.site/api/venues/${id}?_method=PUT`, venue, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Accept': 'application/json'
+      },
+    });
+    const data = response.data;
+    console.log(data);
+    return data;
+  } catch(error) {
+    console.log(error);
+    return null;
+  }
+}
