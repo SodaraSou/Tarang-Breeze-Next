@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/popover";
 
 function DatePicker({ onValue, onDateChange }) {
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(onValue || null);
 
   const handleDateChange = (newDate) => {
     setDate(newDate);

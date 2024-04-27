@@ -139,7 +139,7 @@ function ReservationTable() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data?.data.reservations.map((reservation, index) => (
+                {data?.data.data.map((reservation, index) => (
                   <TableRow key={index}>
                     <TableCell className="hidden sm:table-cell">
                       <Avatar>
@@ -492,7 +492,7 @@ function ReservationTable() {
           <CardFooter>
             <div className="text-xs text-muted-foreground">
               Showing <strong>1-10</strong> of{" "}
-              <strong>{data?.data.reservations.length}</strong> reservations
+              <strong>{data?.data.data.length}</strong> reservations
             </div>
           </CardFooter>
         </Card>
