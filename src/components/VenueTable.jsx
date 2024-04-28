@@ -18,11 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { DiailogVenue } from "@/components/DiailogVenue";
-import Spinner from "./Spinner";
 import VenueEditDialog from "@/components/VenueEditDialog";
 import VenueDeleteDialog from "@/components/VenueDeleteDialog";
 import VenueCreateDialog from "./VenueCreateDialog";
+import Spinner from "./Spinner";
 
 function VenueTable() {
   const { data, isLoading } = useQuery({
