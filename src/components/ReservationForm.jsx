@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getVenues } from "@/services/venue";
-import { createReservation } from "@/services/reservation";
+// import { getUser } from "@/services/user";
+import { createReservation, updateReservation } from "@/services/reservation";
 import {
   Dialog,
   DialogContent,
@@ -28,18 +30,29 @@ import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
 import Spinner from "./Spinner";
 
-function ReservationForm() {
+function ReservationForm({
+  isUser,
+  venue,
+  reservation,
+  formTitle,
+  dialogTitle,
+}) {
   const { data, isLoading } = useQuery({
     queryKey: ["venues"],
     queryFn: async () => await getVenues(),
   });
   const [inputData, setInputData] = useState({
-    phone: "",
-    attendee: 0,
-    date: "",
-    start_time: "",
-    end_time: "",
-    venue_id: 0,
+    phone: reservation ? reservation.phone : "",
+    attendee: reservation ? reservation.attendee : 0,
+    date: reservation ? reservation.date : "",
+    start_time: reservation
+      ? reservation.start_time.replace(" AM", "").replace(" PM", "")
+      : "",
+    end_time: reservation
+      ? reservation.end_time.replace(" AM", "").replace(" PM", "")
+      : "",
+    venue_id:
+      venue || reservation ? (venue ? venue.id : reservation.venue.id) : 0,
     team_id: 1,
   });
   const [teamOptions, setTeamOptions] = useState({
@@ -59,8 +72,14 @@ function ReservationForm() {
       [e.target.value]: e.target.checked,
     });
   };
+  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
+    // const user = await getUser();
+    // if (user === undefined) {
+    //   router.push("/login");
+    //   return;
+    // }
     // const teamFormData = new FormData();
     // teamFormData.append("name", inputData.name);
     // teamFormData.append("sport_type_id", inputData.sport_type_id);
@@ -75,12 +94,27 @@ function ReservationForm() {
     formData.append("find_team", teamOptions.find_team === true ? 1 : 0);
     formData.append("find_member", teamOptions.find_member === true ? 1 : 0);
     formData.append("team_id", parseInt(inputData.team_id));
-    const res = await createReservation(formData);
-    if (res.status === 204) {
-      console.log("Success");
+    if (dialogTitle == "Edit Reservation") {
+      const res = await updateReservation(
+        {
+          ...inputData,
+          attendee: parseInt(inputData.attendee),
+          find_team: teamOptions.find_team === true ? 1 : 0,
+          find_member: teamOptions.find_member === true ? 1 : 0,
+          team_id: 1,
+        },
+        reservation.id
+      );
+      if (res.status === 204) {
+        console.log("Update Success");
+      }
+    } else {
+      const res = await createReservation(formData);
+      if (res.status === 204) {
+        console.log("Success");
+      }
     }
   };
-  // console.log(inputData);
   if (isLoading) {
     return <Spinner />;
   }
@@ -88,18 +122,20 @@ function ReservationForm() {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline" className="bg-[#2AD5A5] text-white">
-          Reserve Venue
+          {formTitle}
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
-          <DialogTitle>Venue Reservation</DialogTitle>
+          <DialogTitle>{dialogTitle}</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2 w-full">
               <Label htmlFor="name">Venue</Label>
               <Select
+                defaultValue={inputData.venue_id.toString()}
+                disabled={isUser}
                 onValueChange={(id) => {
                   setInputData((prevState) => ({
                     ...prevState,
@@ -128,6 +164,7 @@ function ReservationForm() {
             <div className="flex flex-col gap-2">
               <Label htmlFor="name">Date</Label>
               <DatePicker
+                onValue={inputData.date}
                 onDateChange={(date) => {
                   setInputData((prevState) => ({
                     ...prevState,
@@ -140,6 +177,9 @@ function ReservationForm() {
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="name">Start Time</Label>
                 <Select
+                  defaultValue={inputData.start_time
+                    .replace(" AM", "")
+                    .replace(" PM", "")}
                   onValueChange={(value) => {
                     setInputData((prevState) => ({
                       ...prevState,
@@ -178,6 +218,9 @@ function ReservationForm() {
               <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor="name">End Time</Label>
                 <Select
+                  defaultValue={inputData.end_time
+                    .replace(" AM", "")
+                    .replace(" PM", "")}
                   onValueChange={(value) => {
                     setInputData((prevState) => ({
                       ...prevState,
@@ -220,6 +263,7 @@ function ReservationForm() {
                 id="phone"
                 onChange={onChange}
                 className="rounded-lg"
+                defaultValue={inputData.phone}
               />
             </div>
             <div className="flex flex-col gap-2 w-full">
@@ -229,6 +273,7 @@ function ReservationForm() {
                 id="attendee"
                 onChange={onChange}
                 className="rounded-lg"
+                defaultValue={inputData.attendee}
               />
             </div>
             <div className="flex flex-col gap-2">

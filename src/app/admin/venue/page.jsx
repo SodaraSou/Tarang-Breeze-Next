@@ -1,5 +1,5 @@
 "use client";
-import AdminLayout from "@/app/AdminLayout";
+
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { getVenues } from "@/services/venue";
@@ -68,8 +68,8 @@ function VenuePage() {
   const [updateData, setUpdateData] = useState({
     name: "",
     size: 0,
-    sportType : 0,
-    description: "" ,
+    sportType: 0,
+    description: "",
     photo: "",
   });
 
@@ -99,7 +99,7 @@ function VenuePage() {
     await updateVenue(venueData.id, formData);
   };
   return (
-    <AdminLayout>
+    <>
       <Card className="bg-white rounded-xl">
         <CardHeader className="flex justify-between">
           <div className="flex justify-between">
@@ -174,134 +174,134 @@ function VenuePage() {
                             </DialogTrigger>
                           </DropdownMenuContent>
                         </DropdownMenu>
-                          {dialog === "edit" ? (
-                            <DialogContent className="sm:max-w-[425px] bg-white">
-                              <div className="flex flex-col items-center gap-10">
-                                <h1 className="text-2xl md:text-2xl font-bold">
-                                  Edit Venue
-                                </h1>
-                                <form
-                                  encType="multipart/form-data"
-                                  onSubmit={submit}
-                                  className="flex flex-col gap-10 items-center w-full"
-                                >
-                                  <div className="flex flex-col w-full gap-4">
-                                    <div className="flex flex-col md:flex-row gap-4">
-                                      <div className="w-full">
-                                        <Input
-                                          type="text"
-                                          placeholder="Name"
-                                          id={"name"}
-                                          onChange={onChange}
-                                          // value={venue.name}
-                                        />
-                                      </div>
-                                      <div className="w-full">
-                                        <Input
-                                          type="number"
-                                          placeholder="Size"
-                                          id={"size"}
-                                          onChange={onChange}
-                                          // value={venue.size}
-                                        />
-                                      </div>
-                                    </div>
-                                    <div className="flex flex-col w-full gap-2">
-                                      <label
-                                        htmlFor="category"
-                                        className="text-sm md:text-base"
-                                      >
-                                        Sport Type:
-                                      </label>
-                                      <Select
-                                        // defaultValue={venue.sportTypes.id}
-                                        // value={venue.sportTypes.id}
-                                        onValueChange={(value) => {
-                                          setUpdateData((prevState) => ({
-                                            ...prevState,
-                                            sport_type_id: value,
-                                          }));
-                                        }}
-                                        required
-                                      >
-                                        <SelectTrigger>
-                                          <SelectValue placeholder="Select Sport Type" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          <SelectGroup className="bg-white">
-                                            <SelectItem value="1">
-                                              Football
-                                            </SelectItem>
-                                            <SelectItem value="2">
-                                              Badminton
-                                            </SelectItem>
-                                            <SelectItem value="3">
-                                              Ping Pong
-                                            </SelectItem>
-                                            <SelectItem value="4">
-                                              Volleyball
-                                            </SelectItem>
-                                          </SelectGroup>
-                                        </SelectContent>
-                                      </Select>
-                                    </div>
-                                    <div className="w-full flex flex-col gap-2">
-                                      <label
-                                        className="text-sm md:text-base"
-                                        htmlFor="#"
-                                      >
-                                        Description
-                                      </label>
-                                      <Textarea
-                                        placeholder="Type your message here."
-                                        id="description"
-                                        onChange={onChange}
-                                        value={venue.description}
-                                      />
-                                    </div>
-                                    <div>
+                        {dialog === "edit" ? (
+                          <DialogContent className="sm:max-w-[425px] bg-white">
+                            <div className="flex flex-col items-center gap-10">
+                              <h1 className="text-2xl md:text-2xl font-bold">
+                                Edit Venue
+                              </h1>
+                              <form
+                                encType="multipart/form-data"
+                                onSubmit={submit}
+                                className="flex flex-col gap-10 items-center w-full"
+                              >
+                                <div className="flex flex-col w-full gap-4">
+                                  <div className="flex flex-col md:flex-row gap-4">
+                                    <div className="w-full">
                                       <Input
-                                        type="file"
-                                        title={"image"}
-                                        id={"photo"}
+                                        type="text"
+                                        placeholder="Name"
+                                        id={"name"}
                                         onChange={onChange}
-                                        // value={venue.photo}
+                                        // value={venue.name}
+                                      />
+                                    </div>
+                                    <div className="w-full">
+                                      <Input
+                                        type="number"
+                                        placeholder="Size"
+                                        id={"size"}
+                                        onChange={onChange}
+                                        // value={venue.size}
                                       />
                                     </div>
                                   </div>
-                                  <div className="flex gap-4">
-                                    <DialogFooter>
-                                      <Button
-                                        className="bg-green-300 rounded-xl"
-                                        variant="outline"
-                                        type="submit"
-                                      >
-                                        Update Venue
-                                      </Button>
-                                    </DialogFooter>
+                                  <div className="flex flex-col w-full gap-2">
+                                    <label
+                                      htmlFor="category"
+                                      className="text-sm md:text-base"
+                                    >
+                                      Sport Type:
+                                    </label>
+                                    <Select
+                                      // defaultValue={venue.sportTypes.id}
+                                      // value={venue.sportTypes.id}
+                                      onValueChange={(value) => {
+                                        setUpdateData((prevState) => ({
+                                          ...prevState,
+                                          sport_type_id: value,
+                                        }));
+                                      }}
+                                      required
+                                    >
+                                      <SelectTrigger>
+                                        <SelectValue placeholder="Select Sport Type" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        <SelectGroup className="bg-white">
+                                          <SelectItem value="1">
+                                            Football
+                                          </SelectItem>
+                                          <SelectItem value="2">
+                                            Badminton
+                                          </SelectItem>
+                                          <SelectItem value="3">
+                                            Ping Pong
+                                          </SelectItem>
+                                          <SelectItem value="4">
+                                            Volleyball
+                                          </SelectItem>
+                                        </SelectGroup>
+                                      </SelectContent>
+                                    </Select>
                                   </div>
-                                </form>
-                              </div>
-                            </DialogContent>
-                          ) : (
-                            <DialogContent className="bg-white w-[325px] flex flex-col justify-center items-center">
-                              <DialogHeader>
-                                <DialogTitle>
-                                  Are you absolutely sure?
-                                </DialogTitle>
-                              </DialogHeader>
+                                  <div className="w-full flex flex-col gap-2">
+                                    <label
+                                      className="text-sm md:text-base"
+                                      htmlFor="#"
+                                    >
+                                      Description
+                                    </label>
+                                    <Textarea
+                                      placeholder="Type your message here."
+                                      id="description"
+                                      onChange={onChange}
+                                      value={venue.description}
+                                    />
+                                  </div>
+                                  <div>
+                                    <Input
+                                      type="file"
+                                      title={"image"}
+                                      id={"photo"}
+                                      onChange={onChange}
+                                      // value={venue.photo}
+                                    />
+                                  </div>
+                                </div>
+                                <div className="flex gap-4">
+                                  <DialogFooter>
+                                    <Button
+                                      className="bg-green-300 rounded-xl"
+                                      variant="outline"
+                                      type="submit"
+                                    >
+                                      Update Venue
+                                    </Button>
+                                  </DialogFooter>
+                                </div>
+                              </form>
+                            </div>
+                          </DialogContent>
+                        ) : (
+                          <DialogContent className="bg-white w-[325px] flex flex-col justify-center items-center">
+                            <DialogHeader>
+                              <DialogTitle>
+                                Are you absolutely sure?
+                              </DialogTitle>
+                            </DialogHeader>
 
-                              <DialogFooter>
-                                <Button
-                                  className="bg-red-500 text-white rounded-xl"
-                                  variant="outline"
-                                  onClick={() => handleDelete(venue.id)}
-                                >
-                                  Delete
-                                </Button>
-                              </DialogFooter>
-                            </DialogContent>
-                          )}
+                            <DialogFooter>
+                              <Button
+                                className="bg-red-500 text-white rounded-xl"
+                                variant="outline"
+                                onClick={() => handleDelete(venue.id)}
+                              >
+                                Delete
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        )}
                       </Dialog>
                     </TableCell>
                   </TableRow>
@@ -318,7 +318,7 @@ function VenuePage() {
           </div>
         </CardFooter> */}
       </Card>
-    </AdminLayout>
+    </>
   );
 }
 

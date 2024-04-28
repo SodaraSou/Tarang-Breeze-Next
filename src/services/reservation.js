@@ -2,6 +2,7 @@ import axios from "@/lib/axios";
 
 export const createReservation = async (reservation) => {
   try {
+    console.log(reservation);
     const res = await axios.post(
       "https://api.tarang.site/api/reservation",
       reservation,
@@ -37,13 +38,14 @@ export const getReservation = async () => {
 };
 
 export const updateReservation = async (updateReservation, reservationId) => {
+  console.log(updateReservation);
   try {
     const res = await axios.put(
       `https://api.tarang.site/api/reservation/${reservationId}`,
       updateReservation,
       {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-type": "application/json",
           Accept: "application/json",
           Referer: "https://tarang.site",
         },
@@ -62,7 +64,6 @@ export const deleteReservation = async (reservationId) => {
       `https://api.tarang.site/api/reservation/${reservationId}`,
       {
         headers: {
-          "content-type": "multipart/form-data",
           Accept: "application/json",
           Referer: "https://tarang.site",
         },
