@@ -15,11 +15,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "./ui/button";
 
-function DeleteDialog({ reservationId }) {
+function ReservationDeleteDialog({ reservationId }) {
   const [open, setOpen] = useState(false);
   const handleDelete = async () => {
     try {
-      await deleteReservation(reservationId);
+      const res = await deleteReservation(reservationId);
+      if (res.status === 204) {
+        alert("Delete Successfully");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -58,4 +61,4 @@ function DeleteDialog({ reservationId }) {
   );
 }
 
-export default DeleteDialog;
+export default ReservationDeleteDialog;

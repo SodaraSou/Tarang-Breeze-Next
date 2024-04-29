@@ -2,15 +2,13 @@ import axios from "@/lib/axios";
 
 export const createReservation = async (reservation) => {
   try {
-    console.log(reservation);
     const res = await axios.post(
       "https://api.tarang.site/api/reservation",
       reservation,
       {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-type": "application/json",
           Accept: "application/json",
-          Referer: "https://tarang.site",
         },
       }
     );
@@ -47,7 +45,6 @@ export const updateReservation = async (updateReservation, reservationId) => {
         headers: {
           "content-type": "application/json",
           Accept: "application/json",
-          Referer: "https://tarang.site",
         },
       }
     );
@@ -65,7 +62,25 @@ export const deleteReservation = async (reservationId) => {
       {
         headers: {
           Accept: "application/json",
-          Referer: "https://tarang.site",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
+export const getAvailableTime = async (date) => {
+  try {
+    const res = await axios.post(
+      "https://api.tarang.site/api/available-time",
+      date,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
         },
       }
     );
