@@ -21,20 +21,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createVenue } from "@/services/venue";
+import { createTeam } from "@/services/team";
 
-export function DiailogVenue() {
+export function DialogTeam() {
   const [inputData, setInputData] = useState({
     name: "",
-    size: 0,
     sport_type_id: 0,
-    description: "",
-    photo: "",
+    logo: "",
   });
 
   const onChange = (e) => {
     e.preventDefault();
-    if (e.target.id === "photo") {
+    if (e.target.id === "logo") {
       setInputData((prevState) => ({
         ...prevState,
         [e.target.id]: e.target.files[0],
@@ -50,31 +48,31 @@ export function DiailogVenue() {
   const Submit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("photo", inputData.photo);
+    formData.append("logo", inputData.logo);
     formData.append("name", inputData.name);
     formData.append("sport_type_id", inputData.sport_type_id);
-    formData.append("description", inputData.description);
-    formData.append("size", inputData.size);
-    createVenue(formData);
+    createTeam(formData);
     alert("Succesfully Add!");
   };
   return (
     <Dialog>
       <DialogTrigger asChild>
        <Button className="bg-green-300" variant="outline">
-         Add Venue
+         Create Team
        </Button>
        </DialogTrigger>
      <DialogContent className="sm:max-w-[425px] bg-white">
         <div className="flex flex-col items-center gap-10">
-          <h1 className="text-2xl md:text-2xl font-bold">Add New Venue</h1>
+          <h1 className="text-2xl md:text-2xl font-bold">Create New Team</h1>
           <form
             encType="multipart/form-data"
             onSubmit={Submit}
             className="flex flex-col gap-10 items-center w-full"
           >
             <div className="flex flex-col w-full gap-4">
-              <div className="flex flex-col md:flex-row gap-4">
+            <label htmlFor="category" className="text-sm md:text-base">
+                  Team Name
+                </label>
                 <div className="w-full">
                   <Input
                     type="text"
@@ -83,18 +81,9 @@ export function DiailogVenue() {
                     onChange={onChange}
                   />
                 </div>
-                <div className="w-full">
-                  <Input
-                    type="number"
-                    placeholder="Size"
-                    id={"size"}
-                    onChange={onChange}
-                  />
-                </div>
-              </div>
               <div className="flex flex-col w-full gap-2">
                 <label htmlFor="category" className="text-sm md:text-base">
-                  Sport Type:
+                  Sport Type
                 </label>
                 <Select  onValueChange={(value) => {
                     setInputData((prevState) => ({
@@ -119,7 +108,7 @@ export function DiailogVenue() {
                   </SelectContent>
                 </Select>
               </div>
-              <div className="w-full flex flex-col gap-2">
+              {/* <div className="w-full flex flex-col gap-2">
                 <label className="text-sm md:text-base" htmlFor="#">
                   Comment
                 </label>
@@ -128,12 +117,15 @@ export function DiailogVenue() {
                   id="description"
                   onChange={onChange}
                 />
-              </div>
+              </div> */}
               <div>
+              <label htmlFor="category" className="text-sm md:text-base">
+                  Logo
+                </label>
                 <Input
                   type="file"
                   title={"image"}
-                  id={"photo"}
+                  id={"logo"}
                   onChange={onChange}
                 />
               </div>
@@ -145,7 +137,7 @@ export function DiailogVenue() {
                   variant="outline"
                   type="submit"
                 >
-                  Add Venue
+                   Create Team
                 </Button>
               </DialogFooter>
             </div>
@@ -155,4 +147,4 @@ export function DiailogVenue() {
     </Dialog>
   );
 }
-export default DiailogVenue;
+export default DialogTeam;
