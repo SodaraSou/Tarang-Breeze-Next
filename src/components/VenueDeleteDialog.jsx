@@ -35,8 +35,7 @@ function VenueDeleteDialog({ venue }) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete
-            {" "}
+            This action cannot be undone. This will permanently delete{" "}
             <span className="font-bold">venue ID {venue.id}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>

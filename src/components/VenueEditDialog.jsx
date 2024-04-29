@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { updateVenue } from "@/services/venue";
 import {
   Dialog,
@@ -25,9 +26,12 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { getSportTypes } from "@/services/sport";
-import { useQuery } from "@tanstack/react-query";
 
 function VenueEditDialog({ venue }) {
+  const { data } = useQuery({
+    queryKey: ["SportTypes"],
+    queryFn: async () => await getSportTypes(),
+  });
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState({
     name: venue ? venue.name : "",
@@ -36,7 +40,6 @@ function VenueEditDialog({ venue }) {
     description: venue ? venue.description : "",
     photo: venue ? venue.photo : "",
   });
-  console.log(updateData);
   const onChange = (e) => {
     e.preventDefault();
     if (e.target.id === "photo") {
@@ -51,16 +54,9 @@ function VenueEditDialog({ venue }) {
       }));
     }
   };
-
-  const {data, isLoading } = useQuery({
-    queryKey:["SportTypes"],
-    queryFn: async () => await getSportTypes(),
-  });
-  console.log(data);
-
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await updateVenue(venue.id, updateData);
+    const res = await updateVenue(venue, updateData);
     if (res.stats === 204) {
       setOpen(false);
       alert("Update Successful");
@@ -108,10 +104,10 @@ function VenueEditDialog({ venue }) {
                 <SelectGroup className="bg-white">
                   <SelectLabel>SportType</SelectLabel>
                   {data?.sport_types.map((sport) => (
-                        <SelectItem key={sport.id} value={sport.id.toString()}>
-                          {sport.name}
-                        </SelectItem>
-                      ))}
+                    <SelectItem key={sport.id} value={sport.id.toString()}>
+                      {sport.name}
+                    </SelectItem>
+                  ))}
                 </SelectGroup>
               </SelectContent>
             </Select>

@@ -35,7 +35,6 @@ function VenueCreateDialog() {
     description: "",
     photo: "",
   });
-  console.log(inputData);
   const onChange = (e) => {
     e.preventDefault();
     if (e.target.id === "photo") {
@@ -54,7 +53,6 @@ function VenueCreateDialog() {
     queryKey:["SportTypes"],
     queryFn: async () => await getSportTypes(),
   });
-  console.log(data);
   const onSubmit = async (e) => {
     e.preventDefault();
     await createVenue(inputData);
