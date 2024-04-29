@@ -1,6 +1,6 @@
 import UserLayout from "@/app/UserLayout";
 
-function VenueTypePage({ params }) {
+function VenueTypePage() {
   return <UserLayout></UserLayout>;
 }
 
