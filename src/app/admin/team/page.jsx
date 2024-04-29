@@ -1,9 +1,9 @@
 "use client";
-import AdminLayout from "@/app/AdminLayout";
+
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { getTeam } from "@/services/team";
-import { DialogTeam } from '@/components/DailogTeam';
+import { DialogTeam } from "@/components/DailogTeam";
 import { deleteTeam } from "@/services/team";
 import { IoMenu } from "react-icons/io5";
 import { Input } from "@/components/ui/input";
@@ -98,7 +98,7 @@ function TeamPage() {
     await updateVenue(venueData.id, formData);
   };
   return (
-    <AdminLayout>
+    <>
       <Card className="bg-white rounded-xl">
         <CardHeader className="flex justify-between">
           <div className="flex justify-between">
@@ -114,7 +114,7 @@ function TeamPage() {
             <TableHeader>
               <TableRow>
                 <TableHead className="hidden w-[100px] sm:table-cell">
-                  <span >Logo</span>
+                  <span>Logo</span>
                 </TableHead>
                 <TableHead>Name</TableHead>
                 <TableHead>Type</TableHead>
@@ -177,14 +177,14 @@ function TeamPage() {
                                 className="flex flex-col gap-10 items-center w-full"
                               >
                                 <div className="flex flex-col w-full gap-4">
-                                    <div className="w-full">
-                                      <Input
-                                        type="text"
-                                        placeholder="Name"
-                                        id={"name"}
-                                        onChange={onChange}
-                                      />
-                                    </div>
+                                  <div className="w-full">
+                                    <Input
+                                      type="text"
+                                      placeholder="Name"
+                                      id={"name"}
+                                      onChange={onChange}
+                                    />
+                                  </div>
                                   <div className="flex flex-col w-full gap-2">
                                     <label
                                       htmlFor="category"
@@ -223,11 +223,11 @@ function TeamPage() {
                                     </Select>
                                   </div>
                                   <label
-                                      htmlFor="category"
-                                      className="text-sm md:text-base"
-                                    >
-                                      Team Logo
-                                    </label>
+                                    htmlFor="category"
+                                    className="text-sm md:text-base"
+                                  >
+                                    Team Logo
+                                  </label>
                                   <div>
                                     <Input
                                       type="file"
@@ -286,7 +286,7 @@ function TeamPage() {
         </div>
       </CardFooter> */}
       </Card>
-    </AdminLayout>
+    </>
   );
 }
 

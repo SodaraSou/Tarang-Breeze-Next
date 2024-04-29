@@ -1,15 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getVenues } from "@/services/venue";
-// import { getUser } from "@/services/user";
-import {
-  createReservation,
-  getAvailableTime,
-  updateReservation,
-} from "@/services/reservation";
+import { createReservation } from "@/services/reservation";
 import {
   Dialog,
   DialogContent,
@@ -34,44 +28,25 @@ import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
 import Spinner from "./Spinner";
 
-function ReservationForm({
-  isUser,
-  venue,
-  reservation,
-  formTitle,
-  dialogTitle,
-}) {
+function ReservationCreateDialog({ isUser, venue }) {
   const { data, isLoading } = useQuery({
     queryKey: ["venues"],
     queryFn: async () => await getVenues(),
   });
+  const [open, setOpen] = useState(false);
   const [inputData, setInputData] = useState({
-    phone: reservation ? reservation.phone : "",
-    attendee: reservation ? reservation.attendee : 0,
-    date: reservation ? reservation.date : "",
-    start_time: reservation
-      ? reservation.start_time.replace(" AM", "").replace(" PM", "")
-      : "",
-    end_time: reservation
-      ? reservation.end_time.replace(" AM", "").replace(" PM", "")
-      : "",
-    venue_id:
-      venue || reservation ? (venue ? venue.id : reservation.venue.id) : 0,
-    team_id: 1,
+    phone: "",
+    attendee: 0,
+    date: "",
+    start_time: "",
+    end_time: "",
+    venue_id: venue ? venue.id : 0,
+    // team_id: 1,
   });
-  const { data: availableTime } = useQuery({
-    queryKey: ["availableTimes"],
-    queryFn: async () => await getAvailableTime(inputData.date),
-  });
-  console.log(inputData.date);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
   });
-  // if (inputData.date !== "") {
-  //   const res = getAvailableTime(inputData.date);
-  //   console.log(res);
-  // }
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -80,67 +55,33 @@ function ReservationForm({
     }));
   };
   const handleCheck = (e) => {
+    e.preventDefault();
     setTeamOptions({
       ...teamOptions,
       [e.target.value]: e.target.checked,
     });
   };
-  const router = useRouter();
   const onSubmit = async (e) => {
     e.preventDefault();
-    // const user = await getUser();
-    // if (user === undefined) {
-    //   router.push("/login");
-    //   return;
-    // }
-    // const teamFormData = new FormData();
-    // teamFormData.append("name", inputData.name);
-    // teamFormData.append("sport_type_id", inputData.sport_type_id);
-    // const resTeam = await createTeam(teamFormData);
-    const formData = new FormData();
-    formData.append("phone", inputData.phone);
-    formData.append("attendee", parseInt(inputData.attendee));
-    formData.append("date", inputData.date);
-    formData.append("start_time", inputData.start_time);
-    formData.append("end_time", inputData.end_time);
-    formData.append("venue_id", parseInt(inputData.venue_id));
-    formData.append("find_team", teamOptions.find_team === true ? 1 : 0);
-    formData.append("find_member", teamOptions.find_member === true ? 1 : 0);
-    formData.append("team_id", parseInt(inputData.team_id));
-    if (dialogTitle == "Edit Reservation") {
-      const res = await updateReservation(
-        {
-          ...inputData,
-          attendee: parseInt(inputData.attendee),
-          find_team: teamOptions.find_team === true ? 1 : 0,
-          find_member: teamOptions.find_member === true ? 1 : 0,
-          team_id: 1,
-        },
-        reservation.id
-      );
-      if (res.status === 204) {
-        console.log("Update Success");
-      }
-    } else {
-      const res = await createReservation(formData);
-      if (res.status === 204) {
-        console.log("Success");
-      }
+    const res = await createReservation({ ...inputData, ...teamOptions });
+    if (res.status === 204) {
+      setOpen(false);
+      alert("Create Successfully");
     }
   };
   if (isLoading) {
     return <Spinner />;
   }
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="bg-[#2AD5A5] text-white">
-          {formTitle}
+          Reserve Venue
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
-          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogTitle>Create Reservation</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit}>
           <div className="flex flex-col gap-4">
@@ -345,4 +286,4 @@ function ReservationForm({
   );
 }
 
-export default ReservationForm;
+export default ReservationCreateDialog;
