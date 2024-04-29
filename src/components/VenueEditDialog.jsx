@@ -18,11 +18,14 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectLabel,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { getSportTypes } from "@/services/sport";
+import { useQuery } from "@tanstack/react-query";
 
 function VenueEditDialog({ venue }) {
   const [open, setOpen] = useState(false);
@@ -48,6 +51,13 @@ function VenueEditDialog({ venue }) {
       }));
     }
   };
+
+  const {data, isLoading } = useQuery({
+    queryKey:["SportTypes"],
+    queryFn: async () => await getSportTypes(),
+  });
+  console.log(data);
+
   const onSubmit = async (e) => {
     e.preventDefault();
     const res = await updateVenue(venue.id, updateData);
@@ -96,10 +106,12 @@ function VenueEditDialog({ venue }) {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup className="bg-white">
-                  <SelectItem value="1">Football</SelectItem>
-                  <SelectItem value="2">Badminton</SelectItem>
-                  <SelectItem value="3">Volleyball</SelectItem>
-                  <SelectItem value="4">Ping Pong</SelectItem>
+                  <SelectLabel>SportType</SelectLabel>
+                  {data?.sport_types.map((sport) => (
+                        <SelectItem key={sport.id} value={sport.id.toString()}>
+                          {sport.name}
+                        </SelectItem>
+                      ))}
                 </SelectGroup>
               </SelectContent>
             </Select>
