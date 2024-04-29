@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { getVenues } from "@/services/venue";
 import {
@@ -62,11 +63,12 @@ function VenueTable() {
             {data?.venues.map((venue, index) => (
               <TableRow key={index}>
                 <TableCell className="hidden sm:table-cell">
-                  <img
+                  <Image
                     alt="Product image"
                     className="aspect-square rounded-md object-cover"
-                    height="64"
-                    src={`https://api.tarang.site/${venue.photo}`}
+                    width={64}
+                    height={64}
+                    src={venue.photo}
                   />
                 </TableCell>
                 <TableCell className="font-medium">{venue.name}</TableCell>
@@ -77,7 +79,7 @@ function VenueTable() {
                 <TableCell className="hidden md:table-cell">25</TableCell>
                 <TableCell>
                   <VenueEditDialog venue={venue} />
-                  <VenueDeleteDialog venueId={venue.id} />
+                  <VenueDeleteDialog venue={venue} />
                 </TableCell>
               </TableRow>
             ))}

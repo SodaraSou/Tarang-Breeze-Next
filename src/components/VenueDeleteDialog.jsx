@@ -15,9 +15,17 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-function VenueDeleteDialog({ venueId }) {
+function VenueDeleteDialog({ venue }) {
+  const [open, setOpen] = useState(false);
+  const handleDelete = async () => {
+    const res = await deleteVenue(venue);
+    if (res.status === 204) {
+      setOpen(false);
+      alert("Delete Successful");
+    }
+  };
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
         <Button variant="outline" className="bg-red-500 text-white">
           Delete
@@ -29,12 +37,14 @@ function VenueDeleteDialog({ venueId }) {
           <AlertDialogDescription>
             This action cannot be undone. This will permanently delete your
             account and remove your{" "}
-            <span className="font-bold">venue ID {venueId}</span>
+            <span className="font-bold">venue ID {venue.id}</span>
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
+          <AlertDialogAction asChild>
+            <Button onClick={handleDelete}>Continue</Button>
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

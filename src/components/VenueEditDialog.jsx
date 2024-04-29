@@ -25,6 +25,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 function VenueEditDialog({ venue }) {
+  const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState({
     name: venue ? venue.name : "",
     size: venue ? venue.size : 0,
@@ -49,16 +50,14 @@ function VenueEditDialog({ venue }) {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("photo", updateData.photo);
-    formData.append("name", updateData.name);
-    formData.append("sport_type_id", updateData.sport_type_id);
-    formData.append("description", updateData.description);
-    formData.append("size", updateData.size);
-    await updateVenue(venueData.id, formData);
+    const res = await updateVenue(venue.id, updateData);
+    if (res.stats === 204) {
+      setOpen(false);
+      alert("Update Successful");
+    }
   };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className="bg-blue-500 text-white">
           Edit
@@ -129,7 +128,9 @@ function VenueEditDialog({ venue }) {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save changes</Button>
+          <Button type="submit" onClick={onSubmit}>
+            Save changes
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

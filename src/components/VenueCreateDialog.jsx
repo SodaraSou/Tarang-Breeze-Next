@@ -25,14 +25,14 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
 function VenueCreateDialog() {
-  const [updateData, setUpdateData] = useState({
+  const [inputData, setUpdateData] = useState({
     name: "",
     size: 0,
     sport_type_id: 0,
     description: "",
     photo: "",
   });
-  console.log(updateData);
+  console.log(inputData);
   const onChange = (e) => {
     e.preventDefault();
     if (e.target.id === "photo") {
@@ -49,13 +49,7 @@ function VenueCreateDialog() {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("photo", updateData.photo);
-    formData.append("name", updateData.name);
-    formData.append("sport_type_id", updateData.sport_type_id);
-    formData.append("description", updateData.description);
-    formData.append("size", updateData.size);
-    await createVenue(formData);
+    await createVenue(inputData);
   };
   return (
     <Dialog>
@@ -116,7 +110,9 @@ function VenueCreateDialog() {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit">Save</Button>
+          <Button type="submit" onClick={onSubmit}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
