@@ -67,10 +67,10 @@ function ReservationEditDialog({ reservation }) {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await updateReservation(
-      { ...inputData, ...teamOptions },
-      reservation.id
-    );
+    const res = await updateReservation(reservation, {
+      ...inputData,
+      ...teamOptions,
+    });
     if (res.status === 204) {
       setOpen(false);
       alert("Update Successfully");

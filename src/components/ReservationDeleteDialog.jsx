@@ -18,13 +18,9 @@ import { Button } from "./ui/button";
 function ReservationDeleteDialog({ reservationId }) {
   const [open, setOpen] = useState(false);
   const handleDelete = async () => {
-    try {
-      const res = await deleteReservation(reservationId);
-      if (res.status === 204) {
-        alert("Delete Successfully");
-      }
-    } catch (error) {
-      console.log(error);
+    const res = await deleteReservation(reservationId);
+    if (res.status === 204) {
+      alert("Delete Successfully");
     }
   };
   return (
