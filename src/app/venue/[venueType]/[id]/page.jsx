@@ -14,6 +14,7 @@ import {
 import Spinner from "@/components/Spinner";
 import ReservationForm from "@/components/ReservationForm";
 import UserLayout from "@/app/UserLayout";
+import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 
 function SingleVenuePage({ params }) {
   const { data, isLoading } = useQuery({
@@ -35,7 +36,8 @@ function SingleVenuePage({ params }) {
                   <CardDescription>test</CardDescription>
                   <CardTitle>{data?.name}</CardTitle>
                 </div>
-                <ReservationForm isUser={true} venue={data} />
+                {/* <ReservationForm isUser={true} venue={data} /> */}
+                <ReservationCreateDialog isUser={true} venue={data} />
               </CardHeader>
             </Card>
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-10">
