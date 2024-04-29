@@ -2,17 +2,28 @@ import axios from "@/lib/axios";
 import { deleteVenueImg, uploadVenueImg } from "@/lib/firebase/storage";
 
 export const createVenue = async (venue) => {
-  console.log(venue);
   try {
-    const imgUrl = await uploadVenueImg(venue.name, venue.photo);
-    const res = await axios.post(
+    const venueId = await axios.post(
       "https://api.tarang.site/api/venues",
-      { ...venue, photo: imgUrl },
+      { ...venue, photo: "" },
       {
         headers: {
           "content-type": "application/json",
           Accept: "application/json",
-          Referer: "https://tarang.site",
+        },
+      }
+    );
+    const imgUrl = await uploadVenueImg(venueId.data.id, venue.photo);
+    const res = axios.put(
+      `https://api.tarang.site/api/venues/${venueId.data.id}`,
+      {
+        ...venue,
+        photo: imgUrl,
+      },
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
         },
       }
     );
@@ -78,7 +89,7 @@ export const showSingleVenue = async (venueId) => {
 
 export const deleteVenue = async (venue) => {
   try {
-    await deleteVenueImg(venue.name);
+    await deleteVenueImg(venue.id);
     const response = await axios.delete(
       `https://api.tarang.site/api/venues/${venue.id}`,
       {
@@ -95,12 +106,16 @@ export const deleteVenue = async (venue) => {
   }
 };
 
-export const updateVenue = async (venueId, updateVenue) => {
+export const updateVenue = async (venue, updateVenue) => {
   try {
-    const newImgUrl = await uploadVenueImg(updateVenue.name, updateVenue.photo);
+    let newImgUrl = "";
+    if (venue.photo !== updateVenue.photo) {
+      newImgUrl = await uploadVenueImg(venue.id, updateVenue.photo);
+    }
+    updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
     const response = await axios.put(
-      `https://api.tarang.site/api/venues/${venueId}`,
-      { ...updateVenue, photo: newImgUrl },
+      `https://api.tarang.site/api/venues/${venue.id}`,
+      updateVenue,
       {
         headers: {
           "Content-Type": "application/json",

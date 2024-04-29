@@ -29,26 +29,33 @@ export const uploadUserAvatar = async (user, image) => {
   return await getDownloadURL(newImageRef);
 };
 
-export const uploadVenueImg = async (venueName, image) => {
+export const uploadVenueImg = async (venueId, image) => {
   try {
-    const filePath = `venue-img/${venueName}`;
+    const filePath = `venue-img/${venueId}`;
     const newImageRef = ref(storage, filePath);
-    if (image instanceof File) {
-      await uploadBytes(newImageRef, image);
-      return await getDownloadURL(newImageRef);
-    } else {
-      deleteObject(newImageRef);
-      await uploadBytes(newImageRef, image);
-      return await getDownloadURL(newImageRef);
-    }
+    await uploadBytes(newImageRef, image);
+    return await getDownloadURL(newImageRef);
   } catch (error) {
     console.log(error);
     return null;
   }
 };
 
-export const deleteVenueImg = async (venueName) => {
-  const filePath = `venue-img/${venueName}`;
-  const newImageRef = ref(storage, filePath);
-  await deleteObject(newImageRef);
+export const updateVenueImg = async (venueId, image) => {
+  try {
+    const filePath = `venue-img/${venueId}`;
+    const imageRef = ref(storage, filePath);
+    deleteObject(imageRef);
+    await uploadBytes(imageRef, image);
+    return await getDownloadURL(imageRef);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteVenueImg = async (venueId) => {
+  const filePath = `venue-img/${venueId}`;
+  const ImageRef = ref(storage, filePath);
+  await deleteObject(ImageRef);
 };
