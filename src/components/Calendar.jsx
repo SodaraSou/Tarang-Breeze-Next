@@ -9,7 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Clock } from "lucide-react";
-import Spinner from "./Spinner";
 import { useGetReservation } from "@/data/reservation";
 
 function Calendar() {
