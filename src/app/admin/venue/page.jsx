@@ -6,6 +6,7 @@ import {
 import { getVenues } from "@/services/venue";
 import { getSportTypes } from "@/services/sport";
 import VenueTable from "@/components/VenueTable";
+import SportTypeTable from "@/components/SportTypeTable";
 
 async function VenuePage() {
   const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ async function VenuePage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <VenueTable />
+      <SportTypeTable />
     </HydrationBoundary>
   );
 }
