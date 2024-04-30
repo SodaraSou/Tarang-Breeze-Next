@@ -24,45 +24,43 @@ import SportUpdateDailog from "./SportUpdateDailog";
 function SportTypeTable() {
   const { data } = useGetSportTypes();
   return (
-    <>
-      <Card className="bg-white rounded-xl">
-        <CardHeader className="flex justify-between">
-          <div className="flex justify-between">
-            <div>
-              <CardTitle>SportTypes</CardTitle>
-              <CardDescription>Manage SportTypes</CardDescription>
-            </div>
-            <SportCreateDailog />
+    <Card className="bg-white rounded-xl">
+      <CardHeader className="flex justify-between">
+        <div className="flex justify-between">
+          <div>
+            <CardTitle>Sport Types</CardTitle>
+            <CardDescription>Manage SportTypes</CardDescription>
           </div>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
+          <SportCreateDailog />
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
               <TableHead className="hidden w-[100px] sm:table-cell"></TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>ID</TableHead>
-                <TableHead>Actions</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>ID</TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.sport_types.map((sport, index) => (
+              <TableRow key={index}>
+                <TableCell className="hidden sm:table-cell"></TableCell>
+                <TableCell className="font-medium">{sport.name}</TableCell>
+                <TableCell>{sport.id}</TableCell>
+                <TableCell>
+                  <SportUpdateDailog sport={sport} />
+                  <SportDeleteDailog sport={sport} />
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.sport_types.map((sport, index) => (
-                <TableRow key={index}>
-                  <TableCell className="hidden sm:table-cell"></TableCell>
-                  <TableCell className="font-medium">{sport.name}</TableCell>
-                  <TableCell>{sport.id}</TableCell>
-                  <TableCell>
-                    <SportDeleteDailog sport={sport}/>
-                    <SportUpdateDailog sport={sport}/>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-      </Card>
-    </>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 }
 
-export default SportTypeTable
+export default SportTypeTable;

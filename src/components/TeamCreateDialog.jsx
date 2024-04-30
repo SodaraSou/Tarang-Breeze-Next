@@ -34,7 +34,7 @@ function TeamCreateDialog() {
   });
   const onChange = (e) => {
     e.preventDefault();
-    if (e.target.id === "photo") {
+    if (e.target.id === "logo") {
       setInputData((prevState) => ({
         ...prevState,
         [e.target.id]: e.target.files[0],

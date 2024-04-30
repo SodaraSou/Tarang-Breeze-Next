@@ -1,5 +1,9 @@
 import axios from "@/lib/axios";
-import { deleteVenueImg, uploadVenueImg } from "@/lib/firebase/storage";
+import {
+  deleteVenueImg,
+  updateVenueImg,
+  uploadVenueImg,
+} from "@/lib/firebase/storage";
 
 export const createVenue = async (venue) => {
   try {
@@ -110,7 +114,7 @@ export const updateVenue = async (venue, updateVenue) => {
   try {
     let newImgUrl = "";
     if (venue.photo !== updateVenue.photo) {
-      newImgUrl = await uploadVenueImg(venue.id, updateVenue.photo);
+      newImgUrl = await updateVenueImg(venue.id, updateVenue.photo);
     }
     updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
     const response = await axios.put(

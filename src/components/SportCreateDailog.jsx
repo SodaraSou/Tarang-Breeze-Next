@@ -16,28 +16,27 @@ import { Button } from "@/components/ui/button";
 import { createSport } from "@/services/sport";
 
 function SportCreateDailog() {
-  
   const [inputData, setUpdateData] = useState({
     name: "",
   });
   const onChange = (e) => {
     e.preventDefault();
-      setUpdateData((prevState) => ({
-        ...prevState,
-        [e.target.id]: e.target.value,
-      }));
-    }
+    setUpdateData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     const res = await createSport(inputData);
     if (res.status === 204) {
-        alert("Success Fully Created")
+      alert("Success Fully Created");
     }
   };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Create SportTypes</Button>
+        <Button>Create Sport Types</Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
@@ -51,7 +50,7 @@ function SportCreateDailog() {
             <Label htmlFor="name">Name</Label>
             <Input id="name" onChange={onChange} />
           </div>
-          </div>
+        </div>
         <DialogFooter>
           <Button type="submit" onClick={onSubmit}>
             Save
@@ -62,5 +61,4 @@ function SportCreateDailog() {
   );
 }
 
-export default SportCreateDailog
-
+export default SportCreateDailog;
