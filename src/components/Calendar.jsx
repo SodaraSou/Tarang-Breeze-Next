@@ -186,7 +186,7 @@ function Calendar() {
                       style={{ height: "80px" }}
                       className="overflow-y-auto mt-1"
                     >
-                      {data
+                      {data.data
                         .filter(
                           (reservation) =>
                             new Date(reservation.date).toDateString() ===
