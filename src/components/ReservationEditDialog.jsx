@@ -82,7 +82,7 @@ function ReservationEditDialog({ reservation }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-[#2AD5A5] text-white">
+        <Button variant="outline" className="bg-blue-500 text-white">
           Edit
         </Button>
       </DialogTrigger>
@@ -91,7 +91,7 @@ function ReservationEditDialog({ reservation }) {
           <DialogTitle>Edit Reservation</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit}>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 py-4">
             <div className="flex flex-col gap-2 w-full">
               <Label htmlFor="name">Venue</Label>
               <Select
@@ -278,13 +278,7 @@ function ReservationEditDialog({ reservation }) {
             )}
           </div>
           <DialogFooter>
-            <Button
-              type="submit"
-              variant="outline"
-              className="bg-[#2AD5A5] text-white mt-4"
-            >
-              Confirm
-            </Button>
+            <Button type="submit">Confirm</Button>
           </DialogFooter>
         </form>
       </DialogContent>

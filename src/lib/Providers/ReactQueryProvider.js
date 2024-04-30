@@ -10,7 +10,7 @@ const ReactQueryProvider = ({ children }) => {
         defaultOptions: {
           queries: {
             staleTime: 6 * 1000,
-            refetchInterval: 6 * 1000,
+            refetchInterval: 3 * 1000,
           },
         },
       })

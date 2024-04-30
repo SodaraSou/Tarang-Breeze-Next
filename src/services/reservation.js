@@ -57,6 +57,20 @@ export const deleteReservation = async (reservationId) => {
 
 export const getReservation = async () => {
   try {
+    const res = await axios.get("https://api.tarang.site/api/reservation?all", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const getReservationWithPagination = async () => {
+  try {
     const res = await axios.get("https://api.tarang.site/api/reservation", {
       headers: {
         Accept: "application/json",
@@ -65,7 +79,21 @@ export const getReservation = async () => {
     return res.data;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return null;
+  }
+};
+
+export const getReservationWithPaginationPage = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+    return null;
   }
 };
 

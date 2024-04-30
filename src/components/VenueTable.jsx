@@ -25,73 +25,66 @@ import VenueCreateDialog from "./VenueCreateDialog";
 function VenueTable() {
   const { data } = useGetVenues();
   return (
-    <>
-      {/* {isLoading ? (
-        <div className="flex justify-center p-10">
-          <Spinner />
+    <Card className="bg-white rounded-xl">
+      <CardHeader className="flex justify-between">
+        <div className="flex justify-between">
+          <div>
+            <CardTitle>Venues</CardTitle>
+            <CardDescription>Manage Venue</CardDescription>
+          </div>
+          <VenueCreateDialog />
         </div>
-      ) : ( */}
-      <Card className="bg-white rounded-xl">
-        <CardHeader className="flex justify-between">
-          <div className="flex justify-between">
-            <div>
-              <CardTitle>Venue</CardTitle>
-              <CardDescription>Manage Venue</CardDescription>
-            </div>
-            <VenueCreateDialog />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="hidden w-[100px] sm:table-cell">
-                  <span className="sr-only">Image</span>
-                </TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead className="hidden md:table-cell">Size</TableHead>
-                <TableHead className="hidden md:table-cell">
-                  Total Reserve
-                </TableHead>
-                <TableHead>Actions</TableHead>
+      </CardHeader>
+      <CardContent>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="hidden w-[100px] sm:table-cell">
+                <span className="sr-only">Image</span>
+              </TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>Type</TableHead>
+              <TableHead className="hidden md:table-cell">Size</TableHead>
+              <TableHead className="hidden md:table-cell">
+                Total Reserve
+              </TableHead>
+              <TableHead>Actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data.venues.map((venue, index) => (
+              <TableRow key={index}>
+                <TableCell className="hidden sm:table-cell">
+                  <Image
+                    alt="Product image"
+                    className="aspect-square rounded-md object-cover"
+                    width={64}
+                    height={64}
+                    src={venue.photo}
+                  />
+                </TableCell>
+                <TableCell className="font-medium">{venue.name}</TableCell>
+                <TableCell>{venue.sportTypes.name}</TableCell>
+                <TableCell className="hidden md:table-cell">
+                  {venue.size}
+                </TableCell>
+                <TableCell className="hidden md:table-cell">25</TableCell>
+                <TableCell>
+                  <VenueEditDialog venue={venue} />
+                  <VenueDeleteDialog venue={venue} />
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.venues.map((venue, index) => (
-                <TableRow key={index}>
-                  <TableCell className="hidden sm:table-cell">
-                    <Image
-                      alt="Product image"
-                      className="aspect-square rounded-md object-cover"
-                      width={64}
-                      height={64}
-                      src={venue.photo}
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium">{venue.name}</TableCell>
-                  <TableCell>{venue.sportTypes.name}</TableCell>
-                  <TableCell className="hidden md:table-cell">
-                    {venue.size}
-                  </TableCell>
-                  <TableCell className="hidden md:table-cell">25</TableCell>
-                  <TableCell>
-                    <VenueEditDialog venue={venue} />
-                    <VenueDeleteDialog venue={venue} />
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </CardContent>
-        <CardFooter>
-          <div className="text-xs text-muted-foreground">
-            Showing <strong>1-10</strong> of <strong>32</strong> products
-          </div>
-        </CardFooter>
-      </Card>
-      {/* )} */}
-    </>
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+      <CardFooter>
+        <div className="text-xs text-muted-foreground">
+          Showing <strong>1-10</strong> of <strong>{data.venues.length}</strong>{" "}
+          venues
+        </div>
+      </CardFooter>
+    </Card>
   );
 }
 

@@ -9,7 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Clock } from "lucide-react";
-import Spinner from "./Spinner";
 import { useGetReservation } from "@/data/reservation";
 
 function Calendar() {
@@ -186,7 +185,7 @@ function Calendar() {
                       style={{ height: "80px" }}
                       className="overflow-y-auto mt-1"
                     >
-                      {data.data
+                      {data
                         .filter(
                           (reservation) =>
                             new Date(reservation.date).toDateString() ===

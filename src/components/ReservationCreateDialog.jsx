@@ -67,16 +67,14 @@ function ReservationCreateDialog({ isUser, venue }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="bg-[#2AD5A5] text-white">
-          Reserve Venue
-        </Button>
+        <Button>Reserve Venue</Button>
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader>
           <DialogTitle>Create Reservation</DialogTitle>
         </DialogHeader>
         <form onSubmit={onSubmit}>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 py-4">
             <div className="flex flex-col gap-2 w-full">
               <Label htmlFor="name">Venue</Label>
               <Select
@@ -264,13 +262,7 @@ function ReservationCreateDialog({ isUser, venue }) {
             )}
           </div>
           <DialogFooter>
-            <Button
-              type="submit"
-              variant="outline"
-              className="bg-[#2AD5A5] text-white mt-4"
-            >
-              Confirm
-            </Button>
+            <Button type="submit">Confirm</Button>
           </DialogFooter>
         </form>
       </DialogContent>

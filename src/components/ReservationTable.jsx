@@ -1,6 +1,7 @@
 "use client";
 
-import { useGetReservation } from "@/data/reservation";
+import { useState } from "react";
+import { useGetReservationWithPagination } from "@/data/reservation";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -19,13 +20,24 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReservationCreateDialog from "./ReservationCreateDialog";
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 
 function ReservationTable() {
-  const { data } = useGetReservation();
+  const [paginationUrl, setPaginationUrl] = useState("");
+  const { data } = useGetReservationWithPagination(paginationUrl);
+  const handlePaginationChange = (url) => {
+    setPaginationUrl(url);
+  };
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader>
@@ -89,10 +101,26 @@ function ReservationTable() {
           </TableBody>
         </Table>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-between items-center">
         <div className="text-xs text-muted-foreground">
           Showing <strong>1-10</strong> of <strong>{data?.length}</strong>{" "}
           reservations
+        </div>
+        <div>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious
+                  onClick={() => handlePaginationChange(data.links.prev)}
+                />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext
+                  onClick={() => handlePaginationChange(data.links.next)}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </CardFooter>
     </Card>

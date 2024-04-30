@@ -7,15 +7,35 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
-export const uploadTeamLogo = async (teamName, image) => {
-  const filePath = `team-logo/${teamName}`;
-  const newImageRef = ref(storage, filePath);
-  const fileUrl = await getDownloadURL(newImageRef).catch(() => null);
-  if (fileUrl) {
-    await deleteObject(newImageRef);
+export const uploadTeamLogo = async (teamId, image) => {
+  try {
+    const filePath = `team-logo/${teamId}`;
+    const newImageRef = ref(storage, filePath);
+    await uploadBytes(newImageRef, image);
+    return await getDownloadURL(newImageRef);
+  } catch (error) {
+    console.log(error);
+    return null;
   }
-  await uploadBytesResumable(newImageRef, image);
-  return await getDownloadURL(newImageRef);
+};
+
+export const updateTeamLogo = async (teamId, image) => {
+  try {
+    const filePath = `team-logo/${teamId}`;
+    const imageRef = ref(storage, filePath);
+    deleteObject(imageRef);
+    await uploadBytes(imageRef, image);
+    return await getDownloadURL(imageRef);
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
+export const deleteTeamLogo = async (teamId) => {
+  const filePath = `team-logo/${teamId}`;
+  const ImageRef = ref(storage, filePath);
+  await deleteObject(ImageRef);
 };
 
 export const uploadUserAvatar = async (user, image) => {

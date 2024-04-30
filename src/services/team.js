@@ -1,52 +1,89 @@
-import axios from "axios";
+import axios from "@/lib/axios";
+import { deleteTeamLogo, uploadTeamLogo } from "@/lib/firebase/storage";
 
-axios.defaults.withXSRFToken = true;
-axios.defaults.withCredentials = true;
-
-export const getTeam = async () => {
+export const getTeams = async () => {
   try {
     const res = await axios.get("https://api.tarang.site/api/teams", {
       headers: {
         Accept: "application/json",
-        Referer: "https://tarang.site",
       },
     });
     return res.data;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.res;
   }
 };
 
 export const createTeam = async (team) => {
   try {
-    const { status, data } = await axios.post(
+    const preRes = await axios.post(
       "https://api.tarang.site/api/teams",
-      team,
+      { ...team, logo: "" },
       {
         headers: {
-          "content-type": "multipart/form-data",
+          "content-type": "application/json",
           Accept: "application/json",
-          Referer: "https://tarang.site",
         },
-      },
+      }
     );
-    return { status, data };
+    const logoUrl = await uploadTeamLogo(preRes.data.id, team.logo);
+    const res = await axios.put(
+      `https://api.tarang.site/api/teams/${preRes.data.id}`,
+      { ...team, logo: logoUrl },
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
+export const updateTeam = async (team, updateTeam) => {
+  try {
+    let newLogoUrl = "";
+    if (team.logo !== updateTeam.logo) {
+      newLogoUrl = await uploadTeamLogo(team.id, updateTeam.logo);
+    }
+    updateTeam.logo = newLogoUrl ? newLogoUrl : team.logo;
+    const res = await axios.put(
+      `https://api.tarang.site/api/teams/${team.id}`,
+      updateTeam,
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
+export const deleteTeam = async (teamId) => {
+  try {
+    await deleteTeamLogo(teamId);
+    const response = await axios.delete(
+      `https://api.tarang.site/api/teams/${teamId}`,
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    return response;
   } catch (error) {
     console.log(error);
     return null;
   }
 };
-
-export const deleteTeam = async (id) => {
-    try {
-      const response = await axios.delete(`https://api.tarang.site/api/teams/${id}`,{
-        headers: { "content-type": "application/json", Accept: "application/json" },
-      });
-      console.log(response.status);
-      return response;
-    } catch(error){
-      console.log(error);
-      return null
-    }
-  }
