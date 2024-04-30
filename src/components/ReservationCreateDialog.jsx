@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getVenues } from "@/services/venue";
+import { useGetVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import {
   Dialog,
@@ -26,13 +25,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
-import Spinner from "./Spinner";
 
 function ReservationCreateDialog({ isUser, venue }) {
-  const { data, isLoading } = useQuery({
-    queryKey: ["venues"],
-    queryFn: async () => await getVenues(),
-  });
+  const { data } = useGetVenues();
   const [open, setOpen] = useState(false);
   const [inputData, setInputData] = useState({
     phone: "",
@@ -69,9 +64,6 @@ function ReservationCreateDialog({ isUser, venue }) {
       alert("Create Successfully");
     }
   };
-  if (isLoading) {
-    return <Spinner />;
-  }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -105,7 +97,7 @@ function ReservationCreateDialog({ isUser, venue }) {
                   <ScrollArea className="h-32">
                     <SelectGroup>
                       <SelectLabel>Venue</SelectLabel>
-                      {data.venues.map((venue) => (
+                      {data?.venues.map((venue) => (
                         <SelectItem key={venue.id} value={venue.id.toString()}>
                           {venue.name} - {venue.sportTypes.name}
                         </SelectItem>

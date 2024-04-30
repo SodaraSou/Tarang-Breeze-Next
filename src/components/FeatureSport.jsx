@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { getSportTypes } from "@/services/sport";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { useGetSportTypes } from "@/data/sport";
 import { IoFootballOutline } from "react-icons/io5";
 import { GiShuttlecock } from "react-icons/gi";
 import { TbPingPong } from "react-icons/tb";
@@ -11,10 +10,10 @@ import { PiVolleyball } from "react-icons/pi";
 import Spinner from "./Spinner";
 
 function FeatureSport() {
-  const { data: sportTypeData, isLoading: sportTypeLoading } = useQuery({
-    queryKey: ["getSportTypesKey"],
-    queryFn: getSportTypes,
-  });
+  const {
+    data: sportTypeData,
+    isLoading: sportTypeLoading,
+  } = useGetSportTypes();
   const sportIcons = [
     <IoFootballOutline className="w-10 h-10" />,
     <GiShuttlecock className="w-10 h-10" />,

@@ -1,17 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useQuery } from "@tanstack/react-query";
-import { getVenues } from "@/services/venue";
+import { useGetVenues } from "@/data/veune";
 import { ArrowRight } from "lucide-react";
 import VenueCard from "./VenueCard";
 import Spinner from "./Spinner";
 
 function FeatureVenue() {
-  const { data: venueData, isLoading: venueDataLoading } = useQuery({
-    queryFn: getVenues,
-    queryKey: ["getVenuesKey"],
-  });
+  const { data: venueData, isLoading: venueDataLoading } = useGetVenues();
   return (
     <div className="flex flex-col gap-4 md:gap-10 justify-center items-center">
       <div className="w-full flex justify-between items-center">
