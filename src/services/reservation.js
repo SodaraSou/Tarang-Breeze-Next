@@ -59,12 +59,10 @@ export const getReservation = async () => {
   try {
     const res = await axios.get("https://api.tarang.site/api/reservation", {
       headers: {
-        "content-type": "multipart/form-data",
         Accept: "application/json",
-        Referer: "https://tarang.site",
       },
     });
-    return res;
+    return res.data;
   } catch (error) {
     console.log(error);
     return error.res;

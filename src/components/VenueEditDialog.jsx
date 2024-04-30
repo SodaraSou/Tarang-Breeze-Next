@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useGetSportTypes } from "@/data/sport";
 import { updateVenue } from "@/services/venue";
 import {
   Dialog,
@@ -25,13 +25,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { getSportTypes } from "@/services/sport";
 
 function VenueEditDialog({ venue }) {
-  const { data } = useQuery({
-    queryKey: ["SportTypes"],
-    queryFn: async () => await getSportTypes(),
-  });
+  const { data } = useGetSportTypes();
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState({
     name: venue ? venue.name : "",

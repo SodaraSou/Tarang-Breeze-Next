@@ -97,7 +97,7 @@ function ReservationCreateDialog({ isUser, venue }) {
                   <ScrollArea className="h-32">
                     <SelectGroup>
                       <SelectLabel>Venue</SelectLabel>
-                      {data.venues.map((venue) => (
+                      {data?.venues.map((venue) => (
                         <SelectItem key={venue.id} value={venue.id.toString()}>
                           {venue.name} - {venue.sportTypes.name}
                         </SelectItem>
