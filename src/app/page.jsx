@@ -6,10 +6,9 @@ import {
 import { getSportTypes } from "@/services/sport";
 import { getVenues } from "@/services/venue";
 import UserLayout from "./UserLayout";
-import FeatureVenue from "@/components/FeatureVenue";
 import FeatureSport from "@/components/FeatureSport";
 import FeatureTeam from "@/components/FeatureTeam";
-import FeatureTournament from "@/components/FeatureTournament";
+import FilterSearch from "@/components/FilterSearch";
 
 async function HomePage() {
   const queryClient = new QueryClient();
@@ -26,12 +25,10 @@ async function HomePage() {
     <UserLayout>
       <section className="p-4 md:p-10">
         <div className="flex flex-col gap-4 md:gap-10">
-          <div className="bg-white max-w-7xl h-[300px]"></div>
           <HydrationBoundary state={dehydrate(queryClient)}>
+            <FilterSearch sportId={""} />
             <FeatureSport />
-            <FeatureVenue />
             <FeatureTeam />
-            <FeatureTournament />
           </HydrationBoundary>
         </div>
       </section>

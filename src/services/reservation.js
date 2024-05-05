@@ -1,3 +1,5 @@
+"use server";
+
 import axios from "@/lib/axios";
 
 export const createReservation = async (reservation) => {

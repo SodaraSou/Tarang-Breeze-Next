@@ -23,7 +23,7 @@ function FeatureSport() {
   ];
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-center">
-      <h1 className="font-bold text-center text-2xl md:text-4xl my-6 md:my-0">
+      <h1 className="font-semibold text-center text-2xl tracking-tight leading-none my-6 md:my-0">
         Chose From your Favorite Sport
       </h1>
       {sportTypeLoading ? (
@@ -35,7 +35,7 @@ function FeatureSport() {
         sportTypeData.sport_types.length > 0 ? (
         <div className="max-w-[1120px] flex flex-wrap justify-center gap-4 md:gap-10">
           {sportTypeData.sport_types.map((sport, index) => (
-            <Link key={index} href={`/sport/${sport.name}`}>
+            <Link key={index} href={`/sport/${sport.name}/${sport.id}`}>
               <Card className="bg-white rounded-xl">
                 <CardHeader>
                   <div className="flex justify-center gap-4 items-center">
