@@ -35,7 +35,7 @@ function FeatureSport() {
         sportTypeData.sport_types.length > 0 ? (
         <div className="max-w-[1120px] flex flex-wrap justify-center gap-4 md:gap-10">
           {sportTypeData.sport_types.map((sport, index) => (
-            <Link key={index} href={`/sport/${sport.name}`}>
+            <Link key={index} href={`/sport/${sport.name}/${sport.id}`}>
               <Card className="bg-white rounded-xl">
                 <CardHeader>
                   <div className="flex justify-center gap-4 items-center">
