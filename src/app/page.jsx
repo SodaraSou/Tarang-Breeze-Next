@@ -25,10 +25,8 @@ async function HomePage() {
     <UserLayout>
       <section className="p-4 md:p-10">
         <div className="flex flex-col gap-4 md:gap-10">
-          <div className="bg-white max-w-7xl h-[300px] justify-center flex flex-col items-center">
-            <FilterSearch sportId={""}/>
-          </div>
           <HydrationBoundary state={dehydrate(queryClient)}>
+            <FilterSearch sportId={""} />
             <FeatureSport />
             <FeatureTeam />
           </HydrationBoundary>

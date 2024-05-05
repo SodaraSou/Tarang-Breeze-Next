@@ -23,7 +23,7 @@ function FeatureSport() {
   ];
   return (
     <div className="flex flex-col gap-4 md:gap-10 items-center">
-      <h1 className="font-bold text-center text-2xl md:text-4xl my-6 md:my-0">
+      <h1 className="font-semibold text-center text-2xl tracking-tight leading-none my-6 md:my-0">
         Chose From your Favorite Sport
       </h1>
       {sportTypeLoading ? (
