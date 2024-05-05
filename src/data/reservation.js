@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import {
+  getAvailableTime,
   getReservation,
   getReservationWithPagination,
   getReservationWithPaginationPage,
@@ -24,4 +25,11 @@ export const useGetReservationWithPagination = (paginationUrl) => {
       queryKey: ["reservationsWithPagination"],
     });
   }
+};
+
+export const useGetAvailableTime = (date) => {
+  return useQuery({
+    queryFn: async () => getAvailableTime(date),
+    queryKey: ["availableTimes"],
+  });
 };

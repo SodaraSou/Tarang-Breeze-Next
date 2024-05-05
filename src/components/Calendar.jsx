@@ -107,9 +107,9 @@ function Calendar() {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeLidth="2"
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
@@ -133,9 +133,9 @@ function Calendar() {
                     stroke="currentColor"
                   >
                     <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeLidth="2"
                       d="M9 5l7 7-7 7"
                     />
                   </svg>

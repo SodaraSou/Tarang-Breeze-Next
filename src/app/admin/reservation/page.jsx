@@ -4,6 +4,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import {
+  getAvailableTime,
   getReservation,
   getReservationWithPagination,
 } from "@/services/reservation";
@@ -25,6 +26,10 @@ async function ReservationPage() {
   await queryClient.prefetchQuery({
     queryKey: ["reservationsWithPagination"],
     queryFn: getReservationWithPagination,
+  });
+  await queryClient.prefetchQuery({
+    queryKey: ["availableTimes"],
+    queryFn: getAvailableTime,
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

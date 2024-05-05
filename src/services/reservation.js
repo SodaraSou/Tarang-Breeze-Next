@@ -99,9 +99,10 @@ export const getReservationWithPaginationPage = async (paginationUrl) => {
 
 export const getAvailableTime = async (date) => {
   try {
+    const dateWithoutTime = date.split("T")[0];
     const res = await axios.post(
       "https://api.tarang.site/api/available-time",
-      date,
+      { date: dateWithoutTime },
       {
         headers: {
           "Content-Type": "application/json",
@@ -109,9 +110,9 @@ export const getAvailableTime = async (date) => {
         },
       }
     );
-    return res;
+    return res.data;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return null;
   }
 };
