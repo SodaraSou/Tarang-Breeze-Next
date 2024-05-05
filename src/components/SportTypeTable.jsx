@@ -38,7 +38,6 @@ function SportTypeTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="hidden w-[100px] sm:table-cell"></TableHead>
               <TableHead>Name</TableHead>
               <TableHead>ID</TableHead>
               <TableHead>Actions</TableHead>
@@ -47,7 +46,6 @@ function SportTypeTable() {
           <TableBody>
             {data.sport_types.map((sport, index) => (
               <TableRow key={index}>
-                <TableCell className="hidden sm:table-cell"></TableCell>
                 <TableCell className="font-medium">{sport.name}</TableCell>
                 <TableCell>{sport.id}</TableCell>
                 <TableCell>

@@ -22,7 +22,9 @@ async function VenuePage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <VenueTable />
-      <SportTypeTable />
+      <div className="grid grid-cols-1 xl:grid-cols-2">
+        <SportTypeTable />
+      </div>
     </HydrationBoundary>
   );
 }
