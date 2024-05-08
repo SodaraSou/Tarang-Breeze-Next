@@ -1,17 +1,7 @@
-import { redirect } from "next/navigation";
-import { getUser } from "@/services/user";
 import AdminHeader from "@/components/AdminHeader";
 import AdminSidebar from "@/components/AdminSidebar";
 
-export default async function AdminLayout({ children }) {
-  // const data = await getUser();
-  // if (data !== undefined) {
-  //   if (data?.data.is_admin !== 1) {
-  //     redirect("/");
-  //   }
-  // } else {
-  //   redirect("/login");
-  // }
+export default function AdminLayout({ children }) {
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <AdminSidebar />

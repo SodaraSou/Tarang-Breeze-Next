@@ -3,16 +3,17 @@
 import { useState } from "react";
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
-import Button from "./Button";
+import { Button } from "./ui/button";
+import { useAuth } from "@/hooks/auth";
 import InputGroup from "./InputGroup";
 
-function Profile() {
+function Profile({ user, logout }) {
   const [editMode, setEditMode] = useState(true);
   return (
     <div className="flex flex-col gap-4 justify-center items-center border border-gray-200 bg-white shadow p-4 md:p-10 rounded-xl">
       <div className="w-full flex justify-between items-center">
         <h1 className="font-bold text-2xl md:text-4xl">My Profile</h1>
-        <Button customClass="bg-red-500">Log Out</Button>
+        <Button onClick={logout}>Log Out</Button>
       </div>
       <div className="w-full h-[1px] bg-[#D9D9D9]"></div>
       <div className="w-full flex flex-col md:flex-row justify-between gap-4 md:gap-10">
@@ -61,7 +62,7 @@ function Profile() {
             className="outline-none text-lg"
             //   disabled={editMode}
             //   onChange={onChange}
-            //   value={inputData.firstName}
+            value={user?.name}
           />
           <InputGroup
             title="Last Name"

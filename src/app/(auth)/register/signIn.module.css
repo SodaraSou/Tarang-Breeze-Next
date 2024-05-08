@@ -1,0 +1,8 @@
+.imgContainer {
+  flex: 1;
+  position: relative;
+}
+
+.img {
+  object-fit: contain;
+}

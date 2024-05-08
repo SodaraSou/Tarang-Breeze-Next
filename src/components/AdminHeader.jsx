@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -21,8 +23,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useAuth } from "@/hooks/auth";
 
 function AdminHeader() {
+  const { logout } = useAuth();
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 p-4 md:p-10 lg:h-[60px] bg-white">
       <Sheet>
@@ -113,7 +117,11 @@ function AdminHeader() {
           <DropdownMenuItem>Settings</DropdownMenuItem>
           <DropdownMenuItem>Support</DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Logout</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button className="w-full" onClick={logout}>
+              Logout
+            </Button>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </header>

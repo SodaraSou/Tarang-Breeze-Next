@@ -24,10 +24,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import AdminLayout from "../AdminLayout";
 
-function DashboardPage() {
+async function AdminHomePage() {
   return (
-    <>
+    <AdminLayout>
       <div className="grid gap-4 xl:gap-10 md:grid-cols-2 xl:grid-cols-4">
         <Card className="bg-white rounded-xl">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -281,8 +282,8 @@ function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-    </>
+    </AdminLayout>
   );
 }
 
-export default DashboardPage;
+export default AdminHomePage;

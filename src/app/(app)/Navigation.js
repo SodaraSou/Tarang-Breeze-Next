@@ -1,5 +1,4 @@
 import ApplicationLogo from '@/components/ApplicationLogo'
-import Dropdown from '@/components/Dropdown'
 import Link from 'next/link'
 import NavLink from '@/components/NavLink'
 import ResponsiveNavLink, {
@@ -40,7 +39,7 @@ const Navigation = ({ user }) => {
 
                     {/* Settings Dropdown */}
                     <div className="hidden sm:flex sm:items-center sm:ml-6">
-                        <Dropdown
+                        {/* <Dropdown
                             align="right"
                             width="48"
                             trigger={
@@ -61,11 +60,10 @@ const Navigation = ({ user }) => {
                                     </div>
                                 </button>
                             }>
-                            {/* Authentication */}
                             <DropdownButton onClick={logout}>
                                 Logout
                             </DropdownButton>
-                        </Dropdown>
+                        </Dropdown> */}
                     </div>
 
                     {/* Hamburger */}

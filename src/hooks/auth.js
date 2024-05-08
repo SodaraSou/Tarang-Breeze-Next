@@ -1,6 +1,6 @@
 import useSWR from "swr";
 import axios from "@/lib/axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
@@ -12,7 +12,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .get("/api/user")
       .then((res) => res.data)
       .catch((error) => {
-        if (error.response.status !== 409) throw error;
+        if (error.response.status !== 409) throw error.response;
 
         router.push("/verify-email");
       })
@@ -100,15 +100,16 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   };
 
   useEffect(() => {
-    if (middleware === "guest" && redirectIfAuthenticated && user)
-      router.push(redirectIfAuthenticated);
-    if (window.location.pathname === "/verify-email" && user?.email_verified_at)
-      router.push(redirectIfAuthenticated);
+    if (user && user?.is_admin === 0) router.push("/profile");
+    if (user && user?.is_admin === 1) router.push("/admin");
+    // if (window.location.pathname === "/verify-email" && user?.email_verified_at)
+    //   router.push(redirectIfAuthenticated);
     if (middleware === "auth" && error) logout();
   }, [user, error]);
 
   return {
     user,
+    error,
     register,
     login,
     forgotPassword,
