@@ -18,7 +18,7 @@ export const createVenue = async (venue) => {
       }
     );
     const imgUrl = await uploadVenueImg(venueId.data.id, venue.photo);
-    const res = axios.put(
+    const res = await axios.put(
       `https://api.tarang.site/api/venues/${venueId.data.id}`,
       {
         ...venue,
@@ -33,8 +33,8 @@ export const createVenue = async (venue) => {
     );
     return res;
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error(error);
+    return error.response;
   }
 };
 
@@ -54,24 +54,24 @@ export const getVenues = async () => {
   }
 };
 
-export const getVenuesByType = async (sportType) => {
-  try {
-    const res = await axios.get(
-      `https://api.tarang.site/api/venues?type=${sportType}`,
-      {
-        headers: {
-          Accept: "application/json",
-          Referer: "https://tarang.site",
-        },
-      }
-    );
-    const data = res.data;
-    return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
+// export const getVenuesByType = async (sportType) => {
+//   try {
+//     const res = await axios.get(
+//       `https://api.tarang.site/api/venues?type=${sportType}`,
+//       {
+//         headers: {
+//           Accept: "application/json",
+//           Referer: "https://tarang.site",
+//         },
+//       }
+//     );
+//     const data = res.data;
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//     return null;
+//   }
+// };
 
 export const showSingleVenue = async (venueId) => {
   try {
@@ -102,11 +102,10 @@ export const deleteVenue = async (venue) => {
         },
       }
     );
-    console.log(response.status);
     return response;
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error(error);
+    return error.response;
   }
 };
 
@@ -117,6 +116,8 @@ export const updateVenue = async (venue, updateVenue) => {
       newImgUrl = await updateVenueImg(venue.id, updateVenue.photo);
     }
     updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
+    updateVenue.amenity_id = updateVenue.amenity_id.map((str) => parseInt(str));
+    console.log(updateVenue);
     const response = await axios.put(
       `https://api.tarang.site/api/venues/${venue.id}`,
       updateVenue,
@@ -127,11 +128,10 @@ export const updateVenue = async (venue, updateVenue) => {
         },
       }
     );
-    const data = response.data;
-    console.log(data);
-    return data;
+    console.log(response);
+    return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };

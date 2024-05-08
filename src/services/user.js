@@ -6,6 +6,6 @@ export const getUser = async () => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
