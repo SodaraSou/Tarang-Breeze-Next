@@ -23,6 +23,7 @@ function UserProtectedRoute({ children }) {
   if (data?.status === 401) {
     router.push("/login");
   }
+  
   return <>{children}</>;
 }
 
