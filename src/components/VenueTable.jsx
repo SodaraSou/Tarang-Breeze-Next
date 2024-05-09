@@ -52,7 +52,7 @@ function VenueTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.venues.map((venue, index) => (
+            {data?.venues.map((venue, index) => (
               <TableRow key={index}>
                 <TableCell className="hidden sm:table-cell">
                   <Image
@@ -80,7 +80,7 @@ function VenueTable() {
       </CardContent>
       <CardFooter>
         <div className="text-xs text-muted-foreground">
-          Showing <strong>1-10</strong> of <strong>{data.venues.length}</strong>{" "}
+          Showing <strong>1-10</strong> of <strong>{data?.venues.length}</strong>{" "}
           venues
         </div>
       </CardFooter>

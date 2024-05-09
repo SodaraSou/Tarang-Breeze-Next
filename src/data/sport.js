@@ -1,5 +1,5 @@
-import { getSportTypes } from "@/services/sport";
 import { useQuery } from "@tanstack/react-query";
+import { getSportTypes } from "@/services/sport";
 
 export function useGetSportTypes() {
   return useQuery({

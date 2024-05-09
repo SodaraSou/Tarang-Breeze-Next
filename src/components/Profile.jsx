@@ -1,13 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/services/user";
+import { useAuth } from "@/hooks/auth";
 import { FaPenToSquare } from "react-icons/fa6";
 import { FaSave } from "react-icons/fa";
 import { Button } from "./ui/button";
-import { useAuth } from "@/hooks/auth";
 import InputGroup from "./InputGroup";
 
-function Profile({ user, logout }) {
+function Profile() {
+  const { data } = useQuery({
+    queryFn: getUser,
+    queryKey: ["users"],
+  });
+  const { logout } = useAuth();
   const [editMode, setEditMode] = useState(true);
   return (
     <div className="flex flex-col gap-4 justify-center items-center border border-gray-200 bg-white shadow p-4 md:p-10 rounded-xl">
@@ -62,7 +69,7 @@ function Profile({ user, logout }) {
             className="outline-none text-lg"
             //   disabled={editMode}
             //   onChange={onChange}
-            value={user?.name}
+            value={data?.data.name}
           />
           <InputGroup
             title="Last Name"

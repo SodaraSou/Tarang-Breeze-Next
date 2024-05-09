@@ -3,11 +3,9 @@ import Spinner from "@/components/Spinner";
 
 function loading() {
   return (
-    <UserLayout>
-      <div className="h-screen">
-        <Spinner fullScreenSpinner={true} />
-      </div>
-    </UserLayout>
+    <>
+      <Spinner fullScreenSpinner={true} />
+    </>
   );
 }
 

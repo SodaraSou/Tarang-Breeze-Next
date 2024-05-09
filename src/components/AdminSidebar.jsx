@@ -7,17 +7,14 @@ function AdminSidebar() {
     <div className="hidden border-r bg-muted/40 md:block bg-white">
       <div className="flex h-full max-h-screen flex-col gap-4">
         <div className="flex h-14 items-center justify-center border-b p-10 lg:h-[60px]">
-          <Link
-            href="/admin/dashboard"
-            className="flex items-center gap-2 font-semibold"
-          >
+          <Link href="/admin" className="flex items-center gap-2 font-semibold">
             <Image src="/tarang_logo.png" alt="logo" width={150} height={50} />
           </Link>
         </div>
         <div className="flex-1">
           <nav className="grid items-start px-2 text-lg font-medium lg:px-4">
             <Link
-              href="/admin/dashboard"
+              href="/admin"
               className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
             >
               <LayoutDashboard className="h-4 w-4" />

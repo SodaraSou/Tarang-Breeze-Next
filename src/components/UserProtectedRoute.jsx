@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/services/user";
 import Spinner from "./Spinner";
 
-function ProtectedRoute({ children }) {
+function UserProtectedRoute({ children }) {
   const { data, isLoading } = useQuery({
     queryFn: getUser,
     queryKey: ["users"],
@@ -13,18 +13,17 @@ function ProtectedRoute({ children }) {
   const router = useRouter();
 
   if (isLoading) {
-    return <Spinner fullScreenSpinner={true} />;
+    return (
+      <div className="flex justify-center">
+        <Spinner />
+      </div>
+    );
   }
 
   if (data?.status === 401) {
     router.push("/login");
   }
-
-  if (data?.data.is_admin === 0) {
-    router.push("/login");
-  }
-
   return <>{children}</>;
 }
 
-export default ProtectedRoute;
+export default UserProtectedRoute;
