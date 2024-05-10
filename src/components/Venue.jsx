@@ -1,6 +1,8 @@
 "use client";
 
-import { useGetVenue } from "@/data/veune";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/services/user";
+import { showSingleVenue } from "@/services/venue";
 import { Check } from "lucide-react";
 import { GiTennisCourt } from "react-icons/gi";
 import {
@@ -11,9 +13,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ReservationCreateDialog from "@/components/ReservationCreateDialog";
+import Spinner from "./Spinner";
 
 function Venue({ venueId }) {
-  const { data } = useGetVenue(venueId);
+  const { data: user, isLoading: userLoading } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUser,
+  });
+  const { data: venue, isLoading: venueLoading } = useQuery({
+    queryKey: ["venue", venueId],
+    queryFn: () => showSingleVenue(venueId),
+  });
+  if (userLoading || venueLoading) {
+    return (
+      <div className="flex justify-center p-10">
+        <Spinner />
+      </div>
+    );
+  }
+  console.log(venue);
   return (
     <section className="p-4 md:p-10">
       <div className="flex flex-col gap-4 md:gap-10 w-full">
@@ -21,9 +39,13 @@ function Venue({ venueId }) {
           <CardHeader className="flex flex-row justify-between items-center">
             <div className="flex flex-col gap-2">
               <CardDescription>test</CardDescription>
-              <CardTitle>{data?.name}</CardTitle>
+              <CardTitle>{venue?.name}</CardTitle>
             </div>
-            <ReservationCreateDialog isUser={true} venue={data} />
+            <ReservationCreateDialog
+              isUserLogin={user}
+              isUser={true}
+              venue={venue}
+            />
           </CardHeader>
         </Card>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-10">
@@ -37,11 +59,11 @@ function Venue({ venueId }) {
                   <div className="flex gap-4 justify-center items-center">
                     <GiTennisCourt />
                     <h1 className="font-bold text-2xl text-blue-500">
-                      {data?.size} Players
+                      {venue?.size} Players
                     </h1>
                   </div>
                   <div className="text-sm md:text-base">
-                    <p>{data?.description}</p>
+                    <p>{venue?.description}</p>
                   </div>
                 </div>
               </CardContent>

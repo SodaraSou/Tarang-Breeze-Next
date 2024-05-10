@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetVenues } from "@/data/veune";
 import { useGetAvailableTime } from "@/data/reservation";
 import { createReservation } from "@/services/reservation";
@@ -26,23 +26,32 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
+import { createTeam } from "@/services/team";
 
-function ReservationCreateDialog({ isUser, venue }) {
+function ReservationCreateDialog({ isUserLogin, isUser, venue }) {
   const { data } = useGetVenues();
   const [open, setOpen] = useState(false);
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
     date: "",
-    start_time: "",
-    end_time: "",
+    start_time: "07:00",
+    end_time: "08:00",
     venue_id: venue ? venue.id : 0,
-    // team_id: 1,
+    team_id: 0,
   });
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
   });
+  const [teamData, setTeamData] = useState({
+    name: "",
+    logo: "",
+    sport_type_id: venue ? venue.sportTypes.id : 0,
+  });
+  console.log(teamData);
+  console.log(teamData);
+  console.log(teamOptions);
   const { data: availableTimes } = useGetAvailableTime(inputData.date);
   const onChange = (e) => {
     e.preventDefault();
@@ -58,12 +67,44 @@ function ReservationCreateDialog({ isUser, venue }) {
       [e.target.value]: e.target.checked,
     });
   };
+  const onChangeTeam = (e) => {
+    // e.preventDefault();
+    // setTeamData((prevState) => ({
+    //   ...prevState,
+    //   [e.target.id]: e.target.value,
+    // }));
+    e.preventDefault();
+    if (e.target.id === "logo") {
+      setTeamData((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.files[0],
+      }));
+    } else {
+      setTeamData((prevState) => ({
+        ...prevState,
+        [e.target.id]: e.target.value,
+      }));
+    }
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
-    const res = await createReservation({ ...inputData, ...teamOptions });
-    if (res.status === 204) {
-      setOpen(false);
-      alert("Create Successfully");
+    if (isUserLogin.status !== 401) {
+      if (teamOptions.find_member || teamOptions.find_team) {
+        const preRes = await createTeam(teamData);
+        inputData.team_id = preRes.data.id;
+        const res = await createReservation({ ...inputData, ...teamOptions });
+        console.log(res);
+        if (res.status === 204) {
+          setOpen(false);
+          alert("Create Successfully");
+        }
+        return;
+      }
+      const res = await createReservation({ ...inputData, ...teamOptions });
+      if (res.status === 204) {
+        setOpen(false);
+        alert("Create Successfully");
+      }
     }
   };
   return (
@@ -88,7 +129,6 @@ function ReservationCreateDialog({ isUser, venue }) {
                     venue_id: id,
                   }));
                 }}
-                required
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select venue" />
@@ -132,7 +172,6 @@ function ReservationCreateDialog({ isUser, venue }) {
                       start_time: value,
                     }));
                   }}
-                  required
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select start time" />
@@ -244,11 +283,16 @@ function ReservationCreateDialog({ isUser, venue }) {
               <>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="name">Team Name</Label>
-                  <Input type="data" className="rounded-lg" />
+                  <Input
+                    type="data"
+                    id="name"
+                    className="rounded-lg"
+                    onChange={onChangeTeam}
+                  />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name">Description</Label>
-                  <Input type="data" className="rounded-lg" />
+                <div className="flex flex-col gap-4">
+                  <Label htmlFor="size">Image</Label>
+                  <Input type="file" id="logo" onChange={onChangeTeam} />
                 </div>
               </>
             )}

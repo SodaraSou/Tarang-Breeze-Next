@@ -14,7 +14,7 @@ function VenueCard({ venue }) {
           alt="Court Image"
           className="rounded-t-xl object-cover"
           height={200}
-          src={`https://api.tarang.site/${venue.photo}`}
+          src={venue.photo}
           style={{
             aspectRatio: "350/200",
             objectFit: "cover",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Select,
   SelectContent,
@@ -18,12 +19,17 @@ import DatePicker from "./DatePicker";
 
 function FilterSearch({ sportId }) {
   const { data } = useGetSportTypes();
+  const router = useRouter();
   const [inputData, setInputData] = useState({
     date: "",
     start_time: "",
     duration: "",
     sport_types_id: sportId,
   });
+  const handleSearch = (e) => {
+    e.preventDefault();
+    router.push("/venue");
+  };
   return (
     <Card className="bg-white xl:p-24">
       <CardHeader align="center">
@@ -134,7 +140,10 @@ function FilterSearch({ sportId }) {
               </ScrollArea>
             </SelectContent>
           </Select>
-          <Button className="cols-span-1 md:col-span-2 xl:col-span-1">
+          <Button
+            onClick={handleSearch}
+            className="cols-span-1 md:col-span-2 xl:col-span-1"
+          >
             Search
           </Button>
         </div>
