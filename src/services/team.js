@@ -3,22 +3,22 @@ import { deleteTeamLogo, uploadTeamLogo } from "@/lib/firebase/storage";
 
 export const getTeams = async () => {
   try {
-    const res = await axios.get("https://api.tarang.site/api/teams", {
+    const res = await axios.get("/api/teams", {
       headers: {
         Accept: "application/json",
       },
     });
     return res.data;
   } catch (error) {
-    console.log(error);
-    return error.res;
+    console.error(error.response);
+    return error.response;
   }
 };
 
 export const createTeam = async (team) => {
   try {
     const preRes = await axios.post(
-      "https://api.tarang.site/api/teams",
+      "/api/teams",
       { ...team, logo: "" },
       {
         headers: {
@@ -29,7 +29,7 @@ export const createTeam = async (team) => {
     );
     const logoUrl = await uploadTeamLogo(preRes.data.id, team.logo);
     const res = await axios.put(
-      `https://api.tarang.site/api/teams/${preRes.data.id}`,
+      `/api/teams/${preRes.data.id}`,
       { ...team, logo: logoUrl },
       {
         headers: {
@@ -52,16 +52,12 @@ export const updateTeam = async (team, updateTeam) => {
       newLogoUrl = await uploadTeamLogo(team.id, updateTeam.logo);
     }
     updateTeam.logo = newLogoUrl ? newLogoUrl : team.logo;
-    const res = await axios.put(
-      `https://api.tarang.site/api/teams/${team.id}`,
-      updateTeam,
-      {
-        headers: {
-          "content-type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    const res = await axios.put(`/api/teams/${team.id}`, updateTeam, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -72,15 +68,12 @@ export const updateTeam = async (team, updateTeam) => {
 export const deleteTeam = async (teamId) => {
   try {
     await deleteTeamLogo(teamId);
-    const response = await axios.delete(
-      `https://api.tarang.site/api/teams/${teamId}`,
-      {
-        headers: {
-          "content-type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    const response = await axios.delete(`/api/teams/${teamId}`, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
     return response;
   } catch (error) {
     console.log(error);

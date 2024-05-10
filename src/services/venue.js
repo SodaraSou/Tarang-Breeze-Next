@@ -8,7 +8,7 @@ import {
 export const createVenue = async (venue) => {
   try {
     const venueId = await axios.post(
-      "https://api.tarang.site/api/venues",
+      "/api/venues",
       { ...venue, photo: "" },
       {
         headers: {
@@ -19,7 +19,7 @@ export const createVenue = async (venue) => {
     );
     const imgUrl = await uploadVenueImg(venueId.data.id, venue.photo);
     const res = await axios.put(
-      `https://api.tarang.site/api/venues/${venueId.data.id}`,
+      `/api/venues/${venueId.data.id}`,
       {
         ...venue,
         photo: imgUrl,
@@ -40,10 +40,10 @@ export const createVenue = async (venue) => {
 
 export const getVenues = async () => {
   try {
-    const res = await axios.get("https://api.tarang.site/api/venues", {
+    const res = await axios.get("/api/venues", {
       headers: {
         Accept: "application/json",
-        Referer: "https://tarang.site",
+        // Referer",
       },
     });
     const data = res.data;
@@ -57,11 +57,11 @@ export const getVenues = async () => {
 // export const getVenuesByType = async (sportType) => {
 //   try {
 //     const res = await axios.get(
-//       `https://api.tarang.site/api/venues?type=${sportType}`,
+//       `/api/venues?type=${sportType}`,
 //       {
 //         headers: {
 //           Accept: "application/json",
-//           Referer: "https://tarang.site",
+//           Referer",
 //         },
 //       }
 //     );
@@ -75,15 +75,12 @@ export const getVenues = async () => {
 
 export const showSingleVenue = async (venueId) => {
   try {
-    const res = await axios.get(
-      `https://api.tarang.site/api/venues/${venueId}`,
-      {
-        headers: {
-          Accept: "application/json",
-          Referer: "https://tarang.site",
-        },
-      }
-    );
+    const res = await axios.get(`/api/venues/${venueId}`, {
+      headers: {
+        Accept: "application/json",
+        // Referer",
+      },
+    });
     return res.data;
   } catch (error) {
     console.log(error);
@@ -94,14 +91,11 @@ export const showSingleVenue = async (venueId) => {
 export const deleteVenue = async (venue) => {
   try {
     await deleteVenueImg(venue.id);
-    const response = await axios.delete(
-      `https://api.tarang.site/api/venues/${venue.id}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
+    const response = await axios.delete(`/api/venues/${venue.id}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     return response;
   } catch (error) {
     console.error(error);
@@ -118,16 +112,12 @@ export const updateVenue = async (venue, updateVenue) => {
     updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
     updateVenue.amenity_id = updateVenue.amenity_id.map((str) => parseInt(str));
     console.log(updateVenue);
-    const response = await axios.put(
-      `https://api.tarang.site/api/venues/${venue.id}`,
-      updateVenue,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    const response = await axios.put(`/api/venues/${venue.id}`, updateVenue, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
     console.log(response);
     return response;
   } catch (error) {
