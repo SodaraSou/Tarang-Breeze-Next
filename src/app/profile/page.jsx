@@ -4,7 +4,7 @@ import Reservation from "@/components/Reservation";
 import Team from "@/components/Team";
 import UserProtectedRoute from "@/components/UserProtectedRoute";
 
-function ProfilePage() {
+async function ProfilePage() {
   return (
     <UserLayout>
       <section className="p-4 xl:p-10">
