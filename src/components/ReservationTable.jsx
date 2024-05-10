@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getReservationWithPagination } from "@/services/reservation";
 import { useGetReservationWithPagination } from "@/data/reservation";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
@@ -27,17 +29,28 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReservationCreateDialog from "./ReservationCreateDialog";
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 
 function ReservationTable() {
+  const { data: reservations, isLoading } = useQuery({
+    queryKey: ["reservationsWithPagination"],
+    queryFn: getReservationWithPagination,
+  });
   const [paginationUrl, setPaginationUrl] = useState("");
   const { data } = useGetReservationWithPagination(paginationUrl);
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
+  if (isLoading) {
+    return (
+      <div className="p-10 flex justify-center">
+        <Spinner />
+      </div>
+    );
+  }
+  console.log(reservations);
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader>
@@ -46,9 +59,6 @@ function ReservationTable() {
             <CardTitle>Reservations</CardTitle>
             <CardDescription>Manage your Reservations.</CardDescription>
           </div>
-          <div>
-            <ReservationCreateDialog />
-          </div>
         </div>
       </CardHeader>
       <CardContent>
@@ -56,7 +66,7 @@ function ReservationTable() {
           <TableHeader>
             <TableRow>
               <TableHead className="hidden w-[100px] sm:table-cell">
-                <span className="sr-only">Image</span>
+                ID
               </TableHead>
               <TableHead>Phone Number</TableHead>
               <TableHead>Sport</TableHead>
@@ -70,10 +80,7 @@ function ReservationTable() {
             {data.data.map((reservation, index) => (
               <TableRow key={index}>
                 <TableCell className="hidden sm:table-cell">
-                  <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
+                  {reservation.id}
                 </TableCell>
                 <TableCell className="font-medium">
                   {reservation.phone}
@@ -111,12 +118,20 @@ function ReservationTable() {
             <PaginationContent>
               <PaginationItem>
                 <PaginationPrevious
-                  onClick={() => handlePaginationChange(data.links.prev)}
+                  onClick={() =>
+                    reservations.links.prev &&
+                    handlePaginationChange(reservations.links.prev)
+                  }
+                  disabled={!reservations.links.prev}
                 />
               </PaginationItem>
               <PaginationItem>
                 <PaginationNext
-                  onClick={() => handlePaginationChange(data.links.next)}
+                  onClick={() =>
+                    reservations.links.next &&
+                    handlePaginationChange(reservations.links.next)
+                  }
+                  disabled={!reservations.links.next}
                 />
               </PaginationItem>
             </PaginationContent>
