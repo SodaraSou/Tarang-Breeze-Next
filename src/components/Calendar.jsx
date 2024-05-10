@@ -8,8 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Button } from "./ui/button";
 import { Clock } from "lucide-react";
 import { useGetReservation } from "@/data/reservation";
+import ReservationCreateDialog from "./ReservationCreateDialog";
+import TournamentCard from "./TournamentCard";
 
 function Calendar() {
   const { data } = useGetReservation();
@@ -172,15 +175,25 @@ function Calendar() {
                     style={{ width: "14.28%", height: "120px" }}
                     className="px-4 pt-2 border-r border-b relative"
                   >
-                    <div
-                      className={`inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100 ${
-                        isToday(date)
-                          ? "bg-blue-500 text-white"
-                          : "text-gray-700 hover:bg-blue-200"
-                      }`}
-                    >
-                      {date}
-                    </div>
+                    {new Date().setHours(0, 0, 0, 0) >
+                    new Date(year, month, date) ? (
+                      <>{date}</>
+                    ) : (
+                      <ReservationCreateDialog
+                        date={new Date(year, month, date)}
+                        triggerContent={
+                          <div
+                            className={`inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100 ${
+                              isToday(date)
+                                ? "bg-blue-500 text-white"
+                                : "text-gray-700 hover:bg-blue-200"
+                            }`}
+                          >
+                            {date}
+                          </div>
+                        }
+                      />
+                    )}
                     <div
                       style={{ height: "80px" }}
                       className="overflow-y-auto mt-1"
@@ -210,23 +223,10 @@ function Calendar() {
                               </div>
                             </DialogTrigger>
                             <DialogContent className="bg-white">
-                              <DialogHeader>
-                                <DialogTitle>
-                                  Reservation ID: {reservation.id}
-                                </DialogTitle>
-                              </DialogHeader>
-                              <div className="flex flex-col gap-2">
-                                <p>Phone Number: {reservation.phone}</p>
-                                <p>
-                                  Sport: {reservation.venue.sportTypes.name}
-                                </p>
-                                <p>Venue ID: {reservation.venue.id}</p>
-                                <p>
-                                  Time: {reservation.start_time} -{" "}
-                                  {reservation.end_time}
-                                </p>
-                                <p>Date: {reservation.date}</p>
-                              </div>
+                              <TournamentCard
+                                key={index}
+                                reservation={reservation}
+                              />
                             </DialogContent>
                           </Dialog>
                         ))}
