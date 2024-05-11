@@ -29,7 +29,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import ReservationCreateDialog from "./ReservationCreateDialog";
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 
@@ -50,7 +49,6 @@ function ReservationTable() {
       </div>
     );
   }
-  console.log(reservations);
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader>

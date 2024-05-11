@@ -1,18 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { Button } from "./ui/button";
-import { Clock } from "lucide-react";
 import { useGetReservation } from "@/data/reservation";
 import ReservationCreateDialog from "./ReservationCreateDialog";
 import TournamentCard from "./TournamentCard";
