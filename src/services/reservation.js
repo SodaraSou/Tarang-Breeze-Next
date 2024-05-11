@@ -1,7 +1,5 @@
 import axios from "@/lib/axios";
 
-const apiDomain = "http://localhost:8000";
-
 export const createReservation = async (reservation) => {
   try {
     console.log(reservation);
@@ -21,7 +19,7 @@ export const createReservation = async (reservation) => {
 export const updateReservation = async (reservation, updateReservation) => {
   try {
     const res = await axios.put(
-      `${apiDomain}/api/reservation/${reservation.id}`,
+      `/api/reservation/${reservation.id}`,
       updateReservation,
       {
         headers: {
@@ -39,14 +37,11 @@ export const updateReservation = async (reservation, updateReservation) => {
 
 export const deleteReservation = async (reservationId) => {
   try {
-    const res = await axios.delete(
-      `${apiDomain}/api/reservation/${reservationId}`,
-      {
-        headers: {
-          Accept: "application/json",
-        },
-      }
-    );
+    const res = await axios.delete(`/api/reservation/${reservationId}`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -56,7 +51,7 @@ export const deleteReservation = async (reservationId) => {
 
 export const getReservation = async () => {
   try {
-    const res = await axios.get(`${apiDomain}/api/reservation?all`, {
+    const res = await axios.get(`/api/reservation?all`, {
       headers: {
         Accept: "application/json",
       },
@@ -70,7 +65,7 @@ export const getReservation = async () => {
 
 export const getReservationWithPagination = async () => {
   try {
-    const res = await axios.get(`${apiDomain}/api/reservation`, {
+    const res = await axios.get(`/api/reservation`, {
       headers: {
         Accept: "application/json",
       },
@@ -114,7 +109,7 @@ export const getAvailableTime = async (date) => {
   try {
     const dateWithoutTime = date.split("T")[0];
     const res = await axios.post(
-      `${apiDomain}/api/available-time`,
+      `/api/available-time`,
       { date: dateWithoutTime },
       {
         headers: {

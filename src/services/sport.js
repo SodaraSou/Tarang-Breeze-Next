@@ -1,6 +1,5 @@
 import axios from "@/lib/axios";
 
-const apiDomain = "http://localhost:8000";
 
 export const getSportTypes = async () => {
   try {
