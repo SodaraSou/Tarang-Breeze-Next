@@ -90,7 +90,7 @@ const Login = () => {
                 <a href="#">
                   <img alt="fb" className="h-[40px] w-[40px]" />
                 </a>
-                <a href="http://localhost:8000/auth/google/redirect">
+                <a href="https://api.tarang.site/auth/google/redirect">
                   <img alt="google" className="h-[40px] w-[40px]" />
                 </a>
               </div>
