@@ -1,0 +1,82 @@
+import axios from "@/lib/axios";
+import { deleteTeamLogo, uploadTeamLogo } from "@/lib/firebase/storage";
+
+export const getTeams = async () => {
+  try {
+    const res = await axios.get("/api/teams", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error.response);
+    return error.response;
+  }
+};
+
+export const createTeam = async (team) => {
+  try {
+    const preRes = await axios.post(
+      "/api/teams",
+      { ...team, logo: "" },
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    const logoUrl = await uploadTeamLogo(preRes.data.id, team.logo);
+    const res = await axios.put(
+      `/api/teams/${preRes.data.id}`,
+      { ...team, logo: logoUrl },
+      {
+        headers: {
+          "content-type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
+export const updateTeam = async (team, updateTeam) => {
+  try {
+    let newLogoUrl = "";
+    if (team.logo !== updateTeam.logo) {
+      newLogoUrl = await uploadTeamLogo(team.id, updateTeam.logo);
+    }
+    updateTeam.logo = newLogoUrl ? newLogoUrl : team.logo;
+    const res = await axios.put(`/api/teams/${team.id}`, updateTeam, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.res;
+  }
+};
+
+export const deleteTeam = async (teamId) => {
+  try {
+    await deleteTeamLogo(teamId);
+    const response = await axios.delete(`/api/teams/${teamId}`, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
