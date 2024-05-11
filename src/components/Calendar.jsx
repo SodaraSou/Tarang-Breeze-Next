@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+
 import { Button } from "./ui/button";
 import { Clock } from "lucide-react";
 import { useGetReservation } from "@/data/reservation";
@@ -194,42 +197,46 @@ function Calendar() {
                         }
                       />
                     )}
-                    <div
-                      style={{ height: "80px" }}
-                      className="overflow-y-auto mt-1"
-                    >
-                      {data
-                        .filter(
-                          (reservation) =>
-                            new Date(reservation.date).toDateString() ===
-                            new Date(year, month, date).toDateString()
-                        )
-                        .map((reservation, index) => (
-                          <Dialog>
-                            <DialogTrigger>
-                              <div
-                                key={index}
-                                className={`text-sm px-2 py-1 rounded-lg mt-1 overflow-hidden border flex items-center gap-2 ${
-                                  new Date(reservation.date) < new Date()
-                                    ? "bg-green-300"
-                                    : ""
-                                }`}
-                              >
-                                <Clock className="w-4 h-4" />
-                                <p>
-                                  {reservation.start_time} -{" "}
-                                  {reservation.end_time}
-                                </p>
-                              </div>
-                            </DialogTrigger>
-                            <DialogContent className="bg-white">
-                              <TournamentCard
-                                key={index}
-                                reservation={reservation}
-                              />
-                            </DialogContent>
-                          </Dialog>
-                        ))}
+                    <div style={{ height: "80px" }} className=" mt-1">
+                      <Sheet className="w-[500px]">
+                        <SheetTrigger className="h-full w-full">
+                          {data.filter(
+                            (reservation) =>
+                              new Date(reservation.date).toDateString() ===
+                              new Date(year, month, date).toDateString()
+                          ).length > 0 && (
+                            <>
+                              {
+                                data.filter(
+                                  (reservation) =>
+                                    new Date(
+                                      reservation.date
+                                    ).toDateString() ===
+                                    new Date(year, month, date).toDateString()
+                                ).length
+                              }{" "}
+                              Reservation
+                            </>
+                          )}
+                        </SheetTrigger>
+                        <SheetContent>
+                          <SheetHeader>
+                            <SheetTitle>Reservations</SheetTitle>
+                            {data
+                              .filter(
+                                (reservation) =>
+                                  new Date(reservation.date).toDateString() ===
+                                  new Date(year, month, date).toDateString()
+                              )
+                              .map((reservation, index) => (
+                                <TournamentCard
+                                  key={index}
+                                  reservation={reservation}
+                                />
+                              ))}
+                          </SheetHeader>
+                        </SheetContent>
+                      </Sheet>
                     </div>
                   </div>
                 ))}
