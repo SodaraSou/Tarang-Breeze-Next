@@ -90,7 +90,7 @@ const Login = () => {
                 <a href="#">
                   <img alt="fb" className="h-[40px] w-[40px]" />
                 </a>
-                <a href="http://localhost:8080/auth/google/redirect">
+                <a href="http://localhost:8000/auth/google/redirect">
                   <img alt="google" className="h-[40px] w-[40px]" />
                 </a>
               </div>
