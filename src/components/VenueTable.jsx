@@ -39,6 +39,7 @@ function VenueTable() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>ID</TableHead>
               <TableHead className="hidden w-[100px] sm:table-cell">
                 <span className="sr-only">Image</span>
               </TableHead>
@@ -51,6 +52,7 @@ function VenueTable() {
           <TableBody>
             {data?.venues.map((venue, index) => (
               <TableRow key={index}>
+                <TableCell className="font-medium">{venue.id}</TableCell>
                 <TableCell className="hidden sm:table-cell">
                   <Image
                     alt="Product image"
