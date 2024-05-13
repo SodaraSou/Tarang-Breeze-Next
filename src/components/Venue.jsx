@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 import Spinner from "./Spinner";
+import { Button } from "@/components/ui/button";
 
 function Venue({ venueId }) {
   const { data: user, isLoading: userLoading } = useQuery({
@@ -31,7 +32,6 @@ function Venue({ venueId }) {
       </div>
     );
   }
-  console.log(venue);
   return (
     <section className="p-4 md:p-10">
       <div className="flex flex-col gap-4 md:gap-10 w-full">
@@ -45,6 +45,7 @@ function Venue({ venueId }) {
               isUserLogin={user}
               isUser={true}
               venue={venue}
+              triggerContent={<Button>Reserve Venue</Button>}
             />
           </CardHeader>
         </Card>

@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/pagination";
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
+import Spinner from "@/components/Spinner";
 
 function ReservationTable() {
   const { data: reservations, isLoading } = useQuery({

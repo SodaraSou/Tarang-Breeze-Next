@@ -27,7 +27,9 @@ async function HomePage() {
       <section className="p-4 md:p-10">
         <div className="flex flex-col gap-4 md:gap-10">
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <FilterSearch sportId={""} />
+            <div>
+              <FilterSearch sportId={""} />
+            </div>
             <FeatureSport />
             <div>
               <Card className="bg-white p-10">

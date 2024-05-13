@@ -45,9 +45,6 @@ function VenueTable() {
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
               <TableHead className="hidden md:table-cell">Size</TableHead>
-              <TableHead className="hidden md:table-cell">
-                Total Reserve
-              </TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
@@ -68,7 +65,6 @@ function VenueTable() {
                 <TableCell className="hidden md:table-cell">
                   {venue.size}
                 </TableCell>
-                <TableCell className="hidden md:table-cell">25</TableCell>
                 <TableCell>
                   <VenueEditDialog venue={venue} />
                   <VenueDeleteDialog venue={venue} />
@@ -80,8 +76,8 @@ function VenueTable() {
       </CardContent>
       <CardFooter>
         <div className="text-xs text-muted-foreground">
-          Showing <strong>1-10</strong> of <strong>{data?.venues.length}</strong>{" "}
-          venues
+          Showing <strong>1-10</strong> of{" "}
+          <strong>{data?.venues.length}</strong> venues
         </div>
       </CardFooter>
     </Card>

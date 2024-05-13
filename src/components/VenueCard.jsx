@@ -8,7 +8,7 @@ import {
 
 function VenueCard({ venue }) {
   return (
-    <Link href={`/venue/${venue.sportTypes.name}/${venue.id}`}>
+    <Link href={`/venue/${venue.sport_type.name}/${venue.id}`}>
       <Card className="bg-white rounded-xl">
         <img
           alt="Court Image"
@@ -22,7 +22,7 @@ function VenueCard({ venue }) {
         />
         <CardHeader>
           <CardTitle>{venue.name}</CardTitle>
-          <CardDescription>Type : {venue.sportTypes.name}</CardDescription>
+          <CardDescription>Type : {venue.sport_type.name}</CardDescription>
           <CardDescription>Size of the Court : {venue.size}</CardDescription>
         </CardHeader>
       </Card>

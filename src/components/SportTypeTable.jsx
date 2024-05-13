@@ -38,16 +38,16 @@ function SportTypeTable() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
               <TableHead>ID</TableHead>
+              <TableHead>Name</TableHead>
               <TableHead>Actions</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {data.sport_types.map((sport, index) => (
               <TableRow key={index}>
-                <TableCell className="font-medium">{sport.name}</TableCell>
                 <TableCell>{sport.id}</TableCell>
+                <TableCell className="font-medium">{sport.name}</TableCell>
                 <TableCell>
                   <SportUpdateDailog sport={sport} />
                   <SportDeleteDailog sport={sport} />

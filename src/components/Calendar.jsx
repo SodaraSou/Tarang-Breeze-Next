@@ -11,6 +11,7 @@ import {
 
 import { useGetReservation } from "@/data/reservation";
 import ReservationCreateDialog from "./ReservationCreateDialog";
+import AdminReservationCreateDialog from "@/components/AdminReservationCreateDialog";
 import TournamentCard from "./TournamentCard";
 
 function Calendar() {
@@ -178,7 +179,7 @@ function Calendar() {
                     new Date(year, month, date) ? (
                       <>{date}</>
                     ) : (
-                      <ReservationCreateDialog
+                      <AdminReservationCreateDialog
                         date={new Date(year, month, date)}
                         triggerContent={
                           <div

@@ -7,6 +7,7 @@ import { getVenues } from "@/services/venue";
 import { getSportTypes } from "@/services/sport";
 import VenueTable from "@/components/VenueTable";
 import SportTypeTable from "@/components/SportTypeTable";
+import AmenityTable from "@/components/AmenityTable";
 
 async function VenuePage() {
   const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ async function VenuePage() {
       <VenueTable />
       <div className="grid grid-cols-1 xl:grid-cols-2">
         <SportTypeTable />
+        <AmenityTable />
       </div>
     </HydrationBoundary>
   );
