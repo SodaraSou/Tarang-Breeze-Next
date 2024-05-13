@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { useGetVenues } from "@/data/veune";
-import { useGetAvailableTime } from "@/data/reservation";
-// import { createReservation } from "@/services/reservation";
 import { createReservation } from "@/services/reservation";
 import { createTeam } from "@/services/team";
 import {
@@ -56,7 +54,6 @@ function ReservationCreateDialog({
     logo: "",
     sport_type_id: venue ? venue.sportTypes.id : 0,
   });
-  const { data: availableTimes } = useGetAvailableTime(inputData.date);
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -177,12 +174,22 @@ function ReservationCreateDialog({
                   <SelectContent className="bg-white">
                     <ScrollArea className="h-32">
                       <SelectGroup>
-                        {availableTimes &&
-                          availableTimes.available_times.map((time, index) => (
-                            <SelectItem key={index} value={time}>
-                              {time}
-                            </SelectItem>
-                          ))}
+                        <SelectItem value="07:00">7:00 AM</SelectItem>
+                        <SelectItem value="08:00">8:00 AM</SelectItem>
+                        <SelectItem value="09:00">9:00 AM</SelectItem>
+                        <SelectItem value="10:00">10:00 AM</SelectItem>
+                        <SelectItem value="11:00">11:00 AM</SelectItem>
+                        <SelectItem value="12:00">12:00 AM</SelectItem>
+                        <SelectItem value="13:00">13:00 PM</SelectItem>
+                        <SelectItem value="14:00">14:00 PM</SelectItem>
+                        <SelectItem value="15:00">15:00 PM</SelectItem>
+                        <SelectItem value="16:00">16:00 PM</SelectItem>
+                        <SelectItem value="17:00">17:00 PM</SelectItem>
+                        <SelectItem value="18:00">18:00 PM</SelectItem>
+                        <SelectItem value="19:00">19:00 PM</SelectItem>
+                        <SelectItem value="20:00">20:00 PM</SelectItem>
+                        <SelectItem value="21:00">21:00 PM</SelectItem>
+                        <SelectItem value="22:00">22:00 PM</SelectItem>
                       </SelectGroup>
                     </ScrollArea>
                   </SelectContent>
