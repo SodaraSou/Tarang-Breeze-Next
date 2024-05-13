@@ -25,7 +25,6 @@ function VenueDeleteDialog({ venue }) {
   const [alertMessage, setAlertMessage] = useState("");
   const handleDelete = async (e) => {
     e.preventDefault();
-    setOpen(false);
     setLoading(true);
     const res = await deleteVenue(venue);
     if (res.status === 204) {
@@ -37,11 +36,9 @@ function VenueDeleteDialog({ venue }) {
       setAlertMessage("Venue Delete Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
+    setOpen(false);
     setLoading(false);
   };
-  if (loading) {
-    return <Spinner fullScreenSpinner={true} />;
-  }
   return (
     <>
       {/* Alert Dialog */}
@@ -62,19 +59,27 @@ function VenueDeleteDialog({ venue }) {
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete{" "}
-              <span className="font-bold">venue ID {venue.id}</span>
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <Button onClick={handleDelete}>Continue</Button>
-            </AlertDialogAction>
-          </AlertDialogFooter>
+          {loading ? (
+            <div className="flex justify-center p-10">
+              <Spinner />
+            </div>
+          ) : (
+            <>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. This will permanently delete{" "}
+                  <span className="font-bold">venue ID {venue.id}</span>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction asChild>
+                  <Button onClick={handleDelete}>Continue</Button>
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </>
+          )}
         </AlertDialogContent>
       </AlertDialog>
     </>

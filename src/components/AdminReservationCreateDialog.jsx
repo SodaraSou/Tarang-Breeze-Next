@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import { createTeam } from "@/services/team";
@@ -39,13 +39,7 @@ import Spinner from "@/components/Spinner";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
-function ReservationCreateDialog({
-  isUserLogin,
-  isUser,
-  venue,
-  triggerContent,
-  date,
-}) {
+function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
   const { data } = useGetVenues();
   const [inputData, setInputData] = useState({
     phone: "",
@@ -61,6 +55,7 @@ function ReservationCreateDialog({
     venue_id: venue ? venue.id : 0,
     // team_id: 0,
   });
+  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -105,26 +100,11 @@ function ReservationCreateDialog({
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (isUserLogin.status !== 401) {
-      if (teamOptions.find_member || teamOptions.find_team) {
-        const preRes = await createTeam(teamData);
-        inputData.team_id = preRes.data.id;
-        const reservation = { ...inputData, ...teamOptions };
-        const res = await createReservation(reservation);
-        if (res.status === 204) {
-          setOpenAlertDialog(true);
-          setAlertMessage("Reservation Create Successfully");
-          wait().then(() => setOpenAlertDialog(false));
-        } else {
-          setOpenAlertDialog(true);
-          setAlertMessage("Reservation Create Failed");
-          wait().then(() => setOpenAlertDialog(false));
-        }
-        setOpen(false);
-        setLoading(false);
-        return;
-      }
-      const res = await createReservation({ ...inputData, ...teamOptions });
+    if (teamOptions.find_member || teamOptions.find_team) {
+      const preRes = await createTeam(teamData);
+      inputData.team_id = preRes.data.id;
+      const reservation = { ...inputData, ...teamOptions };
+      const res = await createReservation(reservation);
       if (res.status === 204) {
         setOpenAlertDialog(true);
         setAlertMessage("Reservation Create Successfully");
@@ -136,9 +116,16 @@ function ReservationCreateDialog({
       }
       setOpen(false);
       setLoading(false);
+      return;
+    }
+    const res = await createReservation({ ...inputData, ...teamOptions });
+    if (res.status === 204) {
+      setOpenAlertDialog(true);
+      setAlertMessage("Reservation Create Successfully");
+      wait().then(() => setOpenAlertDialog(false));
     } else {
       setOpenAlertDialog(true);
-      setAlertMessage("You are Unauthenticated");
+      setAlertMessage("Reservation Create Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
     setOpen(false);
@@ -379,4 +366,4 @@ function ReservationCreateDialog({
   );
 }
 
-export default ReservationCreateDialog;
+export default AdminReservationCreateDialog;

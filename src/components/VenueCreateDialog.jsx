@@ -88,7 +88,6 @@ function VenueCreateDialog() {
     setLoading(true);
     const res = await createVenue(inputData);
     if (res.status === 204) {
-      setLoading(false);
       setOpenAlertDialog(true);
       setAlertMessage("Venue Create Successfully");
       wait().then(() => setOpenAlertDialog(false));
@@ -97,6 +96,7 @@ function VenueCreateDialog() {
       setAlertMessage("Venue Create Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
+    setOpen(false);
     setLoading(false);
   };
   const [open, setOpen] = useState(false);
@@ -128,7 +128,7 @@ function VenueCreateDialog() {
               </DialogDescription>
             </DialogHeader>
             {loading ? (
-              <div className="flex justify-center">
+              <div className="flex justify-center p-10">
                 <Spinner />
               </div>
             ) : (
