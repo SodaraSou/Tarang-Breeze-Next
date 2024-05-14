@@ -18,6 +18,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 import VenueEditDialog from "@/components/VenueEditDialog";
 import VenueDeleteDialog from "@/components/VenueDeleteDialog";
 import VenueCreateDialog from "./VenueCreateDialog";
@@ -76,10 +85,36 @@ function VenueTable() {
           </TableBody>
         </Table>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex justify-between items-center">
         <div className="text-xs text-muted-foreground">
           Showing <strong>1-10</strong> of{" "}
           <strong>{data?.venues.length}</strong> venues
+        </div>
+        <div>
+          <Pagination>
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationPrevious href="#" />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">1</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#" isActive>
+                  2
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink href="#">3</PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationEllipsis />
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationNext href="#" />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
         </div>
       </CardFooter>
     </Card>
