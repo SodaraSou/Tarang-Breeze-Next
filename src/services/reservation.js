@@ -1,6 +1,4 @@
 import axios from "@/lib/axios";
-import {log} from "next/dist/server/typescript/utils";
-import {error} from "next/dist/build/output/log";
 
 export const createReservation = async (reservation) => {
   try {
@@ -79,6 +77,20 @@ export const getReservationWithPagination = async () => {
   }
 };
 
+export const getReservationWithPaginationPage = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.response;
+  }
+};
+
 export const getReservationByUser = async () => {
   try {
     const res = await axios.get(`/api/reservations-user`, {
@@ -93,34 +105,20 @@ export const getReservationByUser = async () => {
   }
 };
 
-export const getReservationWithPaginationPage = async (paginationUrl) => {
+export const searchAvailableTime = async (data) => {
   try {
-    const res = await axios.get(paginationUrl, {
+    data.date = data.date.split("T")[0];
+    data.duration = parseInt(data.duration);
+    data.sport_type_id = parseInt(data.sport_type_id);
+    const res = await axios.post("/api/available-time", data, {
       headers: {
+        "Content-Type": "application/json",
         Accept: "application/json",
       },
     });
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-export const searchAvailableTime = async (data) => {
-  try {
-    data.date = data.date.split('T')[0];
-    data.duration = parseInt(data.duration);
-    data.sport_type_id = parseInt(data.sport_type_id);
-    const res = await axios.post('/api/available-time', data, {
-      headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-    })
     return res;
   } catch (e) {
     console.log(e.response);
     return e.response;
   }
-}
+};
