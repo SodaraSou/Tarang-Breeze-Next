@@ -54,7 +54,10 @@ function VenueDeleteDialog({ venue }) {
       </AlertDialog>
       <AlertDialog open={open} onOpenChange={setOpen}>
         <AlertDialogTrigger asChild>
-          <Button variant="outline" className="bg-red-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
+          >
             Delete
           </Button>
         </AlertDialogTrigger>
@@ -75,7 +78,13 @@ function VenueDeleteDialog({ venue }) {
               <AlertDialogFooter>
                 <AlertDialogCancel>Cancel</AlertDialogCancel>
                 <AlertDialogAction asChild>
-                  <Button onClick={handleDelete}>Continue</Button>
+                  <Button
+                    onClick={handleDelete}
+                    variant="outline"
+                    className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
+                  >
+                    Continue
+                  </Button>
                 </AlertDialogAction>
               </AlertDialogFooter>
             </>

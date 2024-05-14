@@ -357,7 +357,13 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
               </div>
             )}
             <DialogFooter>
-              <Button type="submit">Confirm</Button>
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+              >
+                Confirm Reservation
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

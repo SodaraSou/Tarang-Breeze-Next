@@ -130,7 +130,10 @@ function ReservationEditDialog({ reservation }) {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="bg-blue-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+          >
             Edit
           </Button>
         </DialogTrigger>
@@ -340,7 +343,13 @@ function ReservationEditDialog({ reservation }) {
               </div>
             )}
             <DialogFooter>
-              <Button type="submit">Confirm</Button>
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+              >
+                Save Changes
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

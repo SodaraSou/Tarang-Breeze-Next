@@ -91,7 +91,12 @@ function TeamEditDialog({ team }) {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button className="bg-blue-500">Edit</Button>
+          <Button
+            variant="outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+          >
+            Edit
+          </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
           <form onSubmit={onSubmit}>
@@ -152,7 +157,13 @@ function TeamEditDialog({ team }) {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Save</Button>
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+                  >
+                    Save
+                  </Button>
                 </DialogFooter>
               </>
             )}

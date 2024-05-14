@@ -91,7 +91,12 @@ function TeamCreateDialog() {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>Create Team</Button>
+          <Button
+            variant="outline"
+            className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+          >
+            Create Team
+          </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
           <form onSubmit={onSubmit}>
@@ -147,7 +152,13 @@ function TeamCreateDialog() {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button type="submit">Save</Button>
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+                  >
+                    Save
+                  </Button>
                 </DialogFooter>
               </>
             )}

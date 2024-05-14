@@ -71,7 +71,12 @@ function AmenityCreateDialog() {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>Create Amenities</Button>
+          <Button
+            variant="outline"
+            className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+          >
+            Create Amenities
+          </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
           {loading ? (
@@ -93,7 +98,12 @@ function AmenityCreateDialog() {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit" onClick={onSubmit}>
+                <Button
+                  type="submit"
+                  onClick={onSubmit}
+                  variant="outline"
+                  className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+                >
                   Save
                 </Button>
               </DialogFooter>

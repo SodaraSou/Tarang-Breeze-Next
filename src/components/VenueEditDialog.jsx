@@ -129,7 +129,10 @@ function VenueEditDialog({ venue }) {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="bg-blue-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+          >
             Edit
           </Button>
         </DialogTrigger>
@@ -267,7 +270,13 @@ function VenueEditDialog({ venue }) {
               </>
             )}
             <DialogFooter>
-              <Button type="submit">Save changes</Button>
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+              >
+                Save changes
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>
