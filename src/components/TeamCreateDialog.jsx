@@ -13,6 +13,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
   Select,
   SelectContent,
   SelectGroup,
@@ -24,6 +32,9 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import Spinner from "@/components/Spinner";
+
+const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function TeamCreateDialog() {
   const { data } = useGetSportTypes();
@@ -46,68 +57,104 @@ function TeamCreateDialog() {
       }));
     }
   };
+  const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const res = await createTeam(inputData);
-    if (res.status === 204) {
-      alert("Team Create Successfully");
+    if (res.status === 200) {
+      setOpenAlertDialog(true);
+      setAlertMessage("Team Create Successfully");
+      wait().then(() => setOpenAlertDialog(false));
+    } else {
+      setOpenAlertDialog(true);
+      setAlertMessage("Team Create Failed");
+      wait().then(() => setOpenAlertDialog(false));
     }
+    setOpen(false);
+    setLoading(false);
   };
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Create Team</Button>
-      </DialogTrigger>
-      <DialogContent className="bg-white">
-        <DialogHeader>
-          <DialogTitle>Create Team</DialogTitle>
-          <DialogDescription>
-            Create Team here. Click save when you're done.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="flex flex-col gap-4 py-4">
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="name">Team Name</Label>
-            <Input id="name" onChange={onChange} />
-          </div>
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="sport_type">Sport Type</Label>
-            <Select
-              onValueChange={(value) => {
-                setInputData((prevState) => ({
-                  ...prevState,
-                  sport_type_id: value,
-                }));
-              }}
-              required
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select Sport Type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup className="bg-white">
-                  <SelectLabel>SportType</SelectLabel>
-                  {data.sport_types.map((sport) => (
-                    <SelectItem key={sport.id} value={sport.id.toString()}>
-                      {sport.name}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex flex-col gap-4">
-            <Label htmlFor="logo">Logo</Label>
-            <Input type="file" id="logo" onChange={onChange} />
-          </div>
-        </div>
-        <DialogFooter>
-          <Button type="submit" onClick={onSubmit}>
-            Save
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <>
+      <AlertDialog open={openAlertDialog} onOpenChange={setOpenAlertDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Ok</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button>Create Team</Button>
+        </DialogTrigger>
+        <DialogContent className="bg-white">
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>Create Team</DialogTitle>
+              <DialogDescription>
+                Create Team here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            {loading ? (
+              <div className="flex justify-center p-10">
+                <Spinner />
+              </div>
+            ) : (
+              <>
+                <div className="flex flex-col gap-4 py-4">
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="name">Team Name</Label>
+                    <Input id="name" onChange={onChange} />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="sport_type">Sport Type</Label>
+                    <Select
+                      onValueChange={(value) => {
+                        setInputData((prevState) => ({
+                          ...prevState,
+                          sport_type_id: value,
+                        }));
+                      }}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Sport Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup className="bg-white">
+                          <SelectLabel>SportType</SelectLabel>
+                          {data.sport_types.map((sport) => (
+                            <SelectItem
+                              key={sport.id}
+                              value={sport.id.toString()}
+                            >
+                              {sport.name}
+                            </SelectItem>
+                          ))}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="logo">Logo</Label>
+                    <Input type="file" id="logo" onChange={onChange} />
+                  </div>
+                </div>
+                <DialogFooter>
+                  <Button type="submit">Save</Button>
+                </DialogFooter>
+              </>
+            )}
+          </form>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
 

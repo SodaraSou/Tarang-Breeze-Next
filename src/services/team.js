@@ -41,7 +41,7 @@ export const createTeam = async (team) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -61,7 +61,7 @@ export const updateTeam = async (team, updateTeam) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -77,6 +77,6 @@ export const deleteTeam = async (teamId) => {
     return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };

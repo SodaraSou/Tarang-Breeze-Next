@@ -38,8 +38,9 @@ function TeamTable() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead>ID</TableHead>
               <TableHead className="hidden w-[100px] sm:table-cell">
-                <span>Logo</span>
+                <span className="sr-only">Logo</span>
               </TableHead>
               <TableHead>Name</TableHead>
               <TableHead>Type</TableHead>
@@ -49,6 +50,7 @@ function TeamTable() {
           <TableBody>
             {data.teams.map((team, index) => (
               <TableRow key={index}>
+                <TableCell className="font-medium">{team.id}</TableCell>
                 <TableCell className="hidden sm:table-cell">
                   <img
                     alt="Product image"
