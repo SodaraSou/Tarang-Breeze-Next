@@ -47,7 +47,12 @@ function ReservationEditDialog({ reservation }) {
   const [inputData, setInputData] = useState({
     phone: reservation ? reservation.phone : "",
     attendee: reservation ? reservation.attendee : 0,
-    date: reservation ? reservation.date : "",
+    date: reservation
+      ? new Date(
+          new Date(reservation.date).getTime() -
+            new Date(reservation.date).getTimezoneOffset() * 60000
+        ).toISOString()
+      : "",
     start_time: reservation
       ? reservation.start_time.replace(" AM", "").replace(" PM", "")
       : "",
@@ -57,6 +62,7 @@ function ReservationEditDialog({ reservation }) {
     venue_id: reservation ? reservation.venue.id : 0,
     // team_id: 1,
   });
+  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -190,7 +196,10 @@ function ReservationEditDialog({ reservation }) {
                     onDateChange={(date) => {
                       setInputData((prevState) => ({
                         ...prevState,
-                        date: date.toISOString(),
+                        date: new Date(
+                          new Date(date).getTime() -
+                            new Date(date).getTimezoneOffset() * 60000
+                        ).toISOString(),
                       }));
                     }}
                   />

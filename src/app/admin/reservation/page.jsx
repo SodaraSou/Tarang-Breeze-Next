@@ -3,10 +3,7 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-import {
-  getReservation,
-  getReservationWithPagination,
-} from "@/services/reservation";
+import { getReservation } from "@/services/reservation";
 import { getVenues } from "@/services/venue";
 import Calendar from "@/components/Calendar";
 import ReservationTable from "@/components/ReservationTable";
@@ -21,10 +18,6 @@ async function ReservationPage() {
   await queryClient.prefetchQuery({
     queryKey: ["reservations"],
     queryFn: getReservation,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: ["reservationsWithPagination"],
-    queryFn: getReservationWithPagination,
   });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

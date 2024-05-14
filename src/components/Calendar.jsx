@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/sheet";
 
 import { useGetReservation } from "@/data/reservation";
-import ReservationCreateDialog from "./ReservationCreateDialog";
 import AdminReservationCreateDialog from "@/components/AdminReservationCreateDialog";
 import TournamentCard from "./TournamentCard";
 
@@ -195,7 +194,7 @@ function Calendar() {
                       />
                     )}
                     <div style={{ height: "80px" }} className=" mt-1">
-                      <Sheet className="w-[500px]">
+                      <Sheet>
                         <SheetTrigger className="h-full w-full">
                           {data.filter(
                             (reservation) =>
@@ -216,9 +215,11 @@ function Calendar() {
                             </>
                           )}
                         </SheetTrigger>
-                        <SheetContent>
+                        <SheetContent className="flex flex-col gap-4">
                           <SheetHeader>
                             <SheetTitle>Reservations</SheetTitle>
+                          </SheetHeader>
+                          <div className="flex flex-col gap-4 overflow-y-auto h-full">
                             {data
                               .filter(
                                 (reservation) =>
@@ -231,7 +232,7 @@ function Calendar() {
                                   reservation={reservation}
                                 />
                               ))}
-                          </SheetHeader>
+                          </div>
                         </SheetContent>
                       </Sheet>
                     </div>
