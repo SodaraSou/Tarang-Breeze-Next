@@ -30,7 +30,7 @@ export const editAmenity = async (amenity) => {
   }
 };
 
-export const deleteAmenity = async (amenityId) => {
+export const deleteAmenity = async (amenity) => {
   try {
     const res = await axios.delete(`/api/amenities/${amenity.id}`, {
       headers: {
