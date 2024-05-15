@@ -1,33 +1,45 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import InputGroup from "@/components/InputGroup";
 import Link from "next/link";
-import { useAuth } from "@/hooks/auth";
-import { useState } from "react";
-import styles from "./signIn.module.css";
 import Image from "next/image";
+import axios from "@/lib/axios";
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import styles from "./signIn.module.css";
+import InputGroup from "@/components/InputGroup";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Page = () => {
-  
-  const { register } = useAuth({
-    middleware: "guest",
-    redirectIfAuthenticated: "/profile",
-  });
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [errors, setErrors] = useState([]);
-
   const [inputData, setInputData] = useState({
     name: "",
     phone: "",
     password: "",
     password_confirmation: "",
   });
-
+  console.log(inputData);
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -35,179 +47,165 @@ const Page = () => {
       [e.target.id]: e.target.value,
     }));
   };
-
-  const onSubmit = (e) => {
+  const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
+  const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(inputData);
-    axios
-      .post("https://api.tarang.site/register", inputData, {
-        withCredentials: true,
-        withXSRFToken: true,
-        headers: {
-          Accept: "application/json",
-        },
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    navigate("/");
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/register",
+        inputData,
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      setUser({ ...res.data });
+    } catch (e) {
+      console.log(e.response);
+    } finally {
+      setLoading(false);
+      setOpen(true);
+    }
   };
 
-  const submitForm = (event) => {
-    event.preventDefault();
-
-    register({
-      name,
-      email,
-      password,
-      password_confirmation: passwordConfirmation,
-      setErrors,
-    });
+  const handleOpt = async (e) => {
+    e.preventDefault();
+    try {
+    } catch (e) {
+      console.log(e.response);
+      return e.response;
+    }
   };
 
   return (
-    <section className="h-screen flex flex-col justify-center items-center p-4 xl:p-0">
-      <div className="w-full md:max-w-5xl flex">
-        <div
-          className={`hidden w-full md:w-1/2 md:block ${styles.imgContainer}`}
-        >
-          <Image src="/logo_latin.png" alt="logo" fill className={styles.img} />
-        </div>
-        <form
-          onSubmit={onSubmit}
-          className="w-full md:w-1/2 p-10 bg-white border border-gray-200 shadow rounded-xl"
-        >
-          <h1 className="text-4xl font-bold mb-10">Sign In</h1>
-          <div className="flex flex-col gap-4">
-            <InputGroup
-              title="Name"
-              id="name"
-              type="text"
-              onChange={onChange}
-              placeholder="Enter Name"
-              isRequired={true}
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="bg-white">
+          <DialogHeader>
+            <DialogTitle>OTP</DialogTitle>
+            <DialogDescription>
+              Enter the 6 digit code sent to your phone number +88570776079
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center">
+            <InputOTP maxLength={6}>
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+              </InputOTPGroup>
+              <InputOTPSeparator />
+              <InputOTPGroup>
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+          </div>
+          <DialogFooter>
+            <Button
+              type="submit"
+              variant="outline"
+              className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+            >
+              Verify
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+      <section className="h-screen flex flex-col justify-center items-center p-4 xl:p-0">
+        <div className="w-full md:max-w-5xl flex">
+          <div
+            className={`hidden w-full md:w-1/2 md:block ${styles.imgContainer}`}
+          >
+            <Image
+              src="/logo_latin.png"
+              alt="logo"
+              fill
+              className={styles.img}
             />
-            <InputGroup
-              title="Phone Number"
-              id="phone"
-              type="text"
-              onChange={onChange}
-              placeholder="Enter Phone Number"
-              isRequired={true}
-            />
-            <InputGroup
-              title="Password"
-              id="password"
-              type="password"
-              onChange={onChange}
-              placeholder="********"
-              isRequired={true}
-            />
-            <InputGroup
-              title="Confirm Password"
-              id="password_confirmation"
-              type="password"
-              onChange={onChange}
-              placeholder="********"
-              isRequired={true}
-            />
-            <Button type="submit">Sign In</Button>
-            <div className="flex justify-center mt-6">
+          </div>
+          <Card className="w-full md:w-1/2 bg-white">
+            <CardHeader>
+              <CardTitle>Sign Up</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    onChange={onChange}
+                    placeholder="Your Name"
+                  />
+                </div>
+                <div className="flex flex-col gap-4">
+                  <Label htmlFor="phone_number">Phone Number</Label>
+                  <Input
+                    id="phone"
+                    onChange={onChange}
+                    placeholder="Your Phone Number"
+                  />
+                </div>
+                <InputGroup
+                  title="Password"
+                  id="password"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="********"
+                  isRequired={true}
+                />
+                <InputGroup
+                  title="Confirm Password"
+                  id="password_confirmation"
+                  type="password"
+                  onChange={onChange}
+                  placeholder="********"
+                  isRequired={true}
+                />
+              </div>
+            </CardContent>
+            <CardFooter className="flex-col justify-center gap-4">
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+              >
+                Sign Up
+              </Button>
               <p>
                 Don't have Account?{" "}
-                <Link href="sign-up" className="hover:underline">
-                  Sign Up
+                <Link href="/login" className="underline">
+                  Sign In
                 </Link>
               </p>
-            </div>
-            <div className="flex w-full items-center justify-center gap-2">
-              <div className="w-[140px] border-b-[1px] border-[#d9d9d9]"></div>
-              <h1>Sign In With</h1>
-              <div className="w-[140px] border-b-[1px] border-[#d9d9d9]"></div>
-            </div>
-            <div className="flex w-full justify-center gap-10">
-              <a href="#">
-                <img alt="fb" className="h-[40px] w-[40px]" />
-              </a>
-              <a href="http://localhost:8000/auth/google/redirect">
-                <img alt="google" className="h-[40px] w-[40px]" />
-              </a>
-              {/* <Button onClick={handleGoogleLogin}>Google</Button> */}
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-    // <div className="flex flex-col items-center gap-10 p-10 xl:px-0">
-    //   <div className="max-w-5xl">
-    //     <div className="flex h-[540px] w-[960px] gap-4 bg-white">
-    //       <div className="flex h-full w-1/2 items-center bg-[#d9d9d9]">
-    //         <Image
-    //           src="/logo_latin.png"
-    //           alt="logo"
-    //           fill
-    //           className={styles.img}
-    //         />
-    //       </div>
-    //       <form
-    //         onSubmit={onSubmit}
-    //         className="flex h-full w-1/2 flex-col justify-center gap-4 p-10"
-    //       >
-    //         <h1 className="text-4xl font-bold">Sign Up</h1>
-    //         <Input
-    //           id="name"
-    //           type="text"
-    //           onChange={onChange}
-    //           placeholder="Enter Name"
-    //           isRequired={true}
-    //         />
-    //         <Input
-    //           id="phone"
-    //           type="text"
-    //           onChange={onChange}
-    //           placeholder="Enter Phone Number"
-    //           isRequired={true}
-    //         />
-    //         <Input
-    //           id="password"
-    //           type="password"
-    //           onChange={onChange}
-    //           placeholder="Password"
-    //           isRequired={true}
-    //         />
-    //         <Input
-    //           id="password_confirmation"
-    //           type="password"
-    //           onChange={onChange}
-    //           placeholder="Confirm Password"
-    //           isRequired={true}
-    //         />
-    //         <Button type="submit">Sign Up</Button>
-    //         <div className="flex justify-center">
-    //           <p>
-    //             Already have Account?{" "}
-    //             <a className="hover:underline" href="/signin">
-    //               Sign In
-    //             </a>
-    //           </p>
-    //         </div>
-    //         <div className="flex w-full items-center justify-center gap-2">
-    //           <div className="w-[140px] border-b-[1px] border-[#d9d9d9]"></div>
-    //           <h1>Sign In With</h1>
-    //           <div className="w-[140px] border-b-[1px] border-[#d9d9d9]"></div>
-    //         </div>
-    //         <div className="flex w-full justify-center gap-10">
-    //           <Link to="/">
-    //             <img alt="fb" className="h-[40px] w-[40px]" />
-    //           </Link>
-    //           <Link to="https://api.tarang.site/auth/google/redirect">
-    //             <img alt="google" className="h-[40px] w-[40px]" />
-    //           </Link>
-    //         </div>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </div>
+              <div className="flex w-full justify-center gap-10">
+                <a href="#">
+                  <Image
+                    src="/facebook.svg"
+                    alt="facebook_logo"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+                <a href="http://localhost:8000/auth/google/redirect">
+                  <Image
+                    src="/google.svg"
+                    alt="google_logo"
+                    width={30}
+                    height={30}
+                  />
+                </a>
+              </div>
+            </CardFooter>
+          </Card>
+        </div>
+      </section>
+    </>
   );
 };
 
