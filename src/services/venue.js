@@ -40,7 +40,7 @@ export const createVenue = async (venue) => {
 
 export const getVenues = async () => {
   try {
-    const res = await axios.get("/api/venues", {
+    const res = await axios.get("/api/venues?all", {
       headers: {
         Accept: "application/json",
         // Referer",
@@ -51,6 +51,20 @@ export const getVenues = async () => {
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const getVenuesWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
   }
 };
 

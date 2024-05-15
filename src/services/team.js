@@ -15,6 +15,20 @@ export const getTeams = async () => {
   }
 };
 
+export const getTeamsWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
 export const createTeam = async (team) => {
   try {
     const preRes = await axios.post(
