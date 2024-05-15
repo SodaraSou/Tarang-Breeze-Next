@@ -33,7 +33,7 @@ function FilterSearch({ sportId }) {
   const [inputData, setInputData] = useState({
     date: "",
     start_time: "",
-    duration: "",
+    end_time: "",
     sport_type_id: sportId,
   });
   const [loading, setLoading] = useState(false);
@@ -127,24 +127,34 @@ function FilterSearch({ sportId }) {
               onValueChange={(value) => {
                 setInputData((prevState) => ({
                   ...prevState,
-                  duration: value,
+                  end_time: value,
                 }));
               }}
               required
             >
               <SelectTrigger className="bg-white">
-                <SelectValue placeholder="Select Duration" />
+                <SelectValue placeholder="Select End Time" />
               </SelectTrigger>
               <SelectContent className="bg-white">
                 <ScrollArea className="h-32">
                   <SelectGroup>
-                    <SelectLabel>Duration</SelectLabel>
-                    <SelectItem value="60">1 Hour</SelectItem>
-                    <SelectItem value="120">2 Hours</SelectItem>
-                    <SelectItem value="180">3 Hours</SelectItem>
-                    <SelectItem value="240">4 Hours</SelectItem>
-                    <SelectItem value="300">5 Hours</SelectItem>
-                    <SelectItem value="360">6 Hours</SelectItem>
+                    <SelectLabel>End Time</SelectLabel>
+                    <SelectItem value="07:00">7:00 AM</SelectItem>
+                    <SelectItem value="08:00">8:00 AM</SelectItem>
+                    <SelectItem value="09:00">9:00 AM</SelectItem>
+                    <SelectItem value="10:00">10:00 AM</SelectItem>
+                    <SelectItem value="11:00">11:00 AM</SelectItem>
+                    <SelectItem value="12:00">12:00 AM</SelectItem>
+                    <SelectItem value="13:00">13:00 PM</SelectItem>
+                    <SelectItem value="14:00">14:00 PM</SelectItem>
+                    <SelectItem value="15:00">15:00 PM</SelectItem>
+                    <SelectItem value="16:00">16:00 PM</SelectItem>
+                    <SelectItem value="17:00">17:00 PM</SelectItem>
+                    <SelectItem value="18:00">18:00 PM</SelectItem>
+                    <SelectItem value="19:00">19:00 PM</SelectItem>
+                    <SelectItem value="20:00">20:00 PM</SelectItem>
+                    <SelectItem value="21:00">21:00 PM</SelectItem>
+                    <SelectItem value="22:00">22:00 PM</SelectItem>
                   </SelectGroup>
                 </ScrollArea>
               </SelectContent>
@@ -197,7 +207,7 @@ function FilterSearch({ sportId }) {
           } w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-10`}
         >
           {search.map((venue, index) => (
-            <VenueCard key={index} venue={venue} />
+            <VenueCard key={index} venue={venue} searchData={inputData} />
           ))}
         </div>
       )}
