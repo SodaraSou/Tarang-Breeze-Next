@@ -76,7 +76,7 @@ const Login = () => {
               <div className="flex justify-center mt-6">
                 <p>
                   Don't have Account?{" "}
-                  <Link href="sign-up" className="hover:underline">
+                  <Link href="/register" className="hover:underline">
                     Sign Up
                   </Link>
                 </p>

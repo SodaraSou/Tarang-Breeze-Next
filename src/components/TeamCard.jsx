@@ -11,7 +11,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 
-function TeamCard() {
+function TeamCard({ team }) {
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader className="flex flex-col items-center">
@@ -19,7 +19,7 @@ function TeamCard() {
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <CardTitle>FC Barcelona</CardTitle>
+        <CardTitle>test</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">

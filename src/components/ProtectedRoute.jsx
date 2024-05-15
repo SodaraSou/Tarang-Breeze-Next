@@ -11,7 +11,6 @@ function ProtectedRoute({ children }) {
     queryKey: ["users"],
   });
   const router = useRouter();
-
   if (isLoading) {
     return <Spinner fullScreenSpinner={true} />;
   }

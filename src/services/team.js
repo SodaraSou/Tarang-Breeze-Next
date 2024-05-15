@@ -15,6 +15,20 @@ export const getTeams = async () => {
   }
 };
 
+export const getTeamsByUser = async () => {
+  try {
+    const res = await axios.get("/api/teams?user", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error.response);
+    return error.response;
+  }
+};
+
 export const getTeamsWithPagination = async (paginationUrl) => {
   try {
     const res = await axios.get(paginationUrl, {
