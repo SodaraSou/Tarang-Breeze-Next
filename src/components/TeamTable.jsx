@@ -1,6 +1,8 @@
 "use client";
 
-import { useGetTeams } from "@/data/team";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getTeamsWithPagination } from "@/services/team";
 import {
   Card,
   CardContent,
@@ -20,9 +22,25 @@ import {
 import TeamCreateDialog from "./TeamCreateDialog";
 import TeamEditDialog from "./TeamEditDialog";
 import TeamDeleteDialog from "./TeamDeleteDialog";
+import Spinner from "@/components/Spinner";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 function TeamTable() {
-  const { data } = useGetTeams();
+  const [paginationUrl, setPaginationUrl] = useState("/api/teams");
+  const { data: teams, isLoading } = useQuery({
+    queryKey: ["teamsWithPagination", paginationUrl],
+    queryFn: () => getTeamsWithPagination(paginationUrl),
+  });
+  const handlePaginationChange = (url) => {
+    setPaginationUrl(url);
+  };
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader className="flex justify-between">
@@ -34,48 +52,93 @@ function TeamTable() {
           <TeamCreateDialog />
         </div>
       </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>ID</TableHead>
-              <TableHead className="hidden w-[100px] sm:table-cell">
-                <span className="sr-only">Logo</span>
-              </TableHead>
-              <TableHead>Name</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {data.teams.map((team, index) => (
-              <TableRow key={index}>
-                <TableCell className="font-medium">{team.id}</TableCell>
-                <TableCell className="hidden sm:table-cell">
-                  <img
-                    alt="Product image"
-                    className="aspect-square rounded-full object-cover"
-                    height="64"
-                    src={team.logo}
-                  />
-                </TableCell>
-                <TableCell className="font-medium">{team.name}</TableCell>
-                <TableCell>{team.sportType.name}</TableCell>
-                <TableCell>
-                  <TeamEditDialog team={team} />
-                  <TeamDeleteDialog teamId={team.id} />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-      <CardFooter>
-        <div className="text-xs text-muted-foreground">
-          Showing <strong>1-10</strong> of <strong>{data.teams.length}</strong>{" "}
-          teams
+      {isLoading ? (
+        <div className="flex justify-center items-center h-[550px]">
+          <Spinner />
         </div>
-      </CardFooter>
+      ) : (
+        <>
+          <CardContent className="h-[550px]">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>ID</TableHead>
+                  <TableHead className="hidden w-[100px] sm:table-cell">
+                    <span className="sr-only">Logo</span>
+                  </TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Type</TableHead>
+                  <TableHead>Actions</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {teams.data.data.teams.map((team, index) => (
+                  <TableRow key={index}>
+                    <TableCell className="font-medium">{team.id}</TableCell>
+                    <TableCell className="hidden sm:table-cell">
+                      <img
+                        alt="Product image"
+                        className="aspect-square rounded-full object-cover"
+                        height="64"
+                        src={team.logo}
+                      />
+                    </TableCell>
+                    <TableCell className="font-medium">{team.name}</TableCell>
+                    <TableCell>{team.sportType.name}</TableCell>
+                    <TableCell>
+                      <TeamEditDialog team={team} />
+                      <TeamDeleteDialog teamId={team.id} />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter className="flex justify-between items-center">
+            <div className="text-xs text-muted-foreground">
+              Showing <strong>1-10</strong> of{" "}
+              {/*<strong>{data.teams.length}</strong> teams*/}
+            </div>
+            <div>
+              <Pagination>
+                <PaginationContent>
+                  {teams.data.meta.links.map((link) => (
+                    <PaginationItem>
+                      {link.label === "&laquo; Previous" && (
+                        <PaginationPrevious
+                          onClick={() =>
+                            link.url && handlePaginationChange(link.url)
+                          }
+                        />
+                      )}
+                      {link.label !== "&laquo; Previous" &&
+                        link.label !== "Next &raquo;" && (
+                          <PaginationItem>
+                            <PaginationLink
+                              onClick={() =>
+                                link.url && handlePaginationChange(link.url)
+                              }
+                              isActive={link.active}
+                            >
+                              {link.label}
+                            </PaginationLink>
+                          </PaginationItem>
+                        )}
+                      {link.label === "Next &raquo;" && (
+                        <PaginationNext
+                          onClick={() =>
+                            link.url && handlePaginationChange(link.url)
+                          }
+                        />
+                      )}
+                    </PaginationItem>
+                  ))}
+                </PaginationContent>
+              </Pagination>
+            </div>
+          </CardFooter>
+        </>
+      )}
     </Card>
   );
 }

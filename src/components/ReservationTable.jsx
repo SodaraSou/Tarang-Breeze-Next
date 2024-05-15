@@ -33,6 +33,7 @@ import {
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 import Spinner from "@/components/Spinner";
+import { useGetVenues } from "@/data/veune";
 
 function ReservationTable() {
   const [paginationUrl, setPaginationUrl] = useState("/api/reservation");
@@ -40,7 +41,6 @@ function ReservationTable() {
     queryKey: ["reservationsWithPagination", paginationUrl],
     queryFn: () => getReservationWithPaginationPage(paginationUrl),
   });
-  console.log(reservations);
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
@@ -55,12 +55,12 @@ function ReservationTable() {
         </div>
       </CardHeader>
       {isLoading ? (
-        <div className="flex justify-center p-10">
+        <div className="flex justify-center items-center h-[450px]">
           <Spinner />
         </div>
       ) : (
         <>
-          <CardContent>
+          <CardContent className="h-[450px]">
             <Table>
               <TableHeader>
                 <TableRow>
