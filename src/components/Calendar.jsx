@@ -215,7 +215,7 @@ function Calendar() {
                             </>
                           )}
                         </SheetTrigger>
-                        <SheetContent className="flex flex-col gap-4">
+                        <SheetContent className="flex flex-col gap-4 max-w-[400px] sm:max-w-[540px]">
                           <SheetHeader>
                             <SheetTitle>Reservations</SheetTitle>
                           </SheetHeader>
