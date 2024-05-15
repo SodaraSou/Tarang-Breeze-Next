@@ -8,7 +8,6 @@ import { useAuth } from "@/hooks/auth";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
