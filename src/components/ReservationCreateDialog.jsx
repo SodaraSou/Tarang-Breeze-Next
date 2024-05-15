@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGetVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import { createTeam } from "@/services/team";
@@ -44,23 +44,18 @@ function ReservationCreateDialog({
   isUser,
   venue,
   triggerContent,
-  date,
+  searchData,
 }) {
   const { data } = useGetVenues();
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
-    // date: date ? new Date(date).toISOString() : "",
-    date: date
-      ? new Date(
-          new Date(date).getTime() - new Date(date).getTimezoneOffset() * 60000
-        ).toISOString()
-      : "",
-    start_time: "07:00",
-    end_time: "08:00",
+    date: searchData ? searchData.date : "",
+    start_time: searchData ? searchData.start_time : "",
+    end_time: searchData ? searchData.end_time : "",
     venue_id: venue ? venue.id : 0,
-    // team_id: 0,
   });
+  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -216,6 +211,7 @@ function ReservationCreateDialog({
                         date: date.toISOString(),
                       }));
                     }}
+                    disabled={isUser}
                   />
                 </div>
                 <div className="flex gap-4">
@@ -231,6 +227,7 @@ function ReservationCreateDialog({
                           start_time: value,
                         }));
                       }}
+                      disabled={isUser}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select start time" />
@@ -271,6 +268,7 @@ function ReservationCreateDialog({
                           end_time: value,
                         }));
                       }}
+                      disabled={isUser}
                     >
                       <SelectTrigger>
                         <SelectValue placeholder="Select end time" />

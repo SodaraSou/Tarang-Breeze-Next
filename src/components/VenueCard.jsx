@@ -6,9 +6,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function VenueCard({ venue }) {
+function VenueCard({ venue, searchData }) {
   return (
-    <Link href={`/venue/${venue.sport_type.name}/${venue.id}`}>
+    <Link
+      href={{
+        pathname: `/venue/${venue.sport_type.name}/${venue.id}`,
+        query: {
+          ...searchData,
+        },
+      }}
+    >
       <Card className="bg-white rounded-xl">
         <img
           alt="Court Image"

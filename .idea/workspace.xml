@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/venue/[venueType]/[id]/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/venue/[venueType]/[id]/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DatePicker.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DatePicker.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FilterSearch.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterSearch.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Venue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Venue.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/VenueCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VenueCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/reservation.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,43 +30,43 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "SodaraSou"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;SodaraSou&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/SodaraSou/Tarang-Breeze-Next.git",
-    "accountId": "be6111b8-6775-4362-9302-24599e108c1b"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/SodaraSou/Tarang-Breeze-Next.git&quot;,
+    &quot;accountId&quot;: &quot;be6111b8-6775-4362-9302-24599e108c1b&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 6
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2gUoDRLhD96iA6gFwRkd7Lwc4dW" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "development",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "C:\\RUPP\\ITE Year 3\\Semester 2\\WCT II\\Tarang-Breeze-Next\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "settings.javascript.prettier",
-    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\RUPP\\ITE Year 3\\Semester 2\\WCT II\\Tarang-Breeze-Next\\node_modules\\prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -75,7 +82,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1715761399908</updated>
-      <workItem from="1715761401723" duration="9784000" />
+      <workItem from="1715761401723" duration="10134000" />
+      <workItem from="1715773009277" duration="7935000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -85,7 +93,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715771016059</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Minor fixed">
+      <option name="closed" value="true" />
+      <created>1715771818235</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715771818235</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

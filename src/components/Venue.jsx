@@ -16,7 +16,7 @@ import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 import Spinner from "./Spinner";
 import { Button } from "@/components/ui/button";
 
-function Venue({ venueId }) {
+function Venue({ venueId, searchData }) {
   const { data: user, isLoading: userLoading } = useQuery({
     queryKey: ["users"],
     queryFn: getUser,
@@ -46,6 +46,7 @@ function Venue({ venueId }) {
               isUser={true}
               venue={venue}
               triggerContent={<Button>Reserve Venue</Button>}
+              searchData={searchData}
             />
           </CardHeader>
         </Card>

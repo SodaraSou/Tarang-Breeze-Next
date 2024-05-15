@@ -108,7 +108,6 @@ export const getReservationByUser = async () => {
 export const searchAvailableTime = async (data) => {
   try {
     data.date = data.date.split("T")[0];
-    data.duration = parseInt(data.duration);
     data.sport_type_id = parseInt(data.sport_type_id);
     const res = await axios.post("/api/available-time", data, {
       headers: {
