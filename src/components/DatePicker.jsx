@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
-function DatePicker({ onValue, onDateChange }) {
+function DatePicker({ onValue, onDateChange, disabled }) {
   const [date, setDate] = useState(onValue || null);
 
   const handleDateChange = (newDate) => {
@@ -29,6 +29,7 @@ function DatePicker({ onValue, onDateChange }) {
             "justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
+          disabled={disabled}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>Pick a date</span>}
@@ -40,6 +41,7 @@ function DatePicker({ onValue, onDateChange }) {
           selected={date}
           onSelect={handleDateChange}
           initialFocus
+          disabled={disabled}
         />
       </PopoverContent>
     </Popover>
