@@ -36,7 +36,6 @@ function FilterSearch({ sportId }) {
     duration: "",
     sport_type_id: sportId,
   });
-  console.log(inputData);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState([]);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
@@ -179,7 +178,8 @@ function FilterSearch({ sportId }) {
             </Select>
             <Button
               onClick={handleSearch}
-              className="cols-span-1 md:col-span-2 xl:col-span-1"
+              variant="outline"
+              className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
             >
               Search
             </Button>

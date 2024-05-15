@@ -34,8 +34,6 @@ function Header() {
             <DropdownMenuItem>
               <Link href="/profile">Profile</Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Logout</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

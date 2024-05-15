@@ -9,7 +9,7 @@ async function ProfilePage() {
     <UserLayout>
       <section className="p-4 xl:p-10">
         <UserProtectedRoute>
-          <div className="max-w-4xl mx-auto flex flex-col gap-4 xl:gap-10">
+          <div className="max-w-3xl mx-auto flex flex-col gap-4 xl:gap-10">
             <Profile />
             <Reservation />
             <Team />

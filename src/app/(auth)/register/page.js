@@ -7,7 +7,6 @@ import { useState } from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -31,6 +30,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { PhoneInput } from "@/components/ui/phone-input";
 
 const Page = () => {
   const [inputData, setInputData] = useState({
@@ -39,7 +39,7 @@ const Page = () => {
     password: "",
     password_confirmation: "",
   });
-  console.log(inputData);
+  const [phoneNumber, setPhoneNumber] = useState("");
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -86,7 +86,7 @@ const Page = () => {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="bg-white">
           <DialogHeader>
-            <DialogTitle>OTP</DialogTitle>
+            <DialogTitle className="text-2xl md:text-4xl">OTP</DialogTitle>
             <DialogDescription>
               Enter the 6 digit code sent to your phone number +88570776079
             </DialogDescription>
@@ -122,16 +122,18 @@ const Page = () => {
           <div
             className={`hidden w-full md:w-1/2 md:block ${styles.imgContainer}`}
           >
-            <Image
-              src="/logo_latin.png"
-              alt="logo"
-              fill
-              className={styles.img}
-            />
+            <Link href="/">
+              <Image
+                src="/logo_latin.png"
+                alt="logo"
+                fill
+                className={styles.img}
+              />
+            </Link>
           </div>
           <Card className="w-full md:w-1/2 bg-white">
             <CardHeader>
-              <CardTitle>Sign Up</CardTitle>
+              <CardTitle className="text-2xl md:text-4xl">Sign Up</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-4">
@@ -144,11 +146,13 @@ const Page = () => {
                   />
                 </div>
                 <div className="flex flex-col gap-4">
-                  <Label htmlFor="phone_number">Phone Number</Label>
-                  <Input
+                  <Label>Phone Number</Label>
+                  <PhoneInput
                     id="phone"
-                    onChange={onChange}
-                    placeholder="Your Phone Number"
+                    onChange={setPhoneNumber}
+                    className="rounded-lg"
+                    international
+                    defaultCountry="KH"
                   />
                 </div>
                 <InputGroup
@@ -178,7 +182,7 @@ const Page = () => {
                 Sign Up
               </Button>
               <p>
-                Don't have Account?{" "}
+                Already have Account?{" "}
                 <Link href="/login" className="underline">
                   Sign In
                 </Link>
