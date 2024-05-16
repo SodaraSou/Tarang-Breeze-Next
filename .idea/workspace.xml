@@ -5,15 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/venue/[venueType]/[id]/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/venue/[venueType]/[id]/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DatePicker.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DatePicker.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FilterSearch.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterSearch.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(auth)/register/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/register/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Reservation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Reservation.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Venue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Venue.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Team.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Team.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/VenueCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VenueCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/reservation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/auth.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,7 +83,8 @@
       <option name="presentableId" value="Default" />
       <updated>1715761399908</updated>
       <workItem from="1715761401723" duration="10134000" />
-      <workItem from="1715773009277" duration="7935000" />
+      <workItem from="1715773009277" duration="8058000" />
+      <workItem from="1715829124964" duration="9186000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -101,13 +102,39 @@
       <option name="project" value="LOCAL" />
       <updated>1715771818235</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Add disabled">
+      <option name="closed" value="true" />
+      <created>1715782827106</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1715782827106</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Switch to from duration to end time">
+      <option name="closed" value="true" />
+      <created>1715782849682</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1715782849682</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Minor fixed">
+      <option name="closed" value="true" />
+      <created>1715782868860</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1715782868860</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add disabled" />
+    <MESSAGE value="Switch to from duration to end time" />
     <MESSAGE value="Minor fixed" />
     <option name="LAST_COMMIT_MESSAGE" value="Minor fixed" />
   </component>

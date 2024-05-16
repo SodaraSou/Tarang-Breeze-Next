@@ -23,7 +23,7 @@ function Reservation() {
           </div>
         ) : (
           <div className="flex flex-col gap-4">
-            {data?.reservations.length === 0 ? (
+            {data?.data.reservations.length === 0 ? (
               <div className="flex justify-center p-10">
                 <h1 className="text-2xl font-semibold">No Reservation</h1>
               </div>

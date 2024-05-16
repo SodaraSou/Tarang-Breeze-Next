@@ -38,7 +38,7 @@ function Team() {
               </div>
             ) : (
               <>
-                {data?.data.data.teams?.map((team, index) => (
+                {data?.data.data.teams.map((team, index) => (
                   <TeamCard key={index} team={team} />
                 ))}
               </>

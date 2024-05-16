@@ -18,6 +18,7 @@ function Profile() {
     queryFn: getUser,
     queryKey: ["users"],
   });
+  console.log(data);
   const [editMode, setEditMode] = useState(true);
   return (
     <Card className="bg-white">
@@ -84,6 +85,7 @@ function Profile() {
             <div className="flex flex-col gap-4">
               <Label>Phone Number</Label>
               <PhoneInput
+                value={"+" + data?.data.phone}
                 placeholder="Enter a phone number"
                 className="rounded-lg"
                 international
