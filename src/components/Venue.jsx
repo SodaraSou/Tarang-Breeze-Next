@@ -1,7 +1,6 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getUser } from "@/services/user";
 import { showSingleVenue } from "@/services/venue";
 import { Check } from "lucide-react";
 import { GiTennisCourt } from "react-icons/gi";
@@ -17,15 +16,11 @@ import Spinner from "./Spinner";
 import { Button } from "@/components/ui/button";
 
 function Venue({ venueId, searchData }) {
-  const { data: user, isLoading: userLoading } = useQuery({
-    queryKey: ["users"],
-    queryFn: getUser,
-  });
   const { data: venue, isLoading: venueLoading } = useQuery({
     queryKey: ["venue", venueId],
     queryFn: () => showSingleVenue(venueId),
   });
-  if (userLoading || venueLoading) {
+  if (venueLoading) {
     return (
       <div className="flex justify-center p-10">
         <Spinner />
@@ -42,7 +37,6 @@ function Venue({ venueId, searchData }) {
               <CardTitle>{venue?.name}</CardTitle>
             </div>
             <ReservationCreateDialog
-              isUserLogin={user}
               isUser={true}
               venue={venue}
               triggerContent={<Button>Reserve Venue</Button>}

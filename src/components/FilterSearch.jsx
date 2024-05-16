@@ -38,6 +38,7 @@ function FilterSearch({ sportId }) {
   });
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState([]);
+  const [isSearch, setIsSearch] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const handleSearch = async (e) => {
@@ -49,6 +50,16 @@ function FilterSearch({ sportId }) {
       setLoading(false);
       return;
     }
+    if (
+      new Date(`2000-01-01T${inputData.start_time}`) >=
+      new Date(`2000-01-01T${inputData.end_time}`)
+    ) {
+      setAlertMessage("End time must be after start time.");
+      setOpenAlertDialog(true);
+      setLoading(false);
+      return;
+    }
+    setIsSearch(true);
     const res = await searchAvailableTime(inputData);
     if (res.status === 200) {
       setSearch(res.data.available_tarang);
@@ -67,7 +78,12 @@ function FilterSearch({ sportId }) {
             <AlertDialogDescription>{alertMessage}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction
+              variant="outline"
+              className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
+            >
+              Ok
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -196,20 +212,53 @@ function FilterSearch({ sportId }) {
           </div>
         </CardContent>
       </Card>
-      {loading && search.length === 0 ? (
-        <div className="flex justify-center mt-4 md:mt-10">
-          <Spinner />
-        </div>
+      {loading ? (
+        <Card className="bg-white flex justify-center mt-4 md:mt-10">
+          <CardHeader>
+            <Spinner />
+          </CardHeader>
+        </Card>
       ) : (
-        <div
-          className={`${
-            search.length > 0 ? "mt-4 md:mt-10" : ""
-          } w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-10`}
-        >
-          {search.map((venue, index) => (
-            <VenueCard key={index} venue={venue} searchData={inputData} />
-          ))}
-        </div>
+        <>
+          {search.length > 0 ? (
+            <Card
+              className={`${search.length > 0 && "mt-4 md:mt-10"} bg-white`}
+            >
+              <CardHeader>
+                <CardTitle>Available Venues</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {search.map((venue, index) => (
+                    <VenueCard
+                      key={index}
+                      venue={venue}
+                      searchData={inputData}
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            inputData.date !== "" &&
+            inputData.start_time !== "" &&
+            inputData.end_time !== "" &&
+            inputData.sport_type_id !== "" &&
+            isSearch && (
+              <Card
+                className={`${
+                  inputData.date === null && search.length === 0
+                    ? "hidden"
+                    : "mt-4 md:mt-10 bg-white"
+                }`}
+              >
+                <CardHeader className="text-center">
+                  <CardTitle>No Venues Available</CardTitle>
+                </CardHeader>
+              </Card>
+            )
+          )}
+        </>
       )}
     </>
   );

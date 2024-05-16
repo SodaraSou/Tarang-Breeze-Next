@@ -91,9 +91,9 @@ export const getReservationWithPaginationPage = async (paginationUrl) => {
   }
 };
 
-export const getReservationByUser = async () => {
+export const getReservationByUser = async (paginationUrl) => {
   try {
-    const res = await axios.get(`/api/reservations-user`, {
+    const res = await axios.get(paginationUrl, {
       headers: {
         Accept: "application/json",
       },

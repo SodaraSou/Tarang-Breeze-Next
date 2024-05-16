@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getVenues } from "@/services/venue";
+import { getAllVenues } from "@/services/venue";
 import { updateReservation } from "@/services/reservation";
 import {
   Dialog,
@@ -41,8 +41,8 @@ const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function ReservationEditDialog({ reservation }) {
   const { data, isLoading } = useQuery({
-    queryKey: ["venues"],
-    queryFn: async () => await getVenues(),
+    queryKey: ["allVenues"],
+    queryFn: async () => await getAllVenues(),
   });
   const [inputData, setInputData] = useState({
     phone: reservation ? reservation.phone : "",

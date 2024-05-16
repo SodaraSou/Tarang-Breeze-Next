@@ -110,14 +110,16 @@ function VenueTable() {
             <div>
               <Pagination>
                 <PaginationContent>
-                  {venues.data.meta.links.map((link) => (
-                    <PaginationItem>
+                  {venues.data.meta.links.map((link, index) => (
+                    <div key={index}>
                       {link.label === "&laquo; Previous" && (
-                        <PaginationPrevious
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationPrevious
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
                       {link.label !== "&laquo; Previous" &&
                         link.label !== "Next &raquo;" && (
@@ -133,13 +135,15 @@ function VenueTable() {
                           </PaginationItem>
                         )}
                       {link.label === "Next &raquo;" && (
-                        <PaginationNext
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationNext
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
-                    </PaginationItem>
+                    </div>
                   ))}
                 </PaginationContent>
               </Pagination>

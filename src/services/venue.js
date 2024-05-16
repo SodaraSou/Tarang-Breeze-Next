@@ -38,16 +38,14 @@ export const createVenue = async (venue) => {
   }
 };
 
-export const getVenues = async () => {
+export const getAllVenues = async () => {
   try {
     const res = await axios.get("/api/venues?all", {
       headers: {
         Accept: "application/json",
-        // Referer",
       },
     });
-    const data = res.data;
-    return data;
+    return res.data;
   } catch (error) {
     console.log(error);
     return null;

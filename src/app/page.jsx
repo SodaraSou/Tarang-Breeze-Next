@@ -4,7 +4,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { getSportTypes } from "@/services/sport";
-import { getVenues } from "@/services/venue";
+import { getAllVenues } from "@/services/venue";
 import UserLayout from "./UserLayout";
 import FeatureSport from "@/components/FeatureSport";
 import FeatureTeam from "@/components/FeatureTeam";
@@ -13,14 +13,13 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 async function HomePage() {
   const queryClient = new QueryClient();
-
   await queryClient.prefetchQuery({
     queryKey: ["sportTypes"],
     queryFn: getSportTypes,
   });
   await queryClient.prefetchQuery({
-    queryKey: ["venues"],
-    queryFn: getVenues,
+    queryKey: ["allVenues"],
+    queryFn: getAllVenues,
   });
   return (
     <UserLayout>

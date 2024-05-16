@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { getVenues, showSingleVenue } from "@/services/venue";
+import { getAllVenues, showSingleVenue } from "@/services/venue";
 
-export const useGetVenues = () => {
+export const useGetAllVenues = () => {
   return useQuery({
-    queryFn: async () => getVenues(),
-    queryKey: ["venues"],
+    queryFn: async () => getAllVenues(),
+    queryKey: ["allVenues"],
   });
 };
 

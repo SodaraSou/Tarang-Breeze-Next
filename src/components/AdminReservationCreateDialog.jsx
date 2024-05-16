@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetVenues } from "@/data/veune";
+import { useGetAllVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import { createTeam } from "@/services/team";
 import {
@@ -40,7 +40,7 @@ import Spinner from "@/components/Spinner";
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
-  const { data } = useGetVenues();
+  const { data } = useGetAllVenues();
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,

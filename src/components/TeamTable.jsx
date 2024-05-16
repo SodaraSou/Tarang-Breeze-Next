@@ -102,14 +102,16 @@ function TeamTable() {
             <div>
               <Pagination>
                 <PaginationContent>
-                  {teams.data.meta.links.map((link) => (
-                    <PaginationItem>
+                  {teams.data.meta.links.map((link, index) => (
+                    <div key={index}>
                       {link.label === "&laquo; Previous" && (
-                        <PaginationPrevious
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationPrevious
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
                       {link.label !== "&laquo; Previous" &&
                         link.label !== "Next &raquo;" && (
@@ -125,13 +127,15 @@ function TeamTable() {
                           </PaginationItem>
                         )}
                       {link.label === "Next &raquo;" && (
-                        <PaginationNext
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationNext
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
-                    </PaginationItem>
+                    </div>
                   ))}
                 </PaginationContent>
               </Pagination>

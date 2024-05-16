@@ -18,7 +18,6 @@ function Profile() {
     queryFn: getUser,
     queryKey: ["users"],
   });
-  console.log(data);
   const [editMode, setEditMode] = useState(true);
   return (
     <Card className="bg-white">

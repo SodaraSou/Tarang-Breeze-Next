@@ -24,7 +24,6 @@ import {
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -33,7 +32,6 @@ import {
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 import Spinner from "@/components/Spinner";
-import { useGetVenues } from "@/data/veune";
 
 function ReservationTable() {
   const [paginationUrl, setPaginationUrl] = useState("/api/reservation");
@@ -113,14 +111,16 @@ function ReservationTable() {
             <div>
               <Pagination>
                 <PaginationContent>
-                  {reservations.data.meta.links.map((link) => (
-                    <PaginationItem>
+                  {reservations.data.meta.links.map((link, index) => (
+                    <div key={index}>
                       {link.label === "&laquo; Previous" && (
-                        <PaginationPrevious
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationPrevious
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
                       {link.label !== "&laquo; Previous" &&
                         link.label !== "Next &raquo;" && (
@@ -136,13 +136,15 @@ function ReservationTable() {
                           </PaginationItem>
                         )}
                       {link.label === "Next &raquo;" && (
-                        <PaginationNext
-                          onClick={() =>
-                            link.url && handlePaginationChange(link.url)
-                          }
-                        />
+                        <PaginationItem>
+                          <PaginationNext
+                            onClick={() =>
+                              link.url && handlePaginationChange(link.url)
+                            }
+                          />
+                        </PaginationItem>
                       )}
-                    </PaginationItem>
+                    </div>
                   ))}
                 </PaginationContent>
               </Pagination>

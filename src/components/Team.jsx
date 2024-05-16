@@ -2,15 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getTeamsByUser } from "@/services/team";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Spinner from "@/components/Spinner";
 import TeamCard from "@/components/TeamCard";

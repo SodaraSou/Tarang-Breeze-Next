@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetVenues } from "@/data/veune";
+import { useGetAllVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import { createTeam } from "@/services/team";
 import {
@@ -36,18 +36,22 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import DatePicker from "./DatePicker";
 import Spinner from "@/components/Spinner";
+import { useQuery } from "@tanstack/react-query";
+import { getUser } from "@/services/user";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function ReservationCreateDialog({
-  isUserLogin,
   isUser,
   venue,
   triggerContent,
   searchData,
 }) {
-  console.log(venue);
-  const { data } = useGetVenues();
+  const { data: user } = useQuery({
+    queryKey: ["users"],
+    queryFn: getUser,
+  });
+  const { data } = useGetAllVenues();
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
@@ -56,7 +60,6 @@ function ReservationCreateDialog({
     end_time: searchData ? searchData.end_time : "",
     venue_id: venue ? venue.id : 0,
   });
-  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -101,7 +104,7 @@ function ReservationCreateDialog({
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (isUserLogin.status !== 401) {
+    if (user.status !== 401) {
       if (teamOptions.find_member || teamOptions.find_team) {
         const preRes = await createTeam(teamData);
         inputData.team_id = preRes.data.id;
