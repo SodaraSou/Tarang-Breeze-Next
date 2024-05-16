@@ -31,6 +31,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const [inputData, setInputData] = useState({
@@ -40,6 +41,7 @@ const Page = () => {
     password_confirmation: "",
   });
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [value, setValue] = useState("");
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -54,11 +56,18 @@ const Page = () => {
     e.preventDefault();
     setLoading(true);
     try {
+      if (phoneNumber.startsWith("+")) {
+        inputData.phone = phoneNumber.slice(1);
+      } else {
+        inputData.phone = phoneNumber;
+      }
+      console.log(inputData);
       const res = await axios.post(
         "http://localhost:8000/register",
         inputData,
         {
           headers: {
+            "content-type": "application/json",
             Accept: "application/json",
           },
         }
@@ -71,11 +80,24 @@ const Page = () => {
       setOpen(true);
     }
   };
-
+  const router = useRouter();
   const handleOpt = async (e) => {
     e.preventDefault();
     try {
+      const res = await axios.post(
+        "http://localhost:8000/api/verify-phone",
+        { user_id: user.id, code: value },
+        {
+          headers: {
+            "content-type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      router.push("/");
+      console.log(res);
     } catch (e) {
+      alert(e);
       console.log(e.response);
       return e.response;
     }
@@ -88,11 +110,15 @@ const Page = () => {
           <DialogHeader>
             <DialogTitle className="text-2xl md:text-4xl">OTP</DialogTitle>
             <DialogDescription>
-              Enter the 6 digit code sent to your phone number +88570776079
+              Enter the 6 digit code sent to your phone number {phoneNumber}
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-center">
-            <InputOTP maxLength={6}>
+            <InputOTP
+              maxLength={6}
+              value={value}
+              onChange={(value) => setValue(value)}
+            >
               <InputOTPGroup>
                 <InputOTPSlot index={0} />
                 <InputOTPSlot index={1} />
@@ -108,6 +134,7 @@ const Page = () => {
           </div>
           <DialogFooter>
             <Button
+              onClick={handleOpt}
               type="submit"
               variant="outline"
               className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
@@ -175,6 +202,7 @@ const Page = () => {
             </CardContent>
             <CardFooter className="flex-col justify-center gap-4">
               <Button
+                onClick={onSubmit}
                 type="submit"
                 variant="outline"
                 className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"

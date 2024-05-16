@@ -44,7 +44,12 @@ const Login = () => {
   };
   const onSubmit = async (e) => {
     e.preventDefault();
-    login({});
+    if (phoneNumber.startsWith("+")) {
+      inputData.phone = phoneNumber.slice(1);
+    } else {
+      inputData.phone = phoneNumber;
+    }
+    await login({ ...inputData });
   };
   return (
     <>
@@ -90,6 +95,7 @@ const Login = () => {
             </CardContent>
             <CardFooter className="flex-col justify-center gap-4">
               <Button
+                onClick={onSubmit}
                 type="submit"
                 variant="outline"
                 className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
