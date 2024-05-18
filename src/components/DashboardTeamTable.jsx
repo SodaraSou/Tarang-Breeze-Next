@@ -5,7 +5,7 @@ function DashboardTeamTable() {
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader>
-        <CardTitle>Recent Sales</CardTitle>
+        <CardTitle>Team Matches</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-8">
         <div className="flex items-center gap-4">

@@ -9,12 +9,12 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-import { useGetReservation } from "@/data/reservation";
+import { useGetAllReservations } from "@/data/reservation";
 import AdminReservationCreateDialog from "@/components/AdminReservationCreateDialog";
 import TournamentCard from "./TournamentCard";
 
 function Calendar() {
-  const { data } = useGetReservation();
+  const { data } = useGetAllReservations();
   const MONTH_NAMES = [
     "January",
     "February",

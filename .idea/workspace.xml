@@ -5,30 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
-      <change afterPath="$PROJECT_DIR$/src/components/DashboardReservationTable.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/DashboardTeamTable.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/StatisticsCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/admin/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/page.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/admin/reservation/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/reservation/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/admin/venue/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/venue/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/AdminReservationCreateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/AdminReservationCreateDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/FilterSearch.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FilterSearch.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Reservation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Reservation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReservationEditDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationEditDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ReservationTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Team.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Team.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/TeamTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Venue.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Venue.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/VenueTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/VenueTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/veune.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/veune.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Calendar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DashboardReservationTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardReservationTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/DashboardTeamTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardTeamTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/StatisticsCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/StatisticsCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/TeamCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/reservation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/reservation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/user.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/venue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/venue.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +87,9 @@
       <workItem from="1715761401723" duration="10134000" />
       <workItem from="1715773009277" duration="8058000" />
       <workItem from="1715829124964" duration="14142000" />
-      <workItem from="1715851567229" duration="17561000" />
+      <workItem from="1715851567229" duration="17740000" />
+      <workItem from="1715948605312" duration="10554000" />
+      <workItem from="1715995940912" duration="1819000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -158,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715840548575</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Minor fixed">
+      <option name="closed" value="true" />
+      <created>1715871625509</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1715871625509</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

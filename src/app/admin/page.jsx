@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { getAllUsers } from "@/services/user";
 import { getAllVenues } from "@/services/venue";
+import { getAllReservations } from "@/services/reservation";
 import StatisticsCard from "@/components/StatisticsCard";
 import DashboardReservationTable from "@/components/DashboardReservationTable";
 import DashboardTeamTable from "@/components/DashboardTeamTable";
@@ -19,12 +20,20 @@ async function AdminHomePage() {
     queryKey: ["allUsers"],
     queryFn: getAllUsers,
   });
+  await queryClient.prefetchQuery({
+    queryKey: ["allReservations"],
+    queryFn: getAllReservations,
+  });
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <StatisticsCard />
       <div className="grid gap-4 xl:gap-10 xl:grid-cols-3">
-        <DashboardReservationTable />
-        <DashboardTeamTable />
+        <div className="xl:col-span-2">
+          <DashboardReservationTable />
+        </div>
+        <div>
+          <DashboardTeamTable />
+        </div>
       </div>
     </HydrationBoundary>
   );

@@ -1,5 +1,3 @@
-"use client";
-
 import { CheckCircle } from "lucide-react";
 import {
   Card,
@@ -16,41 +14,26 @@ function TeamCard({ team }) {
     <Card className="bg-white rounded-xl">
       <CardHeader className="flex flex-col items-center">
         <Avatar className="w-24 h-24">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={team.logo} />
+          <AvatarFallback>{team.name}</AvatarFallback>
         </Avatar>
-        <CardTitle>test</CardTitle>
+        <CardTitle>{team.name}</CardTitle>
       </CardHeader>
       <CardContent>
-        <div className="flex flex-col gap-4">
+        <div>
           <p className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4" />
             Available for a match
           </p>
-          <p className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4" />
-            Accepting new members
-          </p>
         </div>
       </CardContent>
       <CardFooter>
-        <div className="flex w-full gap-4">
-          <Button
-            variant="outline"
-            className="bg-[#2AD5A5] w-full rounded-xl text-white"
-            onClick={() => {
-              console.log("Button clicked!");
-            }}
-          >
-            Join
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-[#2AD5A5] w-full rounded-xl text-white"
-          >
-            Challenge
-          </Button>
-        </div>
+        <Button
+          variant="outline"
+          className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
+        >
+          Challenge
+        </Button>
       </CardFooter>
     </Card>
   );

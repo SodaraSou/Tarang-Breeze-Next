@@ -49,23 +49,9 @@ export const deleteReservation = async (reservationId) => {
   }
 };
 
-export const getReservation = async () => {
+export const getAllReservations = async () => {
   try {
     const res = await axios.get(`/api/reservation?all`, {
-      headers: {
-        Accept: "application/json",
-      },
-    });
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
-};
-
-export const getReservationWithPagination = async () => {
-  try {
-    const res = await axios.get(`/api/reservation`, {
       headers: {
         Accept: "application/json",
       },
