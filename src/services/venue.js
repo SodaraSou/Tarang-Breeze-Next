@@ -123,14 +123,12 @@ export const updateVenue = async (venue, updateVenue) => {
     }
     updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
     updateVenue.amenity_id = updateVenue.amenity_id.map((str) => parseInt(str));
-    console.log(updateVenue);
     const response = await axios.put(`/api/venues/${venue.id}`, updateVenue, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

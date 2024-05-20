@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useGetAllVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
-import { createTeam } from "@/services/team";
+import { createMatchGame, createTeam } from "@/services/team";
 import {
   Dialog,
   DialogContent,
@@ -110,7 +110,12 @@ function ReservationCreateDialog({
         inputData.team_id = preRes.data.id;
         const reservation = { ...inputData, ...teamOptions };
         const res = await createReservation(reservation);
-        if (res.status === 204) {
+        if (res.status === 201) {
+          const resMatchGame = await createMatchGame({
+            team1_id: preRes.data.id,
+            reservation_id: res.data.id,
+          });
+          console.log(resMatchGame);
           setOpenAlertDialog(true);
           setAlertMessage("Reservation Create Successfully");
           wait().then(() => setOpenAlertDialog(false));
@@ -124,7 +129,7 @@ function ReservationCreateDialog({
         return;
       }
       const res = await createReservation({ ...inputData, ...teamOptions });
-      if (res.status === 204) {
+      if (res.status === 201) {
         setOpenAlertDialog(true);
         setAlertMessage("Reservation Create Successfully");
         wait().then(() => setOpenAlertDialog(false));
@@ -160,18 +165,18 @@ function ReservationCreateDialog({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>{triggerContent}</DialogTrigger>
         <DialogContent className="bg-white">
-          <form onSubmit={onSubmit}>
-            <DialogHeader>
-              <DialogTitle>Create Reservation</DialogTitle>
-              <DialogDescription>
-                Create your reservation here. Click save when you're done.
-              </DialogDescription>
-            </DialogHeader>
-            {loading ? (
-              <div className="flex justify-center p-10">
-                <Spinner />
-              </div>
-            ) : (
+          {loading ? (
+            <div className="flex justify-center p-10">
+              <Spinner />
+            </div>
+          ) : (
+            <form onSubmit={onSubmit}>
+              <DialogHeader>
+                <DialogTitle>Create Reservation</DialogTitle>
+                <DialogDescription>
+                  Create your reservation here. Click save when you're done.
+                </DialogDescription>
+              </DialogHeader>
               <div className="flex flex-col gap-4 py-4">
                 <div className="flex flex-col gap-2 w-full">
                   <Label htmlFor="name">Venue</Label>
@@ -370,17 +375,17 @@ function ReservationCreateDialog({
                   </>
                 )}
               </div>
-            )}
-            <DialogFooter>
-              <Button
-                type="submit"
-                variant="outline"
-                className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
-              >
-                Confirm Reservation
-              </Button>
-            </DialogFooter>
-          </form>
+              <DialogFooter>
+                <Button
+                  type="submit"
+                  variant="outline"
+                  className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+                >
+                  Confirm Reservation
+                </Button>
+              </DialogFooter>
+            </form>
+          )}
         </DialogContent>
       </Dialog>
     </>

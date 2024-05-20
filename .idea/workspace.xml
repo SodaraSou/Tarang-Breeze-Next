@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
+      <change afterPath="$PROJECT_DIR$/src/components/FeatureMatchGame.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MatchDay.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MatchDayRegisterDialog.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/MatchGameCard.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/admin/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/admin/reservation/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/admin/reservation/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Calendar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Calendar.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DashboardReservationTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardReservationTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/DashboardTeamTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/DashboardTeamTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/StatisticsCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/StatisticsCard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ReservationCreateDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Team.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Team.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/TeamCard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/TeamCard.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/reservation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/services/reservation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/reservation.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/team.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/venue.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/venue.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +91,9 @@
       <workItem from="1715829124964" duration="14142000" />
       <workItem from="1715851567229" duration="17740000" />
       <workItem from="1715948605312" duration="10554000" />
-      <workItem from="1715995940912" duration="1819000" />
+      <workItem from="1715995940912" duration="4787000" />
+      <workItem from="1716165934232" duration="21783000" />
+      <workItem from="1716210280083" duration="8614000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -155,7 +159,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715871625509</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Minor fixed">
+      <option name="closed" value="true" />
+      <created>1715998627799</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1715998627799</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

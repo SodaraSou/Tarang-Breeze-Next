@@ -1,8 +1,8 @@
 import axios from "@/lib/axios";
+import { createTeam } from "@/services/team";
 
 export const createReservation = async (reservation) => {
   try {
-    console.log(reservation);
     const res = await axios.post("/api/reservation", reservation, {
       headers: {
         "content-type": "application/json",
@@ -15,6 +15,24 @@ export const createReservation = async (reservation) => {
     return error.response;
   }
 };
+
+// export const createReservationTest = async (reservation, team) => {
+//   try {
+//     if (reservation.find_team) {
+//       const resTeam = await createTeam(team);
+//     }
+//     const res = await axios.post("/api/reservation", reservation, {
+//       headers: {
+//         "content-type": "application/json",
+//         Accept: "application/json",
+//       },
+//     });
+//     return res;
+//   } catch (error) {
+//     console.error(error.response);
+//     return error.response;
+//   }
+// };
 
 export const updateReservation = async (reservation, updateReservation) => {
   try {

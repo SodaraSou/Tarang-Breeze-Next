@@ -108,3 +108,47 @@ export const deleteTeam = async (teamId) => {
     return error.response;
   }
 };
+
+export const getMatchGames = async () => {
+  try {
+    const res = await axios.get(`/api/match-games`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const createMatchGame = async (matchGame) => {
+  try {
+    const res = await axios.post("/api/match-games", matchGame, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const updateMatchGame = async (matchGameId, matchGame) => {
+  try {
+    const res = await axios.put(`/api/match-games/${matchGameId}`, matchGame, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};

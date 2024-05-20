@@ -10,6 +10,7 @@ import FeatureSport from "@/components/FeatureSport";
 import FeatureTeam from "@/components/FeatureTeam";
 import FilterSearch from "@/components/FilterSearch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import FeatureMatchGame from "@/components/FeatureMatchGame";
 
 async function HomePage() {
   const queryClient = new QueryClient();
@@ -74,6 +75,7 @@ async function HomePage() {
               </Card>
             </div>
             <FeatureTeam />
+            <FeatureMatchGame />
           </HydrationBoundary>
         </div>
       </section>
