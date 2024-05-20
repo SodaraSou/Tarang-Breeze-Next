@@ -1,7 +1,6 @@
 import { Poppins } from "next/font/google";
 import "./global.css";
 import ReactQueryProvider from "@/lib/Providers/ReactQueryProvider";
-import Head from "next/head";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400"] });
 
@@ -16,11 +15,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <Head>
-        <title>{metadata.title}</title>
-        <meta name="description" content={metadata.description} />
-        <meta name="keywords" content={metadata.keywords} />
-      </Head>
       <body className={poppins.className}>
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>

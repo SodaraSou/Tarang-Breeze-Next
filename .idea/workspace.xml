@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/layout.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/test-sport/badminton/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-sport/badminton/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/test-sport/football/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-sport/football/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/test-sport/ping%20pong/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-sport/ping%20pong/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/test-sport/volleyball/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/test-sport/volleyball/page.jsx" afterDir="false" />
+    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Update SEO">
+      <change beforePath="$PROJECT_DIR$/src/app/sport/[sportType]/[id]/page.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FeatureSport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureSport.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +82,7 @@
       <workItem from="1715948605312" duration="10554000" />
       <workItem from="1715995940912" duration="4787000" />
       <workItem from="1716165934232" duration="21783000" />
-      <workItem from="1716210280083" duration="9893000" />
+      <workItem from="1716210280083" duration="10199000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -176,7 +172,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716219475544</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Update SEO">
+      <option name="closed" value="true" />
+      <created>1716220616058</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1716220616058</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +192,7 @@
     <MESSAGE value="Done auth" />
     <MESSAGE value="Added new components" />
     <MESSAGE value="Minor fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor fixed" />
+    <MESSAGE value="Update SEO" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update SEO" />
   </component>
 </project>
