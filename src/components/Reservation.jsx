@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/pagination";
 import Spinner from "./Spinner";
 import TournamentCard from "./TournamentCard";
+import Image from "next/image";
 
 function Reservation() {
   const [paginationUrl, setPaginationUrl] = useState("/api/reservations-user");
@@ -43,8 +44,14 @@ function Reservation() {
         ) : (
           <div className="flex flex-col gap-4">
             {data?.data.reservations.length === 0 ? (
-              <div className="flex justify-center p-10">
-                <h1 className="text-2xl font-semibold">No Reservation</h1>
+              <div className="flex justify-center items-center gap-4 p-10">
+                <Image
+                  src="/favicon.ico"
+                  width={32}
+                  height={32}
+                  alt="tarang_icon"
+                />
+                <h1 className="text-2xl font-semibold">No Reservations</h1>
               </div>
             ) : (
               <>

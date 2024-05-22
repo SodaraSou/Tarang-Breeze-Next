@@ -18,7 +18,7 @@ function BadmintonPage() {
         <div className="flex flex-col gap-4 md:gap-10">
           <FilterSearch sportId={2} />
           <BadmintonPrimaryBanner />
-          <FeatureTeam />
+          <FeatureTeam sport="badminton" />
         </div>
       </section>
     </UserLayout>

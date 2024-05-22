@@ -4,9 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Update SEO">
-      <change beforePath="$PROJECT_DIR$/src/app/sport/[sportType]/[id]/page.jsx" beforeDir="false" />
+    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Refactor and minor SEO fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/(auth)/register/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/register/page.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/profile/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sport/badminton/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sport/badminton/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/team/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/team/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/venue/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/venue/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FeatureMatchGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureMatchGame.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FeatureSport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureSport.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MatchDay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MatchGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/MatchDayRegisterDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MatchDayRegisterDialog.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Reservation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Reservation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Team.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Team.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/team.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,17 +63,31 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/RUPP/ITE Year 3/Semester 2/WCT II/Tarang-Breeze-Next/src/app/sport&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\RUPP\\ITE Year 3\\Semester 2\\WCT II\\Tarang-Breeze-Next\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\RUPP\ITE Year 3\Semester 2\WCT II\Tarang-Breeze-Next\src\app\sport" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\RUPP\ITE Year 3\Semester 2\WCT II\Tarang-Breeze-Next\src\app\sport" />
+      <recent name="C:\RUPP\ITE Year 3\Semester 2\WCT II\Tarang-Breeze-Next\src\app\sport\football" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -82,7 +110,18 @@
       <workItem from="1715948605312" duration="10554000" />
       <workItem from="1715995940912" duration="4787000" />
       <workItem from="1716165934232" duration="21783000" />
-      <workItem from="1716210280083" duration="10199000" />
+      <workItem from="1716210280083" duration="10550000" />
+      <workItem from="1716255900168" duration="4765000" />
+      <workItem from="1716266426651" duration="101000" />
+      <workItem from="1716266542745" duration="23000" />
+      <workItem from="1716266717799" duration="415000" />
+      <workItem from="1716267151110" duration="9412000" />
+      <workItem from="1716291121229" duration="250000" />
+      <workItem from="1716341926066" duration="5000" />
+      <workItem from="1716344575155" duration="141000" />
+      <workItem from="1716345041116" duration="65000" />
+      <workItem from="1716348895673" duration="448000" />
+      <workItem from="1716349416852" duration="249000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -180,11 +219,30 @@
       <option name="project" value="LOCAL" />
       <updated>1716220616058</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Refactor and minor SEO fixed">
+      <option name="closed" value="true" />
+      <created>1716221148721</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716221148721</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add disabled" />
@@ -193,6 +251,7 @@
     <MESSAGE value="Added new components" />
     <MESSAGE value="Minor fixed" />
     <MESSAGE value="Update SEO" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update SEO" />
+    <MESSAGE value="Refactor and minor SEO fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactor and minor SEO fixed" />
   </component>
 </project>

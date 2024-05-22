@@ -6,14 +6,14 @@ import {
 import UserLayout from "../UserLayout";
 import FilterSearch from "@/components/FilterSearch";
 import SearchVenue from "@/components/SearchVenue";
-import { getVenues } from "@/services/venue";
+import { getAllVenues } from "@/services/venue";
 
 async function VenuePage() {
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: ["venues"],
-    queryFn: getVenues,
+    queryFn: getAllVenues,
   });
   return (
     <UserLayout>

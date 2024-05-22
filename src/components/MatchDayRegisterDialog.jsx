@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/services/user";
 import {
@@ -72,6 +73,15 @@ function MatchDayRegisterDialog({ team, matchGame }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const router = useRouter();
+  const checkLogin = (e) => {
+    e.preventDefault();
+    if (user.status === 401) {
+      router.push("/login");
+    } else {
+      setOpen(true);
+    }
+  };
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -128,6 +138,7 @@ function MatchDayRegisterDialog({ team, matchGame }) {
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
+            onClick={checkLogin}
             disabled={
               matchGameData.team1_id !== 0 && matchGameData.team2_id !== 0
             }

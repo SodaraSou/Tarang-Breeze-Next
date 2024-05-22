@@ -3,6 +3,7 @@ import Profile from "@/components/Profile";
 import Reservation from "@/components/Reservation";
 import Team from "@/components/Team";
 import UserProtectedRoute from "@/components/UserProtectedRoute";
+import MatchGame from "@/components/MatchGame";
 
 async function ProfilePage() {
   return (
@@ -13,6 +14,7 @@ async function ProfilePage() {
             <Profile />
             <Reservation />
             <Team />
+            <MatchGame />
           </div>
         </UserProtectedRoute>
       </section>

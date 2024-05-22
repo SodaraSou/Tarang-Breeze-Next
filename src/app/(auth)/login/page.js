@@ -111,7 +111,7 @@ const Login = () => {
               <div className="flex w-full justify-center gap-10">
                 <a href="#">
                   <Image
-                    src="/facebook.svg"
+                    src="/facebook.png"
                     alt="facebook_logo"
                     width={30}
                     height={30}
@@ -119,7 +119,7 @@ const Login = () => {
                 </a>
                 <a href="http://localhost:8000/auth/google/redirect">
                   <Image
-                    src="/google.svg"
+                    src="/google.png"
                     alt="google_logo"
                     width={30}
                     height={30}

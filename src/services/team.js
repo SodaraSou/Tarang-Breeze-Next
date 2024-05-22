@@ -123,6 +123,48 @@ export const getMatchGames = async () => {
   }
 };
 
+export const getMatchGamesWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getMatchGamesByUser = async () => {
+  try {
+    const res = await axios.get(`/api/match-games?user`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getMatchGamesBySport = async () => {
+  try {
+    const res = await axios.get(`/api/match-games?user`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
 export const createMatchGame = async (matchGame) => {
   try {
     const res = await axios.post("/api/match-games", matchGame, {
