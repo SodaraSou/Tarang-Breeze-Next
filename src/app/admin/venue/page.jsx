@@ -3,7 +3,6 @@ import {
   HydrationBoundary,
   dehydrate,
 } from "@tanstack/react-query";
-// import { getVenues } from "@/services/venue";
 import { getSportTypes } from "@/services/sport";
 import { getAmenities } from "@/services/amenity";
 import VenueTable from "@/components/VenueTable";
@@ -13,10 +12,6 @@ import AmenityTable from "@/components/AmenityTable";
 async function VenuePage() {
   const queryClient = new QueryClient();
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: ["venues"],
-  //   queryFn: getVenues,
-  // });
   await queryClient.prefetchQuery({
     queryKey: ["sportTypes"],
     queryFn: getSportTypes,

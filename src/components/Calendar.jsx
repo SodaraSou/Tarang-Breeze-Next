@@ -12,6 +12,7 @@ import {
 import { useGetAllReservations } from "@/data/reservation";
 import AdminReservationCreateDialog from "@/components/AdminReservationCreateDialog";
 import TournamentCard from "./TournamentCard";
+import Image from "next/image";
 
 function Calendar() {
   const { data } = useGetAllReservations();
@@ -70,11 +71,6 @@ function Calendar() {
   };
   return (
     <>
-      {/* {isLoading ? (
-        <div className="flex justify-center p-10">
-          <Spinner />
-        </div>
-      ) : ( */}
       <div className="antialiased sans-serif bg-gray-100">
         <div>
           <div className="bg-white rounded-lg border overflow-hidden shadow-sm">
@@ -111,7 +107,7 @@ function Calendar() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeLidth="2"
+                      strokeWidth="2"
                       d="M15 19l-7-7 7-7"
                     />
                   </svg>
@@ -137,7 +133,7 @@ function Calendar() {
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeLidth="2"
+                      strokeWidth="2"
                       d="M9 5l7 7-7 7"
                     />
                   </svg>
@@ -219,20 +215,40 @@ function Calendar() {
                           <SheetHeader>
                             <SheetTitle>Reservations</SheetTitle>
                           </SheetHeader>
-                          <div className="flex flex-col gap-4 overflow-y-auto h-full">
-                            {data
-                              .filter(
-                                (reservation) =>
-                                  new Date(reservation.date).toDateString() ===
-                                  new Date(year, month, date).toDateString()
-                              )
-                              .map((reservation, index) => (
-                                <TournamentCard
-                                  key={index}
-                                  reservation={reservation}
-                                />
-                              ))}
-                          </div>
+                          {data.filter(
+                            (reservation) =>
+                              new Date(reservation.date).toDateString() ===
+                              new Date(year, month, date).toDateString()
+                          ).length === 0 ? (
+                            <div className="h-full flex justify-center items-center gap-4">
+                              <Image
+                                src="/favicon.ico"
+                                width={32}
+                                height={32}
+                                alt="tarang_icon"
+                              />
+                              <h1 className="text-2xl font-semibold">
+                                No Reservations
+                              </h1>
+                            </div>
+                          ) : (
+                            <div className="flex flex-col gap-4 overflow-y-auto h-full">
+                              {data
+                                .filter(
+                                  (reservation) =>
+                                    new Date(
+                                      reservation.date
+                                    ).toDateString() ===
+                                    new Date(year, month, date).toDateString()
+                                )
+                                .map((reservation, index) => (
+                                  <TournamentCard
+                                    key={index}
+                                    reservation={reservation}
+                                  />
+                                ))}
+                            </div>
+                          )}
                         </SheetContent>
                       </Sheet>
                     </div>

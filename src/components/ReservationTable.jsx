@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getReservationWithPaginationPage } from "@/services/reservation";
+import { getReservationWithPagination } from "@/services/reservation";
 import { format } from "date-fns";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -32,12 +32,13 @@ import {
 import ReservationEditDialog from "./ReservationEditDialog";
 import ReservationDeleteDialog from "./ReservationDeleteDialog";
 import Spinner from "@/components/Spinner";
+import Image from "next/image";
 
 function ReservationTable() {
   const [paginationUrl, setPaginationUrl] = useState("/api/reservation");
   const { data: reservations, isLoading } = useQuery({
     queryKey: ["reservationsWithPagination", paginationUrl],
-    queryFn: () => getReservationWithPaginationPage(paginationUrl),
+    queryFn: () => getReservationWithPagination(paginationUrl),
   });
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
@@ -59,54 +60,69 @@ function ReservationTable() {
       ) : (
         <>
           <CardContent className="h-[450px]">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead>Phone Number</TableHead>
-                  <TableHead className="hidden sm:table-cell">Sport</TableHead>
-                  <TableHead className="hidden md:table-cell">
-                    Venue ID
-                  </TableHead>
-                  <TableHead className="hidden md:table-cell">Time</TableHead>
-                  <TableHead className="hidden md:table-cell">Date</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {reservations.data.data.map((reservation, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{reservation.id}</TableCell>
-                    <TableCell className="font-medium">
-                      {reservation.phone}
-                    </TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Badge variant="outline">
-                        {reservation.venue.sportTypes.name}
-                      </Badge>
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {reservation.venue.id}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {reservation.start_time} - {reservation.end_time}
-                    </TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {format(reservation.date, "PPP")}
-                    </TableCell>
-                    <TableCell>
-                      <ReservationEditDialog reservation={reservation} />
-                      <ReservationDeleteDialog reservationId={reservation.id} />
-                    </TableCell>
+            {reservations.data.data.length === 0 ? (
+              <div className="h-full flex justify-center items-center gap-4">
+                <Image
+                  src="/favicon.ico"
+                  width={32}
+                  height={32}
+                  alt="tarang_icon"
+                />
+                <h1 className="text-2xl font-semibold">No Reservations</h1>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead>Phone Number</TableHead>
+                    <TableHead className="hidden sm:table-cell">
+                      Sport
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell">
+                      Venue ID
+                    </TableHead>
+                    <TableHead className="hidden md:table-cell">Time</TableHead>
+                    <TableHead className="hidden md:table-cell">Date</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {reservations.data.data.map((reservation, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{reservation.id}</TableCell>
+                      <TableCell className="font-medium">
+                        {reservation.phone}
+                      </TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <Badge variant="outline">
+                          {reservation.venue.sportTypes.name}
+                        </Badge>
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {reservation.venue.id}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {reservation.start_time} - {reservation.end_time}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {format(reservation.date, "PPP")}
+                      </TableCell>
+                      <TableCell>
+                        <ReservationEditDialog reservation={reservation} />
+                        <ReservationDeleteDialog
+                          reservationId={reservation.id}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
           <CardFooter className="flex justify-between items-center">
             <div className="text-xs text-muted-foreground">
-              Showing <strong>1-5</strong> of{" "}
-              <strong>{reservations.data.data.length}</strong> reservations
+              Showing <strong>1-5</strong> reservations
             </div>
             <div>
               <Pagination>

@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import TeamCreateDialog from "./TeamCreateDialog";
+// import TeamCreateDialog from "./TeamCreateDialog";
 import TeamEditDialog from "./TeamEditDialog";
 import TeamDeleteDialog from "./TeamDeleteDialog";
 import Spinner from "@/components/Spinner";
@@ -31,6 +31,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import Image from "next/image";
 
 function TeamTable() {
   const [paginationUrl, setPaginationUrl] = useState("/api/teams");
@@ -49,7 +50,7 @@ function TeamTable() {
             <CardTitle>Team</CardTitle>
             <CardDescription>Manage Team</CardDescription>
           </div>
-          <TeamCreateDialog />
+          {/*<TeamCreateDialog />*/}
         </div>
       </CardHeader>
       {isLoading ? (
@@ -59,45 +60,56 @@ function TeamTable() {
       ) : (
         <>
           <CardContent className="h-[550px]">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead className="hidden w-[100px] sm:table-cell">
-                    <span className="sr-only">Logo</span>
-                  </TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {teams.data.data.teams.map((team, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{team.id}</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <img
-                        alt="Product image"
-                        className="aspect-square rounded-full object-cover"
-                        height="64"
-                        src={team.logo}
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">{team.name}</TableCell>
-                    <TableCell>{team.sportType.name}</TableCell>
-                    <TableCell>
-                      <TeamEditDialog team={team} />
-                      <TeamDeleteDialog teamId={team.id} />
-                    </TableCell>
+            {teams.data.data.teams.length === 0 ? (
+              <div className="h-full flex justify-center items-center gap-4">
+                <Image
+                  src="/favicon.ico"
+                  width={32}
+                  height={32}
+                  alt="tarang_icon"
+                />
+                <h1 className="text-2xl font-semibold">No Teams</h1>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead className="hidden w-[100px] sm:table-cell">
+                      <span className="sr-only">Logo</span>
+                    </TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {teams.data.data.teams.map((team, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{team.id}</TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <img
+                          alt="Product image"
+                          className="aspect-square rounded-full object-cover"
+                          height="64"
+                          src={team.logo}
+                        />
+                      </TableCell>
+                      <TableCell className="font-medium">{team.name}</TableCell>
+                      <TableCell>{team.sportType.name}</TableCell>
+                      <TableCell>
+                        <TeamEditDialog team={team} />
+                        <TeamDeleteDialog teamId={team.id} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
           <CardFooter className="flex justify-between items-center">
             <div className="text-xs text-muted-foreground">
-              Showing <strong>1-10</strong> of{" "}
-              {/*<strong>{data.teams.length}</strong> teams*/}
+              Showing <strong>1-5</strong> teams
             </div>
             <div>
               <Pagination>

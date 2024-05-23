@@ -62,50 +62,63 @@ function VenueTable() {
       ) : (
         <>
           <CardContent className="h-[550px]">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>ID</TableHead>
-                  <TableHead className="hidden w-[100px] sm:table-cell">
-                    <span className="sr-only">Image</span>
-                  </TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead className="hidden md:table-cell">Size</TableHead>
-                  <TableHead>Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {venues.data.data.venues.map((venue, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium">{venue.id}</TableCell>
-                    <TableCell className="hidden sm:table-cell">
-                      <Image
-                        alt="Product image"
-                        className="aspect-square rounded-md object-cover"
-                        width={64}
-                        height={64}
-                        src={venue.photo}
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">{venue.name}</TableCell>
-                    <TableCell>{venue.sportTypes.name}</TableCell>
-                    <TableCell className="hidden md:table-cell">
-                      {venue.size}
-                    </TableCell>
-                    <TableCell>
-                      <VenueEditDialog venue={venue} />
-                      <VenueDeleteDialog venue={venue} />
-                    </TableCell>
+            {venues.data.data.venues.length === 0 ? (
+              <div className="flex justify-center items-center gap-4">
+                <Image
+                  src="/favicon.ico"
+                  width={32}
+                  height={32}
+                  alt="tarang_icon"
+                />
+                <h1 className="text-2xl font-semibold">No Venues</h1>
+              </div>
+            ) : (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>ID</TableHead>
+                    <TableHead className="hidden w-[100px] sm:table-cell">
+                      <span className="sr-only">Image</span>
+                    </TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Type</TableHead>
+                    <TableHead className="hidden md:table-cell">Size</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {venues.data.data.venues.map((venue, index) => (
+                    <TableRow key={index}>
+                      <TableCell className="font-medium">{venue.id}</TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        <Image
+                          alt="Product image"
+                          className="aspect-square rounded-md object-cover"
+                          width={64}
+                          height={64}
+                          src={venue.photo}
+                        />
+                      </TableCell>
+                      <TableCell className="font-medium">
+                        {venue.name}
+                      </TableCell>
+                      <TableCell>{venue.sportTypes.name}</TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {venue.size}
+                      </TableCell>
+                      <TableCell>
+                        <VenueEditDialog venue={venue} />
+                        <VenueDeleteDialog venue={venue} />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            )}
           </CardContent>
           <CardFooter className="flex justify-between items-center">
             <div className="text-xs text-muted-foreground">
-              Showing <strong>1-10</strong> of{" "}
-              {/*<strong>{data?.venues.length}</strong> venues*/}
+              Showing <strong>1-5</strong> venues
             </div>
             <div>
               <Pagination>
