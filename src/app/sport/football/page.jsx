@@ -18,7 +18,7 @@ function FootballPage() {
         <div className="flex flex-col gap-4 md:gap-10">
           <FilterSearch sportId={1} />
           <FootballPrimaryBanner />
-          <FeatureTeam />
+          <FeatureTeam sport="Football" />
         </div>
       </section>
     </UserLayout>

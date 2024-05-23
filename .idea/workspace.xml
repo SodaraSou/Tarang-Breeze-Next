@@ -4,23 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Refactor and minor SEO fixed">
+    <list default="true" id="69a3093c-6116-4376-88e0-6afd26b42846" name="Changes" comment="Minor fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/login/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/login/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/(auth)/register/page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/(auth)/register/page.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/profile/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/profile/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/sport/badminton/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sport/badminton/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/team/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/team/page.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/venue/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/venue/page.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/sport/football/page.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/sport/football/page.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FeatureMatchGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureMatchGame.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FeatureSport.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureSport.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/FeatureTeam.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MatchDay.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MatchGame.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MatchDayRegisterDialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MatchDayRegisterDialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Reservation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Reservation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Team.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Team.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/team.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/team.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +63,7 @@
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\RUPP\\ITE Year 3\\Semester 2\\WCT II\\Tarang-Breeze-Next\\node_modules\\prettier&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;inlay.hints&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.2\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -122,6 +111,13 @@
       <workItem from="1716345041116" duration="65000" />
       <workItem from="1716348895673" duration="448000" />
       <workItem from="1716349416852" duration="249000" />
+      <workItem from="1716365787231" duration="262000" />
+      <workItem from="1716366579673" duration="579000" />
+      <workItem from="1716377366255" duration="10000" />
+      <workItem from="1716377429608" duration="19000" />
+      <workItem from="1716389532639" duration="5000" />
+      <workItem from="1716389546441" duration="111000" />
+      <workItem from="1716435430756" duration="1477000" />
     </task>
     <task id="LOCAL-00001" summary="Minor fixed">
       <option name="closed" value="true" />
@@ -227,7 +223,23 @@
       <option name="project" value="LOCAL" />
       <updated>1716221148721</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added new assets">
+      <option name="closed" value="true" />
+      <created>1716365847147</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716365847147</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Minor fixed">
+      <option name="closed" value="true" />
+      <created>1716365863060</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716365863060</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -249,9 +261,10 @@
     <MESSAGE value="Switch to from duration to end time" />
     <MESSAGE value="Done auth" />
     <MESSAGE value="Added new components" />
-    <MESSAGE value="Minor fixed" />
     <MESSAGE value="Update SEO" />
     <MESSAGE value="Refactor and minor SEO fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactor and minor SEO fixed" />
+    <MESSAGE value="Added new assets" />
+    <MESSAGE value="Minor fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor fixed" />
   </component>
 </project>

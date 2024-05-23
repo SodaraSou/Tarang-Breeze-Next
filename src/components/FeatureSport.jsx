@@ -45,6 +45,7 @@ function FeatureSport() {
               <Card className="bg-white rounded-xl">
                 <CardHeader>
                   <div className="flex justify-center gap-4 items-center">
+                    {/*{sportIcons[index]}*/}
                     <Image
                       src={sportIcons[index]}
                       alt={index}

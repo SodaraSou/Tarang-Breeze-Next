@@ -1,6 +1,6 @@
 "use client";
 
-// import { useState } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { getReservationWithPaginationPage } from "@/services/reservation";
 import { getMatchGames, getMatchGamesWithPagination } from "@/services/team";
@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TeamCard from "./TeamCard";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
-import { useState } from "react";
 
 function FeatureTeam({ sport }) {
   const { data: matchGames, isLoading: matchGamesLoading } = useQuery({
@@ -26,7 +25,6 @@ function FeatureTeam({ sport }) {
     setPaginationUrl(url);
   };
   console.log(data);
-  console.log(matchGames);
   return (
     <Card className="bg-white">
       <CardHeader>
@@ -52,7 +50,7 @@ function FeatureTeam({ sport }) {
               </div>
             ) : (
               <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-10">
-                {matchGames.data
+                {matchGames.data.data
                   .filter((matchGame) => !matchGame.team2)
                   .map((matchGame, index) => (
                     <TeamCard

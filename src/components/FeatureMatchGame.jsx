@@ -18,6 +18,7 @@ function FeatureMatchGame() {
     queryKey: ["matchGames"],
     queryFn: getMatchGames,
   });
+  console.log(matchGames);
   return (
     <Card className="bg-white">
       <CardHeader>
