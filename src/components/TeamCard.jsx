@@ -12,7 +12,7 @@ import MatchDayRegisterDialog from "@/components/MatchDayRegisterDialog";
 
 function TeamCard({ team, matchGame }) {
   return (
-    <Card className="bg-white rounded-xl">
+    <Card className="bg-white border-none shadow-none rounded-xl">
       <div className="relative">
         <CardHeader className="flex flex-col items-center">
           <Avatar className="w-24 h-24">

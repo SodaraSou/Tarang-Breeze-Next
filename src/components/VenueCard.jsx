@@ -19,7 +19,7 @@ function VenueCard({ venue, searchData }) {
     //   },
     // }}
     >
-      <Card className="bg-white rounded-xl">
+      <Card className="bg-white shadow-none border-none rounded-xl">
         <img
           alt="Court Image"
           className="rounded-t-xl object-cover"

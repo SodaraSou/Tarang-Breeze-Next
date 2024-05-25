@@ -87,12 +87,12 @@ function FilterSearch({ sportId }) {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Card className="bg-white xl:p-24">
+      <Card className="border-none shadow-none">
         <CardHeader align="center">
-          <CardTitle>Reserve The Venue</CardTitle>
+          {/* <CardTitle className="text-white" >Reserve The Venue</CardTitle> */}
         </CardHeader>
         <CardContent align="center">
-          <div className="max-w-5xl w-full bg-[#eaeaea] rounded-xl gap-4 p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5">
+          <div className="max-w-5xl w-full bg-[#eaeaea] shadow-xl rounded-xl gap-4 p-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5">
             <DatePicker
               onDateChange={(date) => {
                 const timezoneOffset = date.getTimezoneOffset() * 60000;

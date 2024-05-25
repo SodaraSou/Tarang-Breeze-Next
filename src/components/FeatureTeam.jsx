@@ -26,7 +26,7 @@ function FeatureTeam({ sport }) {
   };
   console.log(data);
   return (
-    <Card className="bg-white">
+    <Card className="bg-white shadow-none border-none">
       <CardHeader>
         <CardTitle>Feature Teams</CardTitle>
       </CardHeader>

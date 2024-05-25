@@ -5,7 +5,7 @@ export default function UserLayout({ children }) {
   return (
     <div className="h-screen">
       <Header />
-      <main className="max-w-7xl mx-auto">{children}</main>
+      <main>{children}</main>
       <Footer />
     </div>
   );
