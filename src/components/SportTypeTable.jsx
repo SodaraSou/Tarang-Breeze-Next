@@ -22,7 +22,7 @@ import SportDeleteDailog from "./SportDeleteDailog";
 import SportUpdateDailog from "./SportUpdateDailog";
 
 function SportTypeTable() {
-  const { data } = useGetSportTypes();
+  // const { data } = useGetSportTypes();
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader className="flex justify-between">
@@ -44,16 +44,16 @@ function SportTypeTable() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.sport_types.map((sport, index) => (
-              <TableRow key={index}>
-                <TableCell>{sport.id}</TableCell>
-                <TableCell className="font-medium">{sport.name}</TableCell>
-                <TableCell>
-                  <SportUpdateDailog sport={sport} />
-                  <SportDeleteDailog sport={sport} />
-                </TableCell>
-              </TableRow>
-            ))}
+            {/*{data.sport_types.map((sport, index) => (*/}
+            {/*  <TableRow key={index}>*/}
+            {/*    <TableCell>{sport.id}</TableCell>*/}
+            {/*    <TableCell className="font-medium">{sport.name}</TableCell>*/}
+            {/*    <TableCell>*/}
+            {/*      <SportUpdateDailog sport={sport} />*/}
+            {/*      <SportDeleteDailog sport={sport} />*/}
+            {/*    </TableCell>*/}
+            {/*  </TableRow>*/}
+            {/*))}*/}
           </TableBody>
         </Table>
       </CardContent>

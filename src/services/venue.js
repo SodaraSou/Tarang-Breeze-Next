@@ -45,10 +45,10 @@ export const getAllVenues = async () => {
         Accept: "application/json",
       },
     });
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 

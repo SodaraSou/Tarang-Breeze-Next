@@ -35,12 +35,18 @@ import { Button } from "@/components/ui/button";
 import Spinner from "./Spinner";
 import { useGetAmenities } from "@/data/amenity";
 import { useGetSportTypes } from "@/data/sport";
+import { useQuery } from "@tanstack/react-query";
+import { getSportTypes } from "@/services/sport";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function VenueCreateDialog() {
   const { data: amenities } = useGetAmenities();
-  const { data: sportTypes } = useGetSportTypes();
+  // const { data: sportTypes } = useGetSportTypes();
+  const { data: sportTypes, isLoading: sportTypesLoading } = useQuery({
+    queryKey: ["sportTypes"],
+    queryFn: getSportTypes,
+  });
   const [inputData, setInputData] = useState({
     name: "",
     size: 0,
@@ -156,14 +162,23 @@ function VenueCreateDialog() {
                       <SelectContent>
                         <SelectGroup className="bg-white">
                           <SelectLabel>SportType</SelectLabel>
-                          {sportTypes.sport_types.map((sport) => (
-                            <SelectItem
-                              key={sport.id}
-                              value={sport.id.toString()}
-                            >
-                              {sport.name}
-                            </SelectItem>
-                          ))}
+                          {sportTypesLoading ? (
+                            <div>
+                              <Spinner />
+                            </div>
+                          ) : (
+                            <>
+                              {" "}
+                              {sportTypes.data.sport_types.map((sport) => (
+                                <SelectItem
+                                  key={sport.id}
+                                  value={sport.id.toString()}
+                                >
+                                  {sport.name}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
                         </SelectGroup>
                       </SelectContent>
                     </Select>

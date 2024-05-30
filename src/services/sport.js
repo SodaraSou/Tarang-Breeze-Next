@@ -7,10 +7,10 @@ export const getSportTypes = async () => {
         Accept: "application/json",
       },
     });
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 

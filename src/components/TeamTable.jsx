@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-// import TeamCreateDialog from "./TeamCreateDialog";
+import TeamCreateDialog from "./TeamCreateDialog";
 import TeamEditDialog from "./TeamEditDialog";
 import TeamDeleteDialog from "./TeamDeleteDialog";
 import Spinner from "@/components/Spinner";
@@ -50,7 +50,7 @@ function TeamTable() {
             <CardTitle>Team</CardTitle>
             <CardDescription>Manage Team</CardDescription>
           </div>
-          {/*<TeamCreateDialog />*/}
+          <TeamCreateDialog />
         </div>
       </CardHeader>
       {isLoading ? (

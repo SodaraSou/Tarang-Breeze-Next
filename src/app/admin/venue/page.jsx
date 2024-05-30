@@ -11,11 +11,6 @@ import AmenityTable from "@/components/AmenityTable";
 
 async function VenuePage() {
   const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery({
-    queryKey: ["sportTypes"],
-    queryFn: getSportTypes,
-  });
   await queryClient.prefetchQuery({
     queryKey: ["amenities"],
     queryFn: getAmenities,
