@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { searchAvailableTime } from "@/services/reservation";
+import { getSportTypes } from "@/services/sport";
 import {
   Select,
   SelectContent,
@@ -22,14 +25,16 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { useGetSportTypes } from "@/data/sport";
-import { searchAvailableTime } from "@/services/reservation";
 import DatePicker from "./DatePicker";
 import Spinner from "@/components/Spinner";
 import VenueCard from "@/components/VenueCard";
 
 function FilterSearch({ sportId }) {
-  const { data } = useGetSportTypes();
+  const { data: sportTypes, isLoading } = useQuery({
+    queryKey: ["sportTypes"],
+    queryFn: getSportTypes,
+  });
+  console.log(sportTypes);
   const [inputData, setInputData] = useState({
     date: "",
     start_time: "",
@@ -43,7 +48,6 @@ function FilterSearch({ sportId }) {
   const [alertMessage, setAlertMessage] = useState("");
   const handleSearch = async (e) => {
     e.preventDefault();
-    setLoading(true);
     if (new Date(inputData.date) < new Date().setHours(0, 0, 0, 0)) {
       setAlertMessage("You can't choose a date before today.");
       setOpenAlertDialog(true);
@@ -59,6 +63,7 @@ function FilterSearch({ sportId }) {
       setLoading(false);
       return;
     }
+    setLoading(true);
     setIsSearch(true);
     const res = await searchAvailableTime(inputData);
     if (res.status === 200) {
@@ -190,16 +195,21 @@ function FilterSearch({ sportId }) {
                 <SelectValue placeholder="Select SportType" />
               </SelectTrigger>
               <SelectContent className="bg-white">
-                <ScrollArea className="h-32">
-                  <SelectGroup>
-                    <SelectLabel>SportType</SelectLabel>
-                    {data?.sport_types.map((sport) => (
-                      <SelectItem key={sport.id} value={sport.id.toString()}>
-                        {sport.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </ScrollArea>
+                <SelectGroup>
+                  {isLoading ? (
+                    <div className="flex justify-center py-4">
+                      <Spinner />
+                    </div>
+                  ) : (
+                    <>
+                      {sportTypes.data.sport_types.map((sport) => (
+                        <SelectItem key={sport.id} value={sport.id.toString()}>
+                          {sport.name}
+                        </SelectItem>
+                      ))}
+                    </>
+                  )}
+                </SelectGroup>
               </SelectContent>
             </Select>
             <Button

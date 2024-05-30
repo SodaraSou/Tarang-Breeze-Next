@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useGetSportTypes } from "@/data/sport";
 import { updateVenue } from "@/services/venue";
 import {
   Dialog,
@@ -34,11 +33,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Spinner from "./Spinner";
+import { useQuery } from "@tanstack/react-query";
+import { getSportTypes } from "@/services/sport";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function VenueEditDialog({ venue }) {
-  const { data } = useGetSportTypes();
+  const { data: sportTypes, isLoading: sportTypesLoading } = useQuery({
+    queryKey: ["sportTypes"],
+    queryFn: getSportTypes,
+  });
   const venueAmenitiesIds = venue.amenities.map((amenity) =>
     amenity.id.toString()
   );
@@ -50,7 +54,6 @@ function VenueEditDialog({ venue }) {
     amenity_id: venue ? venueAmenitiesIds : [],
     photo: venue ? venue.photo : "",
   });
-  console.log(updateData);
   const onChange = (e) => {
     e.preventDefault();
     if (e.target.id === "photo") {
@@ -177,14 +180,22 @@ function VenueEditDialog({ venue }) {
                       <SelectContent>
                         <SelectGroup className="bg-white">
                           <SelectLabel>SportType</SelectLabel>
-                          {data?.sport_types.map((sport) => (
-                            <SelectItem
-                              key={sport.id}
-                              value={sport.id.toString()}
-                            >
-                              {sport.name}
-                            </SelectItem>
-                          ))}
+                          {sportTypesLoading ? (
+                            <div>
+                              <Spinner />
+                            </div>
+                          ) : (
+                            <>
+                              {sportTypes.data.sport_types.map((sport) => (
+                                <SelectItem
+                                  key={sport.id}
+                                  value={sport.id.toString()}
+                                >
+                                  {sport.name}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
                         </SelectGroup>
                       </SelectContent>
                     </Select>

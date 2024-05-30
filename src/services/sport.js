@@ -2,32 +2,30 @@ import axios from "@/lib/axios";
 
 export const getSportTypes = async () => {
   try {
-    const res = await axios.get("/api/sport-types", {
+    const response = await axios.get("/api/sport-types", {
       headers: {
         Accept: "application/json",
-        // Referer",
       },
     });
-    return res.data;
+    return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 
 export const createSport = async (sport) => {
   try {
-    const res = await axios.post("/api/sport-types", sport, {
+    const response = await axios.post("/api/sport-types", sport, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
-        // Referer",
       },
     });
-    return res;
+    return response;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -38,26 +36,28 @@ export const deleteSport = async (sport) => {
         Accept: "application/json",
       },
     });
-    console.log(response.status);
     return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 
 export const updateSport = async (sport, updateData) => {
   try {
-    const res = await axios.put(`/api/sport-types/${sport.id}`, updateData, {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
-    console.log(res.status);
-    return res;
+    const response = await axios.put(
+      `/api/sport-types/${sport.id}`,
+      updateData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      }
+    );
+    return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };

@@ -2,11 +2,15 @@ import axios from "@/lib/axios";
 
 export const getAllUsers = async () => {
   try {
-    const res = await axios.get("/api/users?all");
-    return res.data;
+    const res = await axios.get("/api/users?all", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
   } catch (error) {
     console.error(error.response);
-    return null;
+    return error.response;
   }
 };
 

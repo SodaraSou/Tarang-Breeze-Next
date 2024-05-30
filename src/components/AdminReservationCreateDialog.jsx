@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useGetAllVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
-import { createTeam } from "@/services/team";
+// import { createTeam } from "@/services/team";
 import {
   Dialog,
   DialogContent,
@@ -44,7 +44,6 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
-    // date: date ? new Date(date).toISOString() : "",
     date: date
       ? new Date(
           new Date(date).getTime() - new Date(date).getTimezoneOffset() * 60000
@@ -53,18 +52,16 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
     start_time: "07:00",
     end_time: "08:00",
     venue_id: venue ? venue.id : 0,
-    // team_id: 0,
   });
-  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
   });
-  const [teamData, setTeamData] = useState({
-    name: "",
-    logo: "",
-    sport_type_id: venue ? venue.sportTypes.id : 0,
-  });
+  // const [teamData, setTeamData] = useState({
+  //   name: "",
+  //   logo: "",
+  //   sport_type_id: venue ? venue.sportTypes.id : 0,
+  // });
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -72,27 +69,27 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
       [e.target.id]: e.target.value,
     }));
   };
-  const handleCheck = (e) => {
-    e.preventDefault();
-    setTeamOptions({
-      ...teamOptions,
-      [e.target.value]: e.target.checked,
-    });
-  };
-  const onChangeTeam = (e) => {
-    e.preventDefault();
-    if (e.target.id === "logo") {
-      setTeamData((prevState) => ({
-        ...prevState,
-        [e.target.id]: e.target.files[0],
-      }));
-    } else {
-      setTeamData((prevState) => ({
-        ...prevState,
-        [e.target.id]: e.target.value,
-      }));
-    }
-  };
+  // const handleCheck = (e) => {
+  //   e.preventDefault();
+  //   setTeamOptions({
+  //     ...teamOptions,
+  //     [e.target.value]: e.target.checked,
+  //   });
+  // };
+  // const onChangeTeam = (e) => {
+  //   e.preventDefault();
+  //   if (e.target.id === "logo") {
+  //     setTeamData((prevState) => ({
+  //       ...prevState,
+  //       [e.target.id]: e.target.files[0],
+  //     }));
+  //   } else {
+  //     setTeamData((prevState) => ({
+  //       ...prevState,
+  //       [e.target.id]: e.target.value,
+  //     }));
+  //   }
+  // };
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -100,24 +97,24 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    if (teamOptions.find_member || teamOptions.find_team) {
-      const preRes = await createTeam(teamData);
-      inputData.team_id = preRes.data.id;
-      const reservation = { ...inputData, ...teamOptions };
-      const res = await createReservation(reservation);
-      if (res.status === 204) {
-        setOpenAlertDialog(true);
-        setAlertMessage("Reservation Create Successfully");
-        wait().then(() => setOpenAlertDialog(false));
-      } else {
-        setOpenAlertDialog(true);
-        setAlertMessage("Reservation Create Failed");
-        wait().then(() => setOpenAlertDialog(false));
-      }
-      setOpen(false);
-      setLoading(false);
-      return;
-    }
+    // if (teamOptions.find_member || teamOptions.find_team) {
+    //   const preRes = await createTeam(teamData);
+    //   inputData.team_id = preRes.data.id;
+    //   const reservation = { ...inputData, ...teamOptions };
+    //   const res = await createReservation(reservation);
+    //   if (res.status === 204) {
+    //     setOpenAlertDialog(true);
+    //     setAlertMessage("Reservation Create Successfully");
+    //     wait().then(() => setOpenAlertDialog(false));
+    //   } else {
+    //     setOpenAlertDialog(true);
+    //     setAlertMessage("Reservation Create Failed");
+    //     wait().then(() => setOpenAlertDialog(false));
+    //   }
+    //   setOpen(false);
+    //   setLoading(false);
+    //   return;
+    // }
     const res = await createReservation({ ...inputData, ...teamOptions });
     if (res.status === 204) {
       setOpenAlertDialog(true);
@@ -307,53 +304,53 @@ function AdminReservationCreateDialog({ isUser, venue, triggerContent, date }) {
                     defaultValue={inputData.attendee}
                   />
                 </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name">Optional</Label>
-                  <div className="flex flex-col md:flex-row gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <input
-                        onChange={handleCheck}
-                        checked={teamOptions.find_team}
-                        type="checkbox"
-                        value="find_team"
-                        id="find_team"
-                        name="default-checkbox"
-                      />
-                      <label htmlFor="find_team">
-                        Find a team to play against
-                      </label>
-                    </div>
-                    <div className="flex gap-2">
-                      <input
-                        onChange={handleCheck}
-                        checked={teamOptions.find_member}
-                        type="checkbox"
-                        value="find_member"
-                        id="find_member"
-                        name="default-checkbox"
-                      />
-                      <label htmlFor="find_member">Find team member</label>
-                    </div>
-                  </div>
-                </div>
-                {(teamOptions.find_member === true ||
-                  teamOptions.find_team === true) && (
-                  <>
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="name">Team Name</Label>
-                      <Input
-                        type="data"
-                        id="name"
-                        className="rounded-lg"
-                        onChange={onChangeTeam}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-4">
-                      <Label htmlFor="size">Image</Label>
-                      <Input type="file" id="logo" onChange={onChangeTeam} />
-                    </div>
-                  </>
-                )}
+                {/*<div className="flex flex-col gap-2">*/}
+                {/*  <Label htmlFor="name">Optional</Label>*/}
+                {/*  <div className="flex flex-col md:flex-row gap-4 text-sm">*/}
+                {/*    <div className="flex items-center gap-2">*/}
+                {/*      <input*/}
+                {/*        onChange={handleCheck}*/}
+                {/*        checked={teamOptions.find_team}*/}
+                {/*        type="checkbox"*/}
+                {/*        value="find_team"*/}
+                {/*        id="find_team"*/}
+                {/*        name="default-checkbox"*/}
+                {/*      />*/}
+                {/*      <label htmlFor="find_team">*/}
+                {/*        Find a team to play against*/}
+                {/*      </label>*/}
+                {/*    </div>*/}
+                {/*    <div className="flex gap-2">*/}
+                {/*      <input*/}
+                {/*        onChange={handleCheck}*/}
+                {/*        checked={teamOptions.find_member}*/}
+                {/*        type="checkbox"*/}
+                {/*        value="find_member"*/}
+                {/*        id="find_member"*/}
+                {/*        name="default-checkbox"*/}
+                {/*      />*/}
+                {/*      <label htmlFor="find_member">Find team member</label>*/}
+                {/*    </div>*/}
+                {/*  </div>*/}
+                {/*</div>*/}
+                {/*{(teamOptions.find_member === true ||*/}
+                {/*  teamOptions.find_team === true) && (*/}
+                {/*  <>*/}
+                {/*    <div className="flex flex-col gap-2">*/}
+                {/*      <Label htmlFor="name">Team Name</Label>*/}
+                {/*      <Input*/}
+                {/*        type="data"*/}
+                {/*        id="name"*/}
+                {/*        className="rounded-lg"*/}
+                {/*        onChange={onChangeTeam}*/}
+                {/*      />*/}
+                {/*    </div>*/}
+                {/*    <div className="flex flex-col gap-4">*/}
+                {/*      <Label htmlFor="size">Image</Label>*/}
+                {/*      <Input type="file" id="logo" onChange={onChangeTeam} />*/}
+                {/*    </div>*/}
+                {/*  </>*/}
+                {/*)}*/}
               </div>
             )}
             <DialogFooter>

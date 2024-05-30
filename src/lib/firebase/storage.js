@@ -23,7 +23,7 @@ export const updateTeamLogo = async (teamId, image) => {
   try {
     const filePath = `team-logo/${teamId}`;
     const imageRef = ref(storage, filePath);
-    deleteObject(imageRef);
+    await deleteObject(imageRef);
     await uploadBytes(imageRef, image);
     return await getDownloadURL(imageRef);
   } catch (error) {
@@ -65,7 +65,7 @@ export const updateVenueImg = async (venueId, image) => {
   try {
     const filePath = `venue-img/${venueId}`;
     const imageRef = ref(storage, filePath);
-    deleteObject(imageRef);
+    await deleteObject(imageRef);
     await uploadBytes(imageRef, image);
     return await getDownloadURL(imageRef);
   } catch (error) {

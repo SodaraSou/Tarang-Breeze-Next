@@ -24,7 +24,6 @@ function FeatureTeam({ sport }) {
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
-  console.log(data);
   return (
     <Card className="bg-white shadow-none border-none">
       <CardHeader>

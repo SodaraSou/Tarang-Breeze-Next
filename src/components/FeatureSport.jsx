@@ -2,19 +2,21 @@
 
 import Link from "next/link";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetSportTypes } from "@/data/sport";
+import { getSportTypes } from "@/services/sport";
 // import { IoFootballOutline } from "react-icons/io5";
 // import { GiShuttlecock } from "react-icons/gi";
 // import { TbPingPong } from "react-icons/tb";
 // import { PiVolleyball } from "react-icons/pi";
 import Spinner from "./Spinner";
 import Image from "next/image";
+import { useQuery } from "@tanstack/react-query";
 
 function FeatureSport() {
-  const {
-    data: sportTypeData,
-    isLoading: sportTypeLoading,
-  } = useGetSportTypes();
+  const { data: sportTypes, isLoading } = useQuery({
+    queryKey: ["allSportTypes"],
+    queryFn: getSportTypes,
+  });
+  console.log(sportTypes);
   const sportIcons = [
     // <IoFootballOutline className="w-10 h-10" />,
     // <GiShuttlecock className="w-10 h-10" />,
@@ -32,15 +34,13 @@ function FeatureSport() {
       <h1 className="font-semibold text-center text-2xl tracking-tight leading-none my-6 md:my-0">
         Chose From your Favorite Sport
       </h1>
-      {sportTypeLoading ? (
+      {isLoading ? (
         <div className="p-10">
           <Spinner />
         </div>
-      ) : !sportTypeLoading &&
-        sportTypeData &&
-        sportTypeData.sport_types.length > 0 ? (
+      ) : sportTypes.data.sport_types.length > 0 ? (
         <div className="max-w-[1120px] flex flex-wrap justify-center gap-4 md:gap-10">
-          {sportTypeData.sport_types.map((sport, index) => (
+          {sportTypes.data.sport_types.map((sport, index) => (
             <Link key={index} href={`/sport/${sport.name.toLowerCase()}`}>
               <Card className="bg-white rounded-xl border-none">
                 <CardHeader>

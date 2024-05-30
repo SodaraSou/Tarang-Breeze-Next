@@ -74,14 +74,14 @@ export const getAllReservations = async () => {
         Accept: "application/json",
       },
     });
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 
-export const getReservationWithPaginationPage = async (paginationUrl) => {
+export const getReservationWithPagination = async (paginationUrl) => {
   try {
     const res = await axios.get(paginationUrl, {
       headers: {
