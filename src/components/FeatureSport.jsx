@@ -30,7 +30,7 @@ function FeatureSport() {
     "/ping-pong_icon.png",
   ];
   return (
-    <div className="flex flex-col gap-4 md:gap-10 items-center">
+    <div className="flex flex-col gap-4 md:gap-10 bg-white items-center">
       <h1 className="font-semibold text-center text-2xl tracking-tight leading-none my-6 md:my-0">
         Chose From your Favorite Sport
       </h1>
@@ -42,7 +42,7 @@ function FeatureSport() {
         <div className="max-w-[1120px] flex flex-wrap justify-center gap-4 md:gap-10">
           {sportTypes.data.sport_types.map((sport, index) => (
             <Link key={index} href={`/sport/${sport.name.toLowerCase()}`}>
-              <Card className="bg-white rounded-xl">
+              <Card className="bg-white rounded-xl border-none">
                 <CardHeader>
                   <div className="flex justify-center gap-4 items-center">
                     {/*{sportIcons[index]}*/}

@@ -18,7 +18,7 @@ function FeatureMatchGame() {
     queryFn: getMatchGames,
   });
   return (
-    <Card className="bg-white">
+    <Card className="bg-white border-none">
       <CardHeader>
         <CardTitle>Feature Match Games</CardTitle>
       </CardHeader>
