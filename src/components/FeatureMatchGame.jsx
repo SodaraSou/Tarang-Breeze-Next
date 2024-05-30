@@ -5,7 +5,6 @@ import { getMatchGames } from "@/services/team";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -18,7 +17,6 @@ function FeatureMatchGame() {
     queryKey: ["matchGames"],
     queryFn: getMatchGames,
   });
-  console.log(matchGames);
   return (
     <Card className="bg-white">
       <CardHeader>

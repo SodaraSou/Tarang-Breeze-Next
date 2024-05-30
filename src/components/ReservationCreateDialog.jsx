@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useGetAllVenues } from "@/data/veune";
 import { createReservation } from "@/services/reservation";
 import { createMatchGame, createTeam } from "@/services/team";
+import { getAllVenues } from "@/services/venue";
 import {
   Dialog,
   DialogContent,
@@ -51,7 +51,10 @@ function ReservationCreateDialog({
     queryKey: ["users"],
     queryFn: getUser,
   });
-  const { data } = useGetAllVenues();
+  const { data: venues, isLoading } = useQuery({
+    queryKey: ["allVenues"],
+    queryFn: getAllVenues,
+  });
   const [inputData, setInputData] = useState({
     phone: "",
     attendee: 0,
@@ -197,14 +200,22 @@ function ReservationCreateDialog({
                       <ScrollArea className="h-32">
                         <SelectGroup>
                           <SelectLabel>Venue</SelectLabel>
-                          {data?.venues.map((venue) => (
-                            <SelectItem
-                              key={venue.id}
-                              value={venue.id.toString()}
-                            >
-                              {venue.name} - {venue.sportTypes.name}
-                            </SelectItem>
-                          ))}
+                          {isLoading ? (
+                            <div className="flex justify-center py-4">
+                              <Spinner />
+                            </div>
+                          ) : (
+                            <>
+                              {venues.data.venues.map((venue) => (
+                                <SelectItem
+                                  key={venue.id}
+                                  value={venue.id.toString()}
+                                >
+                                  {venue.name} - {venue.sportTypes.name}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
                         </SelectGroup>
                       </ScrollArea>
                     </SelectContent>

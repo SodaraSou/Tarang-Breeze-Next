@@ -1,10 +1,3 @@
-import {
-  QueryClient,
-  HydrationBoundary,
-  dehydrate,
-} from "@tanstack/react-query";
-import { getSportTypes } from "@/services/sport";
-import { getAllVenues } from "@/services/venue";
 import UserLayout from "./UserLayout";
 import FeatureSport from "@/components/FeatureSport";
 import FeatureTeam from "@/components/FeatureTeam";
@@ -13,21 +6,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import FeatureMatchGame from "@/components/FeatureMatchGame";
 import Image from "next/image";
 
-async function HomePage() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: ["sportTypes"],
-    queryFn: getSportTypes,
-  });
-  await queryClient.prefetchQuery({
-    queryKey: ["allVenues"],
-    queryFn: getAllVenues,
-  });
+function HomePage() {
   return (
     <UserLayout>
       <section className="p-4 md:p-10">
         <div className="flex flex-col gap-4 md:gap-10">
-          <HydrationBoundary state={dehydrate(queryClient)}>
+          <>
             <div>
               <FilterSearch sportId={""} />
             </div>
@@ -113,7 +97,7 @@ async function HomePage() {
             </div>
             <FeatureTeam />
             <FeatureMatchGame />
-          </HydrationBoundary>
+          </>
         </div>
       </section>
     </UserLayout>
