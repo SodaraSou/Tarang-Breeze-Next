@@ -5,6 +5,8 @@ import UserLayout from "./UserLayout";
 import FeatureSport from "@/components/FeatureSport";
 import FeatureTeam from "@/components/FeatureTeam";
 import FilterSearch from "@/components/FilterSearch";
+import HomePrimaryBanner from "@/components/HomePrimaryBanner";
+import HomeSecondaryBanner from "@/components/HomeSecondaryBanner";
 
 function HomePage() {
   return (
@@ -113,9 +115,15 @@ function HomePage() {
         </Card>
         <FeatureSport />
         <div className="bg-white">
+          <HomePrimaryBanner />
+        </div>
+        <div>
           <FeatureVenue />
         </div>
         <div className="bg-white">
+          <HomeSecondaryBanner />
+        </div>
+        <div>
           <FeatureTeam />
         </div>
       </div>

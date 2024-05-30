@@ -13,7 +13,7 @@ function FeatureVenue({ sport }) {
     queryFn: getAllVenues,
   });
   return (
-    <Card className="max-w-7xl mx-auto bg-white rounded-none border-none shadow-none">
+    <Card className="max-w-7xl mx-auto rounded-none border-none shadow-none">
       <CardHeader>
         <CardTitle>Feature Venue</CardTitle>
       </CardHeader>

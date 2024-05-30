@@ -84,7 +84,7 @@ function Profile() {
             <div className="flex flex-col gap-4">
               <Label>Phone Number</Label>
               <PhoneInput
-                value={"+" + data?.data.phone}
+                value={data?.data.phone ? "+" + data?.data.phone : ""}
                 placeholder="Enter a phone number"
                 className="rounded-lg"
                 international
