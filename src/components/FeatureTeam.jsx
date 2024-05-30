@@ -25,7 +25,7 @@ function FeatureTeam({ sport }) {
     setPaginationUrl(url);
   };
   return (
-    <Card className="bg-white shadow-none border-none">
+    <Card className="max-w-7xl mx-auto bg-white rounded-none border-none shadow-none">
       <CardHeader>
         <CardTitle>Feature Teams</CardTitle>
       </CardHeader>

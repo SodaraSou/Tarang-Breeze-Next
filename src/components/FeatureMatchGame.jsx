@@ -2,12 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getMatchGames } from "@/services/team";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import MatchGameCard from "@/components/MatchGameCard";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
@@ -18,7 +13,7 @@ function FeatureMatchGame() {
     queryFn: getMatchGames,
   });
   return (
-    <Card className="bg-white border-none">
+    <Card className="max-w-7xl mx-auto bg-white rounded-none border-none shadow-none">
       <CardHeader>
         <CardTitle>Feature Match Games</CardTitle>
       </CardHeader>

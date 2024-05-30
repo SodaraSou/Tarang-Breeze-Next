@@ -3,7 +3,7 @@ import { Card } from "./ui/card";
 
 function FootballPrimaryBanner() {
   return (
-    <Card className="flex flex-col md:flex-row justify-between bg-white p-10">
+    <Card className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between p-10 border-none shadow-none rounded-none">
       <div className="w-full md:w-1/2 flex justify-center mb-10 md:mb-0">
         <Image src="/football.png" alt="football" width={300} height={300} />
       </div>

@@ -13,8 +13,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 function Header() {
   return (
-    <header className="w-full fixed top-0 left-0 z-40">
-      <div className="max-w-7xl mx-auto p-4 md:px-10 flex justify-between items-center">
+    <header className="w-full">
+      <div className="max-w-7xl mx-auto p-4 md:px-6 xl:px-0 flex justify-between items-center">
         <Link href="/">
           <Image src="/tarang_logo.png" alt="logo" width={150} height={50} />
         </Link>

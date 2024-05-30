@@ -10,6 +10,7 @@ import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 import { Button } from "@/components/ui/button";
 
 function VenueCard({ venue, searchData }) {
+  console.log(venue);
   return (
     <div
     // href={{
@@ -19,7 +20,7 @@ function VenueCard({ venue, searchData }) {
     //   },
     // }}
     >
-      <Card className="bg-white shadow-none border-none rounded-xl">
+      <Card className="bg-white">
         <img
           alt="Court Image"
           className="rounded-t-xl object-cover"
@@ -32,7 +33,7 @@ function VenueCard({ venue, searchData }) {
         />
         <CardHeader>
           <CardTitle>{venue.name}</CardTitle>
-          <CardDescription>Type : {venue.sport_type.name}</CardDescription>
+          <CardDescription>Type : {venue.sportTypes.name}</CardDescription>
           <CardDescription>Size of the Court : {venue.size}</CardDescription>
         </CardHeader>
         <CardContent>

@@ -7,16 +7,13 @@ import Spinner from "@/components/Spinner";
 import Image from "next/image";
 import VenueCard from "./VenueCard";
 
-function FeatureVenue() {
-
-    const { data: venues, isLoading: venuesLoading } = useQuery({
-        queryKey: ["venues"],
-        queryFn: getAllVenues,
-      });
-      console.log(venues);
-
+function FeatureVenue({ sport }) {
+  const { data: venues, isLoading: venuesLoading } = useQuery({
+    queryKey: ["venues"],
+    queryFn: getAllVenues,
+  });
   return (
-    <Card className="bg-white border-none">
+    <Card className="max-w-7xl mx-auto bg-white rounded-none border-none shadow-none">
       <CardHeader>
         <CardTitle>Feature Venue</CardTitle>
       </CardHeader>
@@ -27,8 +24,7 @@ function FeatureVenue() {
           </div>
         ) : (
           <>
-            {venues.venues
-              .length === 0 ? (
+            {venues.data.venues.length === 0 ? (
               <div className="flex justify-center items-center gap-4 p-10">
                 <Image
                   src="/favicon.ico"
@@ -39,8 +35,8 @@ function FeatureVenue() {
                 <h1 className="text-2xl font-semibold">No Venue</h1>
               </div>
             ) : (
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-10">
-                {venues.venues.map((venue, index) => (
+              <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-10">
+                {venues.data.venues.map((venue, index) => (
                   <VenueCard key={index} venue={venue} />
                 ))}
               </div>
@@ -49,7 +45,7 @@ function FeatureVenue() {
         )}
       </CardContent>
     </Card>
-  )
+  );
 }
 
-export default FeatureVenue
+export default FeatureVenue;
