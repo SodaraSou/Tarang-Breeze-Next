@@ -31,13 +31,10 @@ function FootballPage() {
         <div className="bg-white">
           <FootballPrimaryBanner />
         </div>
-        <div className="bg-white">
+        <div>
           <FeatureTeam sport="Football" />
         </div>
-        <div className="bg-white">
-          <FootballSecondaryBanner />
-        </div>
-        <div className="bg-white">
+        <div>
           <FeatureVenue sport="Football" />
         </div>
       </div>

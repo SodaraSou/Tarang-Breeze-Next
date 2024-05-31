@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { searchAvailableTime } from "@/services/reservation";
@@ -34,7 +35,6 @@ function FilterSearch({ sportId }) {
     queryKey: ["sportTypes"],
     queryFn: getSportTypes,
   });
-  console.log(sportTypes);
   const [inputData, setInputData] = useState({
     date: "",
     start_time: "",
@@ -63,16 +63,21 @@ function FilterSearch({ sportId }) {
       setLoading(false);
       return;
     }
-    setLoading(true);
-    setIsSearch(true);
-    const res = await searchAvailableTime(inputData);
-    if (res.status === 200) {
-      setSearch(res.data.available_tarang);
-    } else {
-      setAlertMessage("All fields are required.");
-      setOpenAlertDialog(true);
-    }
-    setLoading(false);
+    // setLoading(true);
+    // setIsSearch(true);
+    router.push("/search-result");
+    // router.push({
+    //   pathname: "/search-result",
+    //   query: stringifiedInputData,
+    // });
+    // const res = await searchAvailableTime(inputData);
+    // if (res.status === 200) {
+    //   setSearch(res.data.available_tarang);
+    // } else {
+    //   setAlertMessage("All fields are required.");
+    //   setOpenAlertDialog(true);
+    // }
+    // setLoading(false);
   };
   return (
     <>
@@ -212,17 +217,30 @@ function FilterSearch({ sportId }) {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Button
+            {/* <Button
               onClick={handleSearch}
               variant="outline"
               className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
             >
               Search
+            </Button> */}
+            <Button
+              className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
+              asChild
+            >
+              <Link
+                href={{
+                  pathname: "/search-result",
+                  query: { ...inputData },
+                }}
+              >
+                Search
+              </Link>
             </Button>
           </div>
         </CardContent>
       </Card>
-      {loading ? (
+      {/* {loading ? (
         <Card className="bg-white flex justify-center mt-4 md:mt-10">
           <CardHeader>
             <Spinner />
@@ -269,7 +287,7 @@ function FilterSearch({ sportId }) {
             )
           )}
         </>
-      )}
+      )} */}
     </>
   );
 }

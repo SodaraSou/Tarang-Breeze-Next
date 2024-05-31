@@ -33,7 +33,7 @@ function VenueCard({ venue, searchData }) {
         />
         <CardHeader>
           <CardTitle>{venue.name}</CardTitle>
-          <CardDescription>Type : {venue.sportTypes.name}</CardDescription>
+          <CardDescription>Type : {venue.sport_type.name}</CardDescription>
           <CardDescription>Size of the Court : {venue.size}</CardDescription>
         </CardHeader>
         <CardContent>

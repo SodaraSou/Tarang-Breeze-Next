@@ -70,7 +70,7 @@ function ReservationCreateDialog({
   const [teamData, setTeamData] = useState({
     name: "",
     logo: "",
-    sport_type_id: venue ? venue.sportTypes.id : 0,
+    sport_type_id: venue ? venue.sport_type.id : 0,
   });
   const onChange = (e) => {
     e.preventDefault();
@@ -211,7 +211,7 @@ function ReservationCreateDialog({
                                   key={venue.id}
                                   value={venue.id.toString()}
                                 >
-                                  {venue.name} - {venue.sportTypes.name}
+                                  {venue.name} - {venue.sport_type.name}
                                 </SelectItem>
                               ))}
                             </>

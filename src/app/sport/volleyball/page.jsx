@@ -31,13 +31,10 @@ function VolleyballPage() {
         <div div className="bg-white">
           <VolleyballPrimaryBanner />
         </div>
-        <div className="bg-white">
+        <div>
           <FeatureTeam sport="Volleyball" />
         </div>
-        <div div className="bg-white">
-          <VolleyballSecondaryBanner />
-        </div>
-        <div className="bg-white">
+        <div>
           <FeatureVenue sport="Volleyball" />
         </div>
       </div>

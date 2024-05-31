@@ -31,13 +31,10 @@ function PingPongPage() {
         <div div className="bg-white">
           <PingPongPrimaryBanner />
         </div>
-        <div className="bg-white">
+        <div>
           <FeatureTeam sport="Ping Pong" />
         </div>
-        <div div className="bg-white">
-          <PingPongSecondaryBanner />
-        </div>
-        <div className="bg-white">
+        <div>
           <FeatureVenue sport="Ping Pong" />
         </div>
       </div>
