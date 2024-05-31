@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { getAllVenues } from "@/services/venue";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
 import VenueCard from "./VenueCard";
@@ -13,11 +12,9 @@ function FeatureVenue({ sport }) {
     queryFn: getAllVenues,
   });
   return (
-    <Card className="max-w-7xl mx-auto rounded-none border-none shadow-none">
-      <CardHeader>
-        <CardTitle>Feature Venue</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0">
+      <h1 className="text-2xl font-semibold mb-4">Feature Venue</h1>
+      <div>
         {venuesLoading ? (
           <div className="flex justify-center items-center p-10">
             <Spinner />
@@ -43,8 +40,8 @@ function FeatureVenue({ sport }) {
             )}
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 

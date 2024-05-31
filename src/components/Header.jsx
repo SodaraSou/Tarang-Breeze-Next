@@ -14,7 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 function Header() {
   return (
     <header className="w-full bg-white">
-      <div className="max-w-7xl mx-auto p-4 md:px-6 xl:px-0 flex justify-between items-center">
+      <div className="p-4 flex justify-between items-center">
         <Link href="/">
           <Image src="/tarang_logo.png" alt="logo" width={150} height={50} />
         </Link>

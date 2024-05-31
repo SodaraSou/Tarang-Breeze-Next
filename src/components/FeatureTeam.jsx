@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { getReservationWithPaginationPage } from "@/services/reservation";
 import { getMatchGames, getMatchGamesWithPagination } from "@/services/team";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import TeamCard from "./TeamCard";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
@@ -25,11 +24,9 @@ function FeatureTeam({ sport }) {
     setPaginationUrl(url);
   };
   return (
-    <Card className="max-w-7xl mx-auto rounded-none border-none shadow-none">
-      <CardHeader>
-        <CardTitle>Feature Teams</CardTitle>
-      </CardHeader>
-      <CardContent>
+    <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0">
+      <h1 className="text-2xl font-semibold mb-4">Feature Teams</h1>
+      <div>
         {matchGamesLoading ? (
           <div className="flex justify-center items-center p-10">
             <Spinner />
@@ -62,8 +59,8 @@ function FeatureTeam({ sport }) {
             )}
           </>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
 
