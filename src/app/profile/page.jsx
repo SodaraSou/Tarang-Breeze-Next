@@ -31,13 +31,18 @@ async function ProfilePage() {
   }
   return (
     <UserLayout>
-      <section className="p-4 xl:p-10">
-        {/*<UserProtectedRoute>*/}
+      <section className="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10">
+        <div className="mx-auto grid w-full max-w-6xl gap-2">
+          <h1 className="text-3xl font-semibold">Profile</h1>
+        </div>
         <div className="mx-auto grid w-full max-w-6xl items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
           <nav className="grid gap-4 justify-items-start text-muted-foreground">
             <button
               type="button"
-              onClick={() => setSection("Profile")}
+              onClick={(e) => {
+                e.preventDefault();
+                setSection("Profile");
+              }}
               className={`flex gap-2 items-center ${
                 section === "Profile" ? "font-semibold" : ""
               }`}
@@ -47,7 +52,10 @@ async function ProfilePage() {
             </button>
             <button
               type="button"
-              onClick={() => setSection("Reservation")}
+              onClick={(e) => {
+                e.preventDefault();
+                setSection("Reservation");
+              }}
               className={`flex gap-2 items-center ${
                 section === "Reservation" ? "font-semibold" : ""
               }`}
@@ -78,7 +86,6 @@ async function ProfilePage() {
           </nav>
           <div className="grid gap-6 xl:gap-10">{selectedComponent}</div>
         </div>
-        {/*</UserProtectedRoute>*/}
       </section>
     </UserLayout>
   );

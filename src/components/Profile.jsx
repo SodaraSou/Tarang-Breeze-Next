@@ -23,7 +23,7 @@ function Profile() {
     <Card className="bg-white">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle className="text-2xl md:text-4xl">Profile</CardTitle>
+          <CardTitle className="text-2xl md:text-4xl">Accout Details</CardTitle>
           <Button
             onClick={logout}
             variant="outline"
