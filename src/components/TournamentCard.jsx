@@ -13,10 +13,10 @@ function TournamentCard({ reservation }) {
             <MapPin className="w-4 h-4" /> {reservation.venue.name}
           </CardTitle>
           <div className="flex flex-col">
-            <span className="text-center px-4 bg-red-500 rounded-t-xl text-white">
+            <span className="text-center px-4 bg-red-500 rounded-t-xl text-white font-semibold">
               {format(reservation.date, "MMMM")}
             </span>
-            <span className="text-center px-4 bg-[#eaeaea] rounded-b-xl">
+            <span className="text-center px-4 bg-[#eaeaea] rounded-b-xl font-semibold">
               {format(reservation.date, "dd")}
             </span>
           </div>

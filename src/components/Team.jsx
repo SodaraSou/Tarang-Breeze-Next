@@ -42,7 +42,7 @@ function Team() {
             <Spinner />
           </div>
         ) : (
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             {data?.data.data.teams.length === 0 ? (
               <div className="flex justify-center items-center gap-4 p-10">
                 <Image

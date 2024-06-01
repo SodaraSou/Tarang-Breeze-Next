@@ -10,7 +10,6 @@ import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 import { Button } from "@/components/ui/button";
 
 function VenueCard({ venue, searchData }) {
-  console.log(venue);
   return (
     <div
     // href={{
@@ -45,7 +44,7 @@ function VenueCard({ venue, searchData }) {
               triggerContent={
                 <Button
                   variant="outline"
-                  className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
+                  className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
                 >
                   Reserve Venue
                 </Button>

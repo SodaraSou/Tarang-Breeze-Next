@@ -29,7 +29,7 @@ function Profile() {
             variant="outline"
             className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
           >
-            Log Out
+            Sign Out
           </Button>
         </div>
       </CardHeader>

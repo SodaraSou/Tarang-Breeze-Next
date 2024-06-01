@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 // import { getReservationWithPaginationPage } from "@/services/reservation";
 import { getMatchGames, getMatchGamesWithPagination } from "@/services/team";
-import TeamCard from "./TeamCard";
+import FeatureTeamCard from "./FeatureTeamCard";
 import Spinner from "@/components/Spinner";
 import Image from "next/image";
 
@@ -49,7 +49,7 @@ function FeatureTeam({ sport }) {
                 {matchGames.data.data
                   .filter((matchGame) => !matchGame.team2)
                   .map((matchGame, index) => (
-                    <TeamCard
+                    <FeatureTeamCard
                       key={index}
                       team={matchGame.team1}
                       matchGame={matchGame}
