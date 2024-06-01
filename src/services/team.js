@@ -1,4 +1,4 @@
-import axios from "@/lib/axios";
+  import axios from "@/lib/axios";
 import { deleteTeamLogo, uploadTeamLogo } from "@/lib/firebase/storage";
 
 export const getTeams = async () => {
