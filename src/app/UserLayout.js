@@ -6,7 +6,7 @@ export default function UserLayout({ children }) {
     <div className="h-screen">
       <Header />
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
