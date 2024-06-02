@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/services/user";
 import { Menu } from "lucide-react";
@@ -15,6 +16,7 @@ function Header() {
     queryFn: getUser,
     queryKey: ["users"],
   });
+  const pathName = usePathname();
   return (
     <header className="w-full bg-white">
       <div className="p-4 flex justify-between items-center">
@@ -85,37 +87,61 @@ function Header() {
               )}
               <Link
                 href="/sport/football"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className={
+                  pathName === "/sport/football"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 Football
               </Link>
               <Link
                 href="/sport/badminton"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl bg-muted px-3 py-2 text-foreground hover:text-foreground"
+                className={
+                  pathName === "/sport/badminton"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 Badminton
               </Link>
               <Link
                 href="/sport/volleyball"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className={
+                  pathName === "/sport/volleyball"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 Volleyball
               </Link>
               <Link
                 href="/sport/ping%20pong"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className={
+                  pathName === "/sport/ping%20pong"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 Ping Pong
               </Link>
               <Link
                 href="/about-us"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className={
+                  pathName === "/about-us"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 About Us
               </Link>
               <Link
                 href="/policy"
-                className="mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-muted-foreground hover:text-foreground"
+                className={
+                  pathName === "/policy"
+                    ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
+                    : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
+                }
               >
                 Policy
               </Link>
@@ -123,11 +149,66 @@ function Header() {
           </SheetContent>
         </Sheet>
         <nav className="hidden xl:flex justify-center gap-10 font-semibold">
-          <Link href="/sport/football">Football</Link>
-          <Link href="/sport/badminton">Badminton</Link>
-          <Link href="/sport/volleyball">Volleyball</Link>
-          <Link href="/sport/ping%20pong">Ping Pong</Link>
-          <Link href="/about-us">About Us</Link>
+          <Link
+            href="/sport/football"
+            className={
+              pathName === "/sport/football"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            Football
+          </Link>
+          <Link
+            href="/sport/badminton"
+            className={
+              pathName === "/sport/badminton"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            Badminton
+          </Link>
+          <Link
+            href="/sport/volleyball"
+            className={
+              pathName === "/sport/volleyball"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            Volleyball
+          </Link>
+          <Link
+            href="/sport/ping%20pong"
+            className={
+              pathName === "/sport/ping%20pong"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            Ping Pong
+          </Link>
+          <Link
+            href="/about-us"
+            className={
+              pathName === "/about-us"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            About Us
+          </Link>
+          <Link
+            href="/policy"
+            className={
+              pathName === "/policy"
+                ? "text-black"
+                : "text-gray-400 transition-all hover:text-black"
+            }
+          >
+            Policy
+          </Link>
         </nav>
         <div className="md:w-1/4 hidden xl:flex justify-end">
           {data?.status === 401 ? (

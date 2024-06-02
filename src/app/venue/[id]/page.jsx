@@ -1,7 +1,11 @@
-import React from "react";
+import UserLayout from "@/app/UserLayout";
 
 function SingleVenuePage() {
-  return <div>SingleVenuePage</div>;
+  return (
+    <UserLayout>
+      <div className="max-w-7xl mx-auto">Hello</div>
+    </UserLayout>
+  );
 }
 
 export default SingleVenuePage;

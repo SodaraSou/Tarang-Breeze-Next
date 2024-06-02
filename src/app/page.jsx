@@ -120,7 +120,7 @@ function HomePage() {
           <FeatureVenue />
         </div>
         <div>
-          <FeatureTeam />
+          {/* <FeatureTeam /> */}
         </div>
       </div>
     </UserLayout>
