@@ -51,7 +51,7 @@ function Header() {
             </Link>
             <nav className="grid gap-2 text-lg font-semibold">
               {data?.status !== 401 ? (
-                <Link href="/profile" className="flex items-center gap-4">
+                <Link href="/user" className="flex items-center gap-4">
                   <Avatar>
                     <AvatarImage
                       src={
@@ -232,7 +232,7 @@ function Header() {
               </Link>
             </div>
           ) : (
-            <Link href="/profile" className="flex items-center gap-4">
+            <Link href="/user" className="flex items-center gap-4">
               <Avatar>
                 <AvatarImage
                   src={

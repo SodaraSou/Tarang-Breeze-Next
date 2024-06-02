@@ -4,8 +4,6 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/services/user";
 import { useAuth } from "@/hooks/auth";
-import { FaPenToSquare } from "react-icons/fa6";
-import { FaSave } from "react-icons/fa";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "./ui/button";
 import { Label } from "@/components/ui/label";
@@ -34,7 +32,7 @@ function Profile() {
         </div>
       </CardHeader>
       <CardContent>
-        <div className="w-full flex flex-col md:flex-row justify-between gap-4 md:gap-10">
+        <div className="flex flex-col justify-between gap-4 md:gap-10">
           <div className="flex flex-col gap-4 justify-center items-center">
             <div className="relative inline-block">
               <label
@@ -44,7 +42,7 @@ function Profile() {
                 <img
                   src={"https://github.com/shadcn.png"}
                   alt="Profile Image"
-                  className="rounded-full w-40 h-32 object-cover"
+                  className="rounded-full w-32 object-cover"
                 />
               </label>
               <input
@@ -55,7 +53,7 @@ function Profile() {
                 // disabled={editMode}
               />
             </div>
-            <button
+            {/* <button
               // onClick={onSubmit}
               className="text-lg flex items-center gap-2"
             >
@@ -69,10 +67,10 @@ function Profile() {
                   <FaSave /> Save
                 </>
               )}
-            </button>
+            </button> */}
           </div>
-          <div className="w-full gap-4">
-            <div className="flex flex-col gap-4 mb-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="w-full flex flex-col gap-4">
               <Label>Name</Label>
               <Input
                 id="name"
@@ -81,7 +79,7 @@ function Profile() {
                 disabled
               />
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="w-full flex flex-col gap-4">
               <Label>Phone Number</Label>
               <PhoneInput
                 value={data?.data.phone ? "+" + data?.data.phone : ""}
@@ -91,6 +89,9 @@ function Profile() {
                 defaultCountry="KH"
                 disabled
               />
+            </div>
+            <div className="flex items-end">
+              <Button className="bg-blue-500 hover:bg-blue-700">Edit</Button>
             </div>
           </div>
         </div>
