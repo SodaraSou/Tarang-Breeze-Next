@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CryptoJS, { AES } from "crypto-js";
 import {
   Card,
   CardContent,
@@ -9,15 +10,26 @@ import {
 import ReservationCreateDialog from "@/components/ReservationCreateDialog";
 import { Button } from "@/components/ui/button";
 
+const encryptQueryParams = (params, secretKey) => {
+  const stringifiedParams = JSON.stringify(params);
+  const encryptedParams = CryptoJS.AES.encrypt(
+    stringifiedParams,
+    secretKey
+  ).toString();
+  return encryptedParams;
+};
+
 function VenueCard({ venue, searchData }) {
+  const secretKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+  const encryptedQuery = encryptQueryParams(searchData, secretKey);
   return (
-    <div
-    // href={{
-    //   pathname: `/venue/${venue.sport_type.name}/${venue.id}`,
-    //   query: {
-    //     ...searchData,
-    //   },
-    // }}
+    <Link
+      href={{
+        pathname: `/venue/${venue.id}`,
+        query: {
+          data: encryptedQuery,
+        },
+      }}
     >
       <Card className="bg-white">
         <img
@@ -35,7 +47,7 @@ function VenueCard({ venue, searchData }) {
           <CardDescription>Type : {venue.sport_type.name}</CardDescription>
           <CardDescription>Size of the Court : {venue.size}</CardDescription>
         </CardHeader>
-        <CardContent>
+        {/* <CardContent>
           <div className="flex justify-end">
             <ReservationCreateDialog
               venue={venue}
@@ -51,9 +63,9 @@ function VenueCard({ venue, searchData }) {
               }
             />
           </div>
-        </CardContent>
+        </CardContent> */}
       </Card>
-    </div>
+    </Link>
   );
 }
 

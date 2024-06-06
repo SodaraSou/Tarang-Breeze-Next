@@ -26,7 +26,7 @@ function DatePicker({ onValue, onDateChange, disabled }) {
         <Button
           variant={"outline"}
           className={cn(
-            "justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal",
             !date && "text-muted-foreground"
           )}
           disabled={disabled}

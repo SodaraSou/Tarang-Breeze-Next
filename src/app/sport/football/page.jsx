@@ -32,10 +32,10 @@ function FootballPage() {
           <FootballPrimaryBanner />
         </div>
         <div>
-          <FeatureVenue sport="Football" />
+          <FeatureVenue sport={1} />
         </div>
         <div>
-          <FeatureTeam sport="Football" />
+          <FeatureTeam sportId={1} />
         </div>
       </div>
     </UserLayout>

@@ -66,31 +66,43 @@ export const getVenuesWithPagination = async (paginationUrl) => {
   }
 };
 
-// export const getVenuesByType = async (sportType) => {
-//   try {
-//     const res = await axios.get(
-//       `/api/venues?type=${sportType}`,
-//       {
-//         headers: {
-//           Accept: "application/json",
-//           Referer",
-//         },
-//       }
-//     );
-//     const data = res.data;
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// };
+export const getVenuesByType = async (sportType) => {
+  try {
+    const res = await axios.get(`/api/venues?type=${sportType}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
-export const showSingleVenue = async (venueId) => {
+export const getVenuesByAmenity = async (amenity) => {
+  try {
+    const res = await axios.get(`/api/venues?amenity=${amenity}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getSingleVenue = async (venueId) => {
   try {
     const res = await axios.get(`/api/venues/${venueId}`, {
       headers: {
         Accept: "application/json",
-        // Referer",
       },
     });
     return res.data;

@@ -31,6 +31,7 @@ function Reservation() {
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
+  console.log(data);
   return (
     <Card className="bg-white">
       <CardHeader>

@@ -5,6 +5,7 @@ import { MapPin, Clock, Users, CheckCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
 function TournamentCard({ reservation }) {
+  console.log(reservation);
   return (
     <Card className="bg-white rounded-xl">
       <CardHeader>

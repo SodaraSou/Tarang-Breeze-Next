@@ -42,7 +42,7 @@ function Profile() {
                 <img
                   src={"https://github.com/shadcn.png"}
                   alt="Profile Image"
-                  className="rounded-full w-32 object-cover"
+                  className="rounded-full w-32 h-32 object-cover"
                 />
               </label>
               <input

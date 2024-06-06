@@ -46,14 +46,14 @@ function MatchDayRegisterDialog({ team, matchGame }) {
   });
   const [matchGameData, setMatchGameData] = useState({
     is_accepted: false,
-    team1_id: matchGame && matchGame.team1 ? matchGame.team1.id : 0,
-    team2_id: matchGame && matchGame.team2 ? matchGame.team2.id : 0,
-    reservation_id: matchGame.reservation ? matchGame.reservation.id : 0,
+    team1_id: matchGame.match_game.team1 ? matchGame.match_game.team1.id : 0,
+    team2_id: matchGame.match_game.team2 ? matchGame.match_game.team2.id : 0,
+    reservation_id: matchGame ? matchGame.id : 0,
   });
   const [teamData, setTeamData] = useState({
     name: "",
     logo: "",
-    sport_type_id: team ? team.sportType.id : 0,
+    sport_type_id: matchGame ? matchGame.venue.sport_type.id : 0,
   });
   const onChangeTeam = (e) => {
     e.preventDefault();
@@ -69,6 +69,10 @@ function MatchDayRegisterDialog({ team, matchGame }) {
       }));
     }
   };
+  const [checkCreateTeam, setCheckCreateTeam] = useState(false);
+  const handleCheck = (e) => {
+    setCheckCreateTeam(e.target.checked);
+  };
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [open, setOpen] = useState(false);
@@ -78,7 +82,11 @@ function MatchDayRegisterDialog({ team, matchGame }) {
     e.preventDefault();
     if (user.status === 401) {
       router.push("/login");
-    } else {
+    }
+    // else if (user.data.phone === null) {
+    //   console.log("no phone number");
+    // }
+    else {
       setOpen(true);
     }
   };
@@ -143,7 +151,7 @@ function MatchDayRegisterDialog({ team, matchGame }) {
               matchGameData.team1_id !== 0 && matchGameData.team2_id !== 0
             }
             variant="outline"
-            className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
+            className="w-full bg-[#2ad5a5] text-white cols-span-1 md:col-span-2 xl:col-span-1"
           >
             Challenge
           </Button>
@@ -182,6 +190,7 @@ function MatchDayRegisterDialog({ team, matchGame }) {
                 ) : (
                   <>
                     <Select
+                      disabled={checkCreateTeam}
                       onValueChange={(id) => {
                         setMatchGameData((prevState) => ({
                           ...prevState,
@@ -208,14 +217,47 @@ function MatchDayRegisterDialog({ team, matchGame }) {
                         </ScrollArea>
                       </SelectContent>
                     </Select>
+                    <div className="flex items-center gap-2 text-sm">
+                      <input
+                        onChange={handleCheck}
+                        checked={checkCreateTeam}
+                        type="checkbox"
+                        value="create_team"
+                        id="create_team"
+                        name="default-checkbox"
+                      />
+                      <label htmlFor="find_team">Create New Team</label>
+                    </div>
+                    {checkCreateTeam && (
+                      <>
+                        <div className="flex flex-col gap-2">
+                          <Label htmlFor="name">Team Name</Label>
+                          <Input
+                            type="data"
+                            id="name"
+                            className="rounded-lg"
+                            onChange={onChangeTeam}
+                          />
+                        </div>
+                        <div className="flex flex-col gap-4">
+                          <Label htmlFor="size">Image</Label>
+                          <Input
+                            type="file"
+                            id="logo"
+                            onChange={onChangeTeam}
+                          />
+                        </div>
+                      </>
+                    )}
                   </>
                 )}
               </div>
               <DialogFooter>
                 <Button
+                  disabled={user.data.id === matchGame.user.id}
                   type="submit"
                   variant="outline"
-                  className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+                  className="bg-[#2ad5a5] text-white"
                 >
                   Challenge
                 </Button>

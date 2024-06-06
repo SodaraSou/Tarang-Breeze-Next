@@ -32,10 +32,10 @@ function VolleyballPage() {
           <VolleyballPrimaryBanner />
         </div>
         <div>
-          <FeatureTeam sport="Volleyball" />
+          <FeatureVenue sport={3} />
         </div>
         <div>
-          <FeatureVenue sport="Volleyball" />
+          <FeatureTeam sportId={3} />
         </div>
       </div>
     </UserLayout>

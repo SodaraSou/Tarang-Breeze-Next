@@ -32,10 +32,10 @@ function PingPongPage() {
           <PingPongPrimaryBanner />
         </div>
         <div>
-          <FeatureTeam sport="Ping Pong" />
+          <FeatureVenue sport={5} />
         </div>
         <div>
-          <FeatureVenue sport="Ping Pong" />
+          <FeatureTeam sportId={5} />
         </div>
       </div>
     </UserLayout>

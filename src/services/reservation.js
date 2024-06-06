@@ -1,5 +1,4 @@
 import axios from "@/lib/axios";
-import { createTeam } from "@/services/team";
 
 export const createReservation = async (reservation) => {
   try {
@@ -15,24 +14,6 @@ export const createReservation = async (reservation) => {
     return error.response;
   }
 };
-
-// export const createReservationTest = async (reservation, team) => {
-//   try {
-//     if (reservation.find_team) {
-//       const resTeam = await createTeam(team);
-//     }
-//     const res = await axios.post("/api/reservation", reservation, {
-//       headers: {
-//         "content-type": "application/json",
-//         Accept: "application/json",
-//       },
-//     });
-//     return res;
-//   } catch (error) {
-//     console.error(error.response);
-//     return error.response;
-//   }
-// };
 
 export const updateReservation = async (reservation, updateReservation) => {
   try {
@@ -114,6 +95,21 @@ export const searchAvailableTime = async (data) => {
     data.date = data.date.split("T")[0];
     data.sport_type_id = parseInt(data.sport_type_id);
     const res = await axios.post("/api/available-time", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const checkAvailableTime = async (data) => {
+  try {
+    const res = await axios.post("/api/find-reservation", data, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",

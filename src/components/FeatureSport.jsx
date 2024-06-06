@@ -12,7 +12,6 @@ function FeatureSport() {
     queryKey: ["allSportTypes"],
     queryFn: getSportTypes,
   });
-  console.log(sportTypes);
   const sportIcons = [
     "/football_icon.png",
     "/badminton_icon.png",

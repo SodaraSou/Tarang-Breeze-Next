@@ -16,17 +16,17 @@ function FeatureTeamCard({ team, matchGame }) {
       <div className="relative">
         <CardHeader className="flex flex-col items-center">
           <Avatar className="w-24 h-24">
-            <AvatarImage src={matchGame.team1.logo} />
-            <AvatarFallback>{matchGame.team1.name}</AvatarFallback>
+            <AvatarImage src={matchGame.match_game.team1.logo} />
+            <AvatarFallback>{matchGame.match_game.team1.name}</AvatarFallback>
           </Avatar>
-          <CardTitle>{matchGame.team1.name}</CardTitle>
+          <CardTitle>{matchGame.match_game.name}</CardTitle>
         </CardHeader>
         <div className="flex flex-col absolute right-6 top-6">
           <span className="text-center px-4 bg-red-500 rounded-t-lg text-white font-semibold">
-            {format(matchGame.reservation.date, "MMMM")}
+            {format(matchGame.date, "MMMM")}
           </span>
           <span className="text-center px-4 bg-[#eaeaea] rounded-b-lg font-semibold">
-            {format(matchGame.reservation.date, "dd")}
+            {format(matchGame.date, "dd")}
           </span>
         </div>
       </div>
@@ -34,12 +34,11 @@ function FeatureTeamCard({ team, matchGame }) {
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-2">
             <MapPin className="w-4 h-4" />
-            {matchGame.reservation.venue.name}
+            {matchGame.venue.name}
           </p>
           <p className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            Time: {matchGame.reservation.start_time} -{" "}
-            {matchGame.reservation.end_time}
+            Time: {matchGame.start_time} - {matchGame.end_time}
           </p>
           <p className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4" />

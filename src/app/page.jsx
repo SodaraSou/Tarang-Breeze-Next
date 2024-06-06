@@ -117,10 +117,10 @@ function HomePage() {
           <HomePrimaryBanner />
         </div>
         <div>
-          <FeatureVenue />
+          <FeatureVenue sport={0} />
         </div>
         <div>
-          {/* <FeatureTeam /> */}
+          <FeatureTeam sportId={0} />
         </div>
       </div>
     </UserLayout>
