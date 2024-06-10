@@ -79,10 +79,10 @@ function AboutUsPage() {
             <p>
               We're dedicated to making sports more accessible, enjoyable, and
               inclusive for everyone. We connect communities through sports,
-              simplify venue booking, promote fair play, support solo players,
-              embrace diversity, foster a positive environment, and continuously
-              improve our platform. Join us in our mission to bring people
-              together through the love of the game.
+              simplify venue booking, promote fair play, embrace diversity,
+              foster a positive environment, and continuously improve our
+              platform. Join us in our mission to bring people together through
+              the love of the game.
             </p>
           </CardContent>
         </Card>
@@ -92,7 +92,7 @@ function AboutUsPage() {
             <CardTitle className="text-2xl font-bold">What we offer</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 justify-center text-center gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-center gap-4">
               <Card className="p-10">
                 <CardHeader>
                   <CardTitle className="text-lg">Venue Reservations</CardTitle>
@@ -115,18 +115,6 @@ function AboutUsPage() {
                     teams. Our platform allows you to connect with teams of
                     similar skill levels, ensuring a fun and competitive game
                     every time.
-                  </p>
-                </CardContent>
-              </Card>
-              <Card className="p-10">
-                <CardHeader>
-                  <CardTitle className="text-lg">Find a Team to Join</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-gray-400">
-                    If you're a solo player searching for a team, we are here to
-                    help. Our community feature connects individual players with
-                    teams that need new members.
                   </p>
                 </CardContent>
               </Card>
