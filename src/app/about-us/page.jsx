@@ -7,9 +7,11 @@ function AboutUsPage() {
   return (
     <UserLayout>
       <div className="max-w-7xl mx-auto flex flex-col relative">
-        <div className="w-full bg-white grid grid-cols-2">
+        <div className="w-full bg-white md:grid md:grid-cols-2">
           <div className="h-[300px] p-20 justify-center">
-            <h1 className="text-2xl font-bold">About Tarang</h1>
+            <h1 className="text-2xl font-bold text-center md:text-start mb-4">
+              About Tarang
+            </h1>
             <p>
               We believe in the power of sports to bring people together, foster
               healthy competition, and build community.
@@ -17,7 +19,7 @@ function AboutUsPage() {
           </div>
           <div></div>
         </div>
-        <div className="absolute top-0 end-20 space-y-2">
+        <div className="absolute top-0 end-20 space-y-2 hidden md:block xl:block">
           <div className="flex gap-4">
             <Card className="rounded-none border-none shadow-none">
               <CardContent className="p-0">
@@ -67,13 +69,13 @@ function AboutUsPage() {
             </Card>
           </div>
         </div>
-        <Card className="rounded-none border-none shadow-none flex items-center justify-center my-28">
+        <Card className="rounded-none border-none shadow-none text-center md:flex items-center justify-center my-28">
           <CardHeader>
             <CardTitle className="text-2xl font-bold mx-20">
               Our Mission
             </CardTitle>
           </CardHeader>
-          <CardContent className="text-gray-400 w-3/5 items-center">
+          <CardContent className="text-gray-400 xl:w-3/5">
             <p>
               We're dedicated to making sports more accessible, enjoyable, and
               inclusive for everyone. We connect communities through sports,
@@ -133,11 +135,14 @@ function AboutUsPage() {
         </Card>
         <div className="bg-gray-200 h-0.5"></div>
         <Card className="rounded-none border-none shadow-none my-28">
-          <CardHeader align="start" className="text-2xl font-bold">
+          <CardHeader
+            align="start"
+            className="text-2xl font-bold text-center xl:text-start"
+          >
             The Members of Tarang{" "}
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-5">
+            <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
               <div className="flex flex-col items-center">
                 <Card>
                   <CardHeader className="p-0">
