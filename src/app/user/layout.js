@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Clock, LandPlot, ShieldHalf, User } from "lucide-react";
+import { Clock, LandPlot, User } from "lucide-react";
 import { usePathname } from "next/navigation";
 import UserProtectedRoute from "@/components/UserProtectedRoute";
 import UserLayout from "@/app/UserLayout";
@@ -16,7 +16,6 @@ export default function Layout({ children }) {
             <h1 className="text-3xl font-semibold">
               {pathName === "/user" && "Profile"}
               {pathName === "/user/reservation" && "Reservation"}
-              {pathName === "/user/team" && "Team"}
               {pathName === "/user/match-game" && "Match Game"}
             </h1>
           </div>
@@ -41,16 +40,6 @@ export default function Layout({ children }) {
                 }
               >
                 <LandPlot className="w-4 h-4" /> Reservation
-              </Link>
-              <Link
-                href="/user/team"
-                className={
-                  pathName === "/user/team"
-                    ? "font-semibold flex items-center gap-2"
-                    : "flex items-center gap-2 text-gray-400 hover:text-black hover:font-semibold"
-                }
-              >
-                <ShieldHalf className="w-4 h-4" /> Team
               </Link>
               <Link
                 href="/user/match-game"

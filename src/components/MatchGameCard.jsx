@@ -1,26 +1,35 @@
-import { MapPin, Clock, Calendar } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MapPin, Clock } from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/ui/card";
+import { Button } from "./ui/button";
 import { format } from "date-fns";
-function MatchGameCard({ matchGame }) {
+import { acceptMatchGame, rejectMatchGame } from "@/services/team";
+
+function MatchGameCard({ matchGame, user }) {
   return (
     <Card className="bg-white">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <div className="flex flex-col items-center gap-2">
-            <Avatar className="w-24 h-24">
-              <AvatarImage src={matchGame.team1.logo} />
-              <AvatarFallback>{matchGame.team1.name}</AvatarFallback>
-            </Avatar>
-            <CardTitle>{matchGame.team1.name}</CardTitle>
-          </div>
-          <CardTitle>VS</CardTitle>
-          <div className="flex flex-col items-center gap-2">
-            <Avatar className="w-24 h-24">
-              <AvatarImage src={matchGame.team2.logo} />
-              <AvatarFallback>{matchGame.team2.name}</AvatarFallback>
-            </Avatar>
-            <CardTitle>{matchGame.team2.name}</CardTitle>
+          {matchGame.users.length === 1 && (
+            <CardTitle>{matchGame.users[0].name} vs Pending Team</CardTitle>
+          )}
+          {matchGame.users.length === 2 && (
+            <CardTitle>
+              {matchGame.users[0].name} vs {matchGame.users[1].name}
+            </CardTitle>
+          )}
+          <div className="flex flex-col">
+            <span className="text-center px-4 bg-red-500 rounded-t-lg text-white font-semibold">
+              {format(matchGame.reservation.date, "MMMM")}
+            </span>
+            <span className="text-center px-4 bg-[#eaeaea] rounded-b-lg font-semibold">
+              {format(matchGame.reservation.date, "dd")}
+            </span>
           </div>
         </div>
       </CardHeader>
@@ -30,19 +39,53 @@ function MatchGameCard({ matchGame }) {
             <MapPin className="w-4 h-4" />
             {matchGame.reservation.venue.name}
           </p>
-          <div className="flex justify-between">
-            <p className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              Date: {format(matchGame.reservation.date, "PPP")}
-            </p>
-            <p className="flex items-center gap-2">
-              <Clock className="w-4 h-4" />
-              Time: {matchGame.reservation.start_time} -{" "}
-              {matchGame.reservation.end_time}
-            </p>
-          </div>
+          <p className="flex items-center gap-2">
+            <Clock className="w-4 h-4" />
+            Time: {matchGame.reservation.start_time} -{" "}
+            {matchGame.reservation.end_time}
+          </p>
+          {matchGame.users.length === 2 ? (
+            <>
+              {user.data.id === matchGame.users[1].id &&
+                matchGame.is_accepted === 0 && (
+                  <p className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" /> Pending Accept
+                  </p>
+                )}
+            </>
+          ) : (
+            <>
+              <p className="flex items-center gap-2">
+                <Clock className="w-4 h-4" /> Await Opponent
+              </p>
+            </>
+          )}
         </div>
       </CardContent>
+      {matchGame.is_accepted === 0 &&
+        matchGame.reservation.user.id === user.data.id &&
+        matchGame.users.length === 2 && (
+          <CardFooter>
+            <div className="space-x-2 ml-auto">
+              <Button
+                variant="outline"
+                className="bg-blue-500 text-white"
+                onClick={() => acceptMatchGame(matchGame.id)}
+              >
+                Accept
+              </Button>
+              <Button
+                variant="outline"
+                className="bg-red-500 text-white"
+                onClick={() =>
+                  rejectMatchGame(matchGame.id, matchGame.users[1].id)
+                }
+              >
+                Reject
+              </Button>
+            </div>
+          </CardFooter>
+        )}
     </Card>
   );
 }

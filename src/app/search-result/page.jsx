@@ -1,9 +1,12 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 import { searchAvailableTime } from "@/services/reservation";
+import { Button } from "@/components/ui/button";
 import UserLayout from "../UserLayout";
 import Spinner from "@/components/Spinner";
 import VenueCard from "@/components/VenueCard";
@@ -19,6 +22,30 @@ function SearchResultPage() {
     queryFn: () =>
       searchAvailableTime({ date, start_time, end_time, sport_type_id }),
   });
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const { toast } = useToast();
+  useEffect(() => {
+    if (
+      date === "" ||
+      start_time === "" ||
+      end_time === "" ||
+      sport_type_id === ""
+    ) {
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [date, start_time, end_time, sport_type_id]);
+
+  useEffect(() => {
+    if (open) {
+      toast({
+        variant: "destructive",
+        description: "All search fields are required.",
+      });
+    }
+  }, [open, toast]);
   return (
     <UserLayout>
       <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0 my-10">

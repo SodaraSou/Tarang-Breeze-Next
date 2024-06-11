@@ -9,7 +9,7 @@ import { getReservationWithPagination } from "@/services/reservation";
 import FeatureTeamCard from "./FeatureTeamCard";
 import Spinner from "@/components/Spinner";
 
-function FeatureTeam({ sport, sportId }) {
+function FeatureTeam({ sportId }) {
   if (sportId !== 0) {
     const [paginationUrl, setPaginationUrl] = useState("/api/reservation");
     const { data: matchGames, isLoading: matchGamesLoading } = useQuery({
@@ -36,7 +36,7 @@ function FeatureTeam({ sport, sportId }) {
                 )
                 .filter(
                   (matchGame) =>
-                    !matchGame.match_game.team2 &&
+                    matchGame.match_game.users.length === 1 &&
                     matchGame.sport_type.id === sportId
                 ).length === 0 ? (
                 <div className="flex justify-center items-center gap-4 p-10">
@@ -56,15 +56,11 @@ function FeatureTeam({ sport, sportId }) {
                         matchGame.match_game !== null &&
                         matchGame.find_team === 1
                     )
-                    .filter(
-                      (matchGame) =>
-                        !matchGame.match_game.team2 &&
-                        matchGame.sport_type.id === sportId
-                    )
+                    .filter((matchGame) => matchGame.sport_type.id === sportId)
                     .map((matchGame, index) => (
                       <FeatureTeamCard
                         key={index}
-                        team={matchGame.match_game.team1}
+                        user={matchGame.user}
                         matchGame={matchGame}
                       />
                     ))}
@@ -84,6 +80,7 @@ function FeatureTeam({ sport, sportId }) {
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
+  console.log(matchGames);
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0">
       <h1 className="text-2xl font-semibold mb-4">Feature Teams</h1>
@@ -99,8 +96,8 @@ function FeatureTeam({ sport, sportId }) {
                 (matchGame) =>
                   matchGame.match_game !== null && matchGame.find_team === 1
               )
-              .filter((matchGame) => !matchGame.match_game.team2).length ===
-            0 ? (
+              .filter((matchGame) => matchGame.match_game.users.length === 1)
+              .length === 0 ? (
               <div className="flex justify-center items-center gap-4 p-10">
                 <Image
                   src="/favicon.ico"
@@ -117,11 +114,13 @@ function FeatureTeam({ sport, sportId }) {
                     (matchGame) =>
                       matchGame.match_game !== null && matchGame.find_team === 1
                   )
-                  .filter((matchGame) => !matchGame.match_game.team2)
+                  .filter(
+                    (matchGame) => matchGame.match_game.users.length === 1
+                  )
                   .map((matchGame, index) => (
                     <FeatureTeamCard
                       key={index}
-                      team={matchGame.match_game.team1}
+                      user={matchGame.user}
                       matchGame={matchGame}
                     />
                   ))}

@@ -1,4 +1,4 @@
-  import axios from "@/lib/axios";
+import axios from "@/lib/axios";
 import { deleteTeamLogo, uploadTeamLogo } from "@/lib/firebase/storage";
 
 export const getTeams = async () => {
@@ -180,11 +180,63 @@ export const createMatchGame = async (matchGame) => {
   }
 };
 
-export const updateMatchGame = async (matchGameId, matchGame) => {
+export const updateMatchGame = async (matchGameId) => {
   try {
-    const res = await axios.put(`/api/match-games/${matchGameId}`, matchGame, {
+    const res = await axios.put(
+      `/api/match-games/${matchGameId}`,
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const acceptMatchGame = async (matchGameId) => {
+  try {
+    const res = await axios.put(
+      `/api/match-games/accept/${matchGameId}`,
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const rejectMatchGame = async (matchGameId, opponentId) => {
+  try {
+    const res = await axios.delete(
+      `/api/match-games/${matchGameId}/${opponentId}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const availableMatchGame = async () => {
+  try {
+    const res = await axios.get(`/api/match-games?no-opponent`, {
       headers: {
-        "content-type": "application/json",
         Accept: "application/json",
       },
     });

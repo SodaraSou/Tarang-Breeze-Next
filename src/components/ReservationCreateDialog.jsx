@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { createReservation } from "@/services/reservation";
-import { createMatchGame, createTeam } from "@/services/team";
+import { createMatchGame } from "@/services/team";
 import { getAllVenues } from "@/services/venue";
 import {
   Dialog,
@@ -30,15 +30,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { PhoneInput } from "@/components/ui/phone-input";
+import { useQuery } from "@tanstack/react-query";
+import { getUser, updateUser } from "@/services/user";
+import { checkAvailableTime } from "@/services/reservation";
 import DatePicker from "./DatePicker";
 import Spinner from "@/components/Spinner";
-import { useQuery } from "@tanstack/react-query";
-import { getUser } from "@/services/user";
-import { checkAvailableTime } from "@/services/reservation";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
@@ -51,8 +58,9 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
     queryKey: ["allVenues"],
     queryFn: getAllVenues,
   });
+  const [value, setValue] = useState("");
   const [inputData, setInputData] = useState({
-    phone: "",
+    phone: user.data.phone ? "+" + user.data.phone : "",
     attendee: 0,
     date: searchData ? searchData.date : "",
     start_time: searchData ? searchData.start_time : "",
@@ -63,11 +71,6 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
     find_team: false,
     find_member: false,
   });
-  const [teamData, setTeamData] = useState({
-    name: "",
-    logo: "",
-    sport_type_id: venue ? venue.sport_type.id : 0,
-  });
   const onChange = (e) => {
     e.preventDefault();
     setInputData((prevState) => ({
@@ -76,25 +79,11 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
     }));
   };
   const handleCheck = (e) => {
-    e.preventDefault();
-    setTeamOptions({
-      ...teamOptions,
-      [e.target.value]: e.target.checked,
-    });
-  };
-  const onChangeTeam = (e) => {
-    e.preventDefault();
-    if (e.target.id === "logo") {
-      setTeamData((prevState) => ({
-        ...prevState,
-        [e.target.id]: e.target.files[0],
-      }));
-    } else {
-      setTeamData((prevState) => ({
-        ...prevState,
-        [e.target.id]: e.target.value,
-      }));
-    }
+    const { value, checked } = e.target;
+    setTeamOptions((prevOptions) => ({
+      ...prevOptions,
+      [value]: checked,
+    }));
   };
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
@@ -102,6 +91,7 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
   const [checkDateMessage, setCheckDateMessage] = useState("");
   const [open, setOpen] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const [openOtp, setOpenOtp] = useState(false);
   const isFormValid = () => {
     for (let field in inputData) {
       if (inputData[field] === "") {
@@ -110,8 +100,28 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
     }
     return true;
   };
-  const onSubmit = async (e) => {
-    e.preventDefault();
+  // const handleOpt = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.post(
+  //       "http://localhost:8000/api/verify-phone",
+  //       { user_id: user.id, code: value },
+  //       {
+  //         headers: {
+  //           "content-type": "application/json",
+  //           Accept: "application/json",
+  //         },
+  //       }
+  //     );
+  //     return res;
+  //     router.push("/");
+  //   } catch (e) {
+  //     console.log(e.response);
+  //     return e.response;
+  //   }
+  // };
+  const onSubmit = async () => {
+    // e.preventDefault();
     setCheckTimeMessage("");
     setCheckDateMessage("");
     if (!isFormValid()) {
@@ -147,17 +157,46 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
           return;
         }
       }
+      // if (user.data.phone === null) {
+      //   if (phoneNumber.startsWith("+")) {
+      //     inputData.phone = phoneNumber.slice(1);
+      //   } else {
+      //     inputData.phone = phoneNumber;
+      //   }
+      //   const response = await updateUser({
+      //     name: user.data.name,
+      //     phone: inputData.phone,
+      //     photo: user.data.photo || "https://github.com/shadcn.png",
+      //   });
+      //   if (response.status >= 400) {
+      //     setOpenAlertDialog(true);
+      //     setAlertMessage("Failed to update phone number");
+      //     wait().then(() => setOpenAlertDialog(false));
+      //     setLoading(false);
+      //     return;
+      //   } else {
+      //     const res = await handleOpt();
+      //     if (res.status >= 400) {
+      //       setOpenAlertDialog(true);
+      //       setAlertMessage("Failed to verfiy otp");
+      //       wait().then(() => setOpenAlertDialog(false));
+      //       setLoading(false);
+      //       return;
+      //     }
+      //   }
+      // }
+      if (inputData.phone.startsWith("+")) {
+        inputData.phone = inputData.phone.slice(1);
+      } else {
+        inputData.phone = inputData.phone;
+      }
       if (teamOptions.find_member || teamOptions.find_team) {
-        const preRes = await createTeam(teamData);
-        inputData.team_id = preRes.data.id;
         const reservation = { ...inputData, ...teamOptions };
         const res = await createReservation(reservation);
         if (res.status === 201) {
-          const resMatchGame = await createMatchGame({
-            team1_id: preRes.data.id,
+          await createMatchGame({
             reservation_id: res.data.id,
           });
-          console.log(resMatchGame);
           setOpenAlertDialog(true);
           setAlertMessage("Reservation Create Successfully");
           wait().then(() => setOpenAlertDialog(false));
@@ -192,6 +231,45 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
   };
   return (
     <>
+      {/* <Dialog open={openOtp} onOpenChange={setOpenOtp}>
+        <DialogContent className="bg-white">
+          <DialogHeader>
+            <DialogTitle className="text-2xl md:text-4xl">OTP</DialogTitle>
+            <DialogDescription>
+              Enter the 6 digit code sent to your phone number {phoneNumber}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex justify-center">
+            <InputOTP
+              maxLength={6}
+              value={value}
+              onChange={(value) => setValue(value)}
+            >
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+              </InputOTPGroup>
+              <InputOTPSeparator />
+              <InputOTPGroup>
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
+          </div>
+          <DialogFooter>
+            <Button
+              onClick={handleOpt}
+              type="submit"
+              variant="outline"
+              className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+            >
+              Verify
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog> */}
       {/* Alert Dialog */}
       <AlertDialog open={openAlertDialog} onOpenChange={setOpenAlertDialog}>
         <AlertDialogContent>
@@ -369,12 +447,22 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                   <Label htmlFor="phone_number">Phone Number</Label>
-                  <Input
+                  {/* <Input
                     type="text"
                     id="phone"
                     onChange={onChange}
                     className="rounded-lg"
                     defaultValue={inputData.phone}
+                    disabled={user.data.phone}
+                  /> */}
+                  <PhoneInput
+                    id="phone"
+                    onChange={onChange}
+                    className="rounded-lg"
+                    international
+                    defaultCountry="KH"
+                    value={inputData.phone}
+                    disabled={user.data.phone}
                   />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
@@ -389,51 +477,20 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
                 </div>
                 <div className="flex flex-col gap-2">
                   <Label htmlFor="name">Optional</Label>
-                  <div className="flex flex-col md:flex-row gap-4 text-sm">
-                    <div className="flex items-center gap-2">
-                      <input
-                        onChange={handleCheck}
-                        checked={teamOptions.find_team}
-                        type="checkbox"
-                        value="find_team"
-                        id="find_team"
-                        name="default-checkbox"
-                      />
-                      <label htmlFor="find_team">
-                        Find a team to play against
-                      </label>
-                    </div>
-                    <div className="flex gap-2">
-                      <input
-                        onChange={handleCheck}
-                        checked={teamOptions.find_member}
-                        type="checkbox"
-                        value="find_member"
-                        id="find_member"
-                        name="default-checkbox"
-                      />
-                      <label htmlFor="find_member">Find team member</label>
-                    </div>
+                  <div className="flex items-center gap-2 text-sm">
+                    <input
+                      onChange={handleCheck}
+                      checked={teamOptions.find_team}
+                      type="checkbox"
+                      value="find_team"
+                      id="find_team"
+                      name="find_team"
+                    />
+                    <label htmlFor="find_team">
+                      Find a team to play against
+                    </label>
                   </div>
                 </div>
-                {(teamOptions.find_member === true ||
-                  teamOptions.find_team === true) && (
-                  <>
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="name">Team Name</Label>
-                      <Input
-                        type="data"
-                        id="name"
-                        className="rounded-lg"
-                        onChange={onChangeTeam}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-4">
-                      <Label htmlFor="size">Image</Label>
-                      <Input type="file" id="logo" onChange={onChangeTeam} />
-                    </div>
-                  </>
-                )}
               </div>
               <DialogFooter>
                 <Button

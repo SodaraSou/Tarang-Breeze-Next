@@ -2,6 +2,7 @@ import axios from "@/lib/axios";
 
 export const createReservation = async (reservation) => {
   try {
+    reservation.date = reservation.date.split("T")[0];
     const res = await axios.post("/api/reservation", reservation, {
       headers: {
         "content-type": "application/json",
