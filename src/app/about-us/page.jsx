@@ -71,9 +71,7 @@ function AboutUsPage() {
         </div>
         <Card className="rounded-none border-none shadow-none text-center md:flex items-center justify-center my-28">
           <CardHeader>
-            <CardTitle className="text-2xl font-bold mx-20">
-              Our Mission
-            </CardTitle>
+            <CardTitle className="mx-20">Our Mission</CardTitle>
           </CardHeader>
           <CardContent className="text-gray-400 xl:w-3/5">
             <p>
@@ -89,13 +87,13 @@ function AboutUsPage() {
         <div className="bg-gray-200 h-0.5"></div>
         <Card className="rounded-none border-none shadow-none my-28">
           <CardHeader align="center">
-            <CardTitle className="text-2xl font-bold">What we offer</CardTitle>
+            <CardTitle>What we offer</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 justify-center text-center gap-4">
-              <Card className="p-10">
+              <Card className="p-10 bg-white">
                 <CardHeader>
-                  <CardTitle className="text-lg">Venue Reservations</CardTitle>
+                  <CardTitle>Venue Reservations</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-400">
@@ -105,9 +103,9 @@ function AboutUsPage() {
                   </p>
                 </CardContent>
               </Card>
-              <Card className="p-10">
+              <Card className="p-10 bg-white">
                 <CardHeader>
-                  <CardTitle className="text-lg">Team Matching</CardTitle>
+                  <CardTitle>Team Matching</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-sm text-gray-400">
@@ -122,12 +120,12 @@ function AboutUsPage() {
           </CardContent>
         </Card>
         <div className="bg-gray-200 h-0.5"></div>
-        <Card className="rounded-none border-none shadow-none my-28">
+        <Card className="my-28 bg-white">
           <CardHeader
             align="start"
             className="text-2xl font-bold text-center xl:text-start"
           >
-            The Members of Tarang{" "}
+            The Members of Tarang
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
@@ -135,7 +133,7 @@ function AboutUsPage() {
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      src="/sousodara.webp"
+                      src="/Vitra.jpg"
                       alt="Sethy Vitra"
                       width={150}
                       height={150}
@@ -153,10 +151,11 @@ function AboutUsPage() {
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      src="/sousodara.webp"
+                      src="/Chhay.jpg"
                       alt="Sun ChengChhay"
                       width={150}
                       height={150}
+                      className="object-cover h-[150px]"
                     />
                   </CardHeader>
                 </Card>
@@ -187,7 +186,7 @@ function AboutUsPage() {
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      src="/sousodara.webp"
+                      // src="/sousodara.webp"
                       alt="Sea MengSrun"
                       width={150}
                       height={150}
@@ -203,7 +202,7 @@ function AboutUsPage() {
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      src="/sousodara.webp"
+                      // src="/sousodara.webp"
                       alt="San This Sak Khakna"
                       width={150}
                       height={150}
