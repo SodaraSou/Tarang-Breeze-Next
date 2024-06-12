@@ -45,7 +45,7 @@ export const deleteReservation = async (reservationId) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -91,6 +91,19 @@ export const getReservationByUser = async (paginationUrl) => {
   }
 };
 
+export const getReservationHistoryByUser = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res.data;
+  } catch (error) {
+    console.error(error.response);
+    return error.response.data;
+  }
+};
 export const searchAvailableTime = async (data) => {
   try {
     data.date = data.date.split("T")[0];

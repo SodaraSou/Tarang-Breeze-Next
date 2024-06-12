@@ -1,4 +1,4 @@
-import { MapPin, Clock } from "lucide-react";
+import { MapPin, Clock, Phone, Loader } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -47,16 +47,29 @@ function MatchGameCard({ matchGame, user }) {
           {matchGame.users.length === 2 ? (
             <>
               {user.data.id === matchGame.users[1].id &&
-                matchGame.is_accepted === 0 && (
+              matchGame.is_accepted === 0 ? (
+                <>
                   <p className="flex items-center gap-2">
-                    <Clock className="w-4 h-4" /> Pending Accept
+                    <Loader className="w-4 h-4" /> Pending Accept
                   </p>
-                )}
+                  <p className="flex items-center gap-2">
+                    <Phone className="w-4 h-4" /> Host Contact (
+                    {matchGame.users[0].phone})
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="flex items-center gap-2">
+                    <Phone className="w-4 h-4" /> Challenger Contact (
+                    {matchGame.users[1].phone})
+                  </p>
+                </>
+              )}
             </>
           ) : (
             <>
               <p className="flex items-center gap-2">
-                <Clock className="w-4 h-4" /> Await Opponent
+                <Loader className="w-4 h-4" /> Await Opponent
               </p>
             </>
           )}

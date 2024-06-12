@@ -16,6 +16,8 @@ export default function Layout({ children }) {
             <h1 className="text-3xl font-semibold">
               {pathName === "/user" && "Profile"}
               {pathName === "/user/reservation" && "Reservation"}
+              {pathName === "/user/reservation-history" &&
+                "Reservation History"}
               {pathName === "/user/match-game" && "Match Game"}
             </h1>
           </div>
@@ -40,6 +42,16 @@ export default function Layout({ children }) {
                 }
               >
                 <LandPlot className="w-4 h-4" /> Reservation
+              </Link>
+              <Link
+                href="/user/reservation-history"
+                className={
+                  pathName === "/user/reservation-history"
+                    ? "font-semibold flex items-center gap-2"
+                    : "flex items-center gap-2 text-gray-400 hover:text-black hover:font-semibold"
+                }
+              >
+                <LandPlot className="w-4 h-4" /> Reservation History
               </Link>
               <Link
                 href="/user/match-game"

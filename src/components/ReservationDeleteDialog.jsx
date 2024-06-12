@@ -47,7 +47,9 @@ function ReservationDeleteDialog({ reservationId }) {
             <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction asChild>
+              <Button>Ok</Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

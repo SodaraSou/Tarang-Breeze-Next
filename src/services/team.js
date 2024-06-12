@@ -151,9 +151,9 @@ export const getMatchGamesByUser = async () => {
   }
 };
 
-export const getMatchGamesBySport = async () => {
+export const getMatchGamesBySport = async (paginationUrl) => {
   try {
-    const res = await axios.get(`/api/match-games?user`, {
+    const res = await axios.get(paginationUrl, {
       headers: {
         Accept: "application/json",
       },

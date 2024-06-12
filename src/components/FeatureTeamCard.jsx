@@ -12,17 +12,18 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MatchDayRegisterDialog from "@/components/MatchDayRegisterDialog";
 
 function FeatureTeamCard({ user, matchGame }) {
+  console.log(matchGame);
   return (
     <Card className="bg-white">
       <CardHeader>
         <div className="flex justify-between items-center">
-          <CardTitle>{user.name}</CardTitle>
+          <CardTitle>{user[0].name}</CardTitle>
           <div className="flex flex-col">
             <span className="text-center px-4 bg-red-500 rounded-t-lg text-white font-semibold">
-              {format(matchGame.date, "MMMM")}
+              {format(matchGame.reservation.date, "MMMM")}
             </span>
             <span className="text-center px-4 bg-[#eaeaea] rounded-b-lg font-semibold">
-              {format(matchGame.date, "dd")}
+              {format(matchGame.reservation.date, "dd")}
             </span>
           </div>
         </div>
@@ -31,11 +32,12 @@ function FeatureTeamCard({ user, matchGame }) {
         <div className="flex flex-col gap-4">
           <p className="flex items-center gap-2">
             <MapPin className="w-4 h-4" />
-            {matchGame.venue.name}
+            {matchGame.reservation.venue.name}
           </p>
           <p className="flex items-center gap-2">
             <Clock className="w-4 h-4" />
-            Time: {matchGame.start_time} - {matchGame.end_time}
+            Time: {matchGame.reservation.start_time} -{" "}
+            {matchGame.reservation.end_time}
           </p>
           <p className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4" />

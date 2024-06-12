@@ -10,7 +10,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -43,7 +42,7 @@ function MatchDayRegisterDialog({ user, matchGame }) {
     e.preventDefault();
     setLoading(true);
     if (user.status !== 401) {
-      const resMatchDay = await updateMatchGame(matchGame.match_game.id);
+      const resMatchDay = await updateMatchGame(matchGame.id);
       if (resMatchDay.status === 204) {
         setOpenAlertDialog(true);
         setAlertMessage("Match Game Request Successfully");
@@ -87,7 +86,7 @@ function MatchDayRegisterDialog({ user, matchGame }) {
           <Button
             onClick={checkLogin}
             variant="outline"
-            disabled={user.id === userProfile.data.id}
+            disabled={user[0].id === userProfile.data.id}
             className="w-full bg-[#2ad5a5] text-white cols-span-1 md:col-span-2 xl:col-span-1"
           >
             Challenge
@@ -95,15 +94,19 @@ function MatchDayRegisterDialog({ user, matchGame }) {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-            <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </AlertDialogDescription>
+            <AlertDialogTitle>Are your sure you want to challenge?</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={onSubmit}>Continue</AlertDialogAction>
+            <AlertDialogAction asChild>
+              <Button
+                onClick={onSubmit}
+                variant="outline"
+                className="bg-[#2ad5a5] hover:bg-white hover:text-black"
+              >
+                Continue
+              </Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
