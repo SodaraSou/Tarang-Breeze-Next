@@ -59,7 +59,7 @@ function ReservationDeleteDialog({ reservationId }) {
             variant="outline"
             className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
           >
-            Delete
+            Cancel
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -72,11 +72,9 @@ function ReservationDeleteDialog({ reservationId }) {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete{" "}
-                  <span className="font-bold">
-                    reservation ID {reservationId}
-                  </span>
-                  .
+                  This action cannot be undone. This will permanently cancel
+                  your reservation and any associated match game will also be
+                  cancel.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, add } from "date-fns";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,9 @@ function DatePicker({ onValue, onDateChange, disabled }) {
     setDate(newDate);
     onDateChange(newDate);
   };
-
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const twoDaysLater = add(today, { days: 3 });
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -41,7 +43,7 @@ function DatePicker({ onValue, onDateChange, disabled }) {
           selected={date}
           onSelect={handleDateChange}
           initialFocus
-          disabled={disabled}
+          disabled={{ before: twoDaysLater }}
         />
       </PopoverContent>
     </Popover>

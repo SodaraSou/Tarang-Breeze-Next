@@ -32,10 +32,10 @@ function PingPongPage() {
           <PingPongPrimaryBanner />
         </div>
         <div>
-          <FeatureVenue sport={5} />
+          <FeatureVenue sport={5} pagination={true} />
         </div>
         <div>
-          <FeatureTeam sportId={5} />
+          <FeatureTeam sportId={5} pagination={true} />
         </div>
       </div>
     </UserLayout>

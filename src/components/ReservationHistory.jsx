@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/pagination";
 import Spinner from "./Spinner";
 import TournamentCard from "./TournamentCard";
+import ReservationHistoryCard from "./ReservationHistoryCard";
 import Image from "next/image";
 
 function ReservationHistory() {
@@ -33,7 +34,6 @@ function ReservationHistory() {
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
-  console.log(data);
   return (
     <Card className="bg-white">
       <CardHeader>
@@ -60,7 +60,10 @@ function ReservationHistory() {
               ) : (
                 <>
                   {data?.data.reservations.map((reservation, index) => (
-                    <TournamentCard key={index} reservation={reservation} />
+                    <ReservationHistoryCard
+                      key={index}
+                      reservation={reservation}
+                    />
                   ))}
                 </>
               )}

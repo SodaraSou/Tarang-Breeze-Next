@@ -16,9 +16,9 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import DatePicker from "./DatePicker";
 import Spinner from "@/components/Spinner";
-import VenueCard from "@/components/VenueCard";
 
 function FilterSearch({ sportId }) {
   const { data: sportTypes, isLoading } = useQuery({
@@ -33,19 +33,36 @@ function FilterSearch({ sportId }) {
   });
   const [alertDateMessage, setAlertDateMessage] = useState("");
   const [alertTimeMessage, setAlertTimeMessage] = useState("");
+  const [openToast, setOpenToast] = useState(false);
+  const { toast } = useToast();
+  const isFormValid = () => {
+    for (let field in inputData) {
+      if (inputData[field] === "") {
+        return false;
+      }
+    }
+    return true;
+  };
   useEffect(() => {
     setAlertDateMessage("");
     setAlertTimeMessage("");
-    if (new Date(inputData.date) < new Date().setHours(0, 0, 0, 0)) {
-      setAlertDateMessage("You can't choose a date before today.");
-    }
+    setOpenToast(false);
     if (
       new Date(`2000-01-01T${inputData.start_time}`) >=
       new Date(`2000-01-01T${inputData.end_time}`)
     ) {
       setAlertTimeMessage("End time must be after start time.");
+      setOpenToast(true);
     }
   }, [inputData.start_time, inputData.end_time, inputData.date]);
+  useEffect(() => {
+    if (openToast) {
+      toast({
+        variant: "destructive",
+        description: alertTimeMessage,
+      });
+    }
+  }, [openToast, toast, alertTimeMessage]);
   return (
     <>
       <Card className="bg-white">
@@ -142,7 +159,6 @@ function FilterSearch({ sportId }) {
                   </ScrollArea>
                 </SelectContent>
               </Select>
-              <p className="text-left text-xs">{alertTimeMessage}</p>
             </div>
             <Select
               defaultValue={sportId.toString()}
@@ -176,19 +192,30 @@ function FilterSearch({ sportId }) {
                 </SelectGroup>
               </SelectContent>
             </Select>
-            <Button
-              className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white cols-span-1 md:col-span-2 xl:col-span-1"
-              asChild
-            >
+            {alertTimeMessage || !isFormValid() ? (
+              <Button
+                variant="outline"
+                className="w-full bg-[#2ad5a5] text-white cols-span-1 md:col-span-2 xl:col-span-1"
+                disabled
+              >
+                Search
+              </Button>
+            ) : (
               <Link
                 href={{
                   pathname: "/search-result",
                   query: { ...inputData },
                 }}
+                asChild
               >
-                Search
+                <Button
+                  variant="outline"
+                  className="w-full bg-[#2ad5a5] text-white cols-span-1 md:col-span-2 xl:col-span-1"
+                >
+                  Search
+                </Button>
               </Link>
-            </Button>
+            )}
           </div>
         </CardContent>
       </Card>

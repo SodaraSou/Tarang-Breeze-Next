@@ -1,15 +1,8 @@
 import { format } from "date-fns";
 import { MapPin, Clock, Users, CheckCircle } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "./ui/card";
-import ReservationDeleteDialog from "./ReservationDeleteDialog";
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 
-function TournamentCard({ reservation }) {
+function ReservationHistoryCard({ reservation }) {
   return (
     <>
       <Card className="bg-white rounded-xl">
@@ -56,14 +49,9 @@ function TournamentCard({ reservation }) {
             </div>
           </div>
         </CardContent>
-        <CardFooter>
-          <div className="ml-auto">
-            <ReservationDeleteDialog reservationId={reservation.id} />
-          </div>
-        </CardFooter>
       </Card>
     </>
   );
 }
 
-export default TournamentCard;
+export default ReservationHistoryCard;

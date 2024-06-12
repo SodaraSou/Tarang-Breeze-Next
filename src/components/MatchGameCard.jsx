@@ -53,15 +53,15 @@ function MatchGameCard({ matchGame, user }) {
                     <Loader className="w-4 h-4" /> Pending Accept
                   </p>
                   <p className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" /> Host Contact (
-                    {matchGame.users[0].phone})
+                    <Phone className="w-4 h-4" /> Host Contact: +
+                    {matchGame.users[0].phone}
                   </p>
                 </>
               ) : (
                 <>
                   <p className="flex items-center gap-2">
-                    <Phone className="w-4 h-4" /> Challenger Contact (
-                    {matchGame.users[1].phone})
+                    <Phone className="w-4 h-4" /> Challenger Contact: +
+                    {matchGame.users[1].phone}
                   </p>
                 </>
               )}

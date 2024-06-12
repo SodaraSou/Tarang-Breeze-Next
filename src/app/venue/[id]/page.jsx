@@ -91,8 +91,11 @@ function SingleVenuePage({ params }) {
                       <h1 className="font-bold text-xl mb-4">Amenities</h1>
                       <div className="flex flex-wrap gap-2">
                         {venue.amenities.map((amenity) => (
-                          <div className="flex items-center gap-2">
-                            <p key={amenity.id}>{amenity.name}</p>
+                          <div
+                            key={amenity.id}
+                            className="flex items-center gap-2"
+                          >
+                            <p>{amenity.name}</p>
                             <Check className="h-4 w-4" />
                           </div>
                         ))}

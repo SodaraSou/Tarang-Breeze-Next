@@ -1,8 +1,9 @@
 import { format } from "date-fns";
-import { MapPin, Clock, CheckCircle } from "lucide-react";
+import { MapPin, Clock, CheckCircle, Phone } from "lucide-react";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -12,7 +13,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MatchDayRegisterDialog from "@/components/MatchDayRegisterDialog";
 
 function FeatureTeamCard({ user, matchGame }) {
-  console.log(matchGame);
   return (
     <Card className="bg-white">
       <CardHeader>
@@ -42,6 +42,9 @@ function FeatureTeamCard({ user, matchGame }) {
           <p className="flex items-center gap-2">
             <CheckCircle className="w-4 h-4" />
             Available for a match
+          </p>
+          <p className="flex items-center gap-2">
+            <Phone className="w-4 h-4" /> Host Contact: +{user[0].phone}
           </p>
         </div>
       </CardContent>
