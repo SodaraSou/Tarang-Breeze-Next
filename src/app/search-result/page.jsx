@@ -6,7 +6,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 import { searchAvailableTime } from "@/services/reservation";
-import { Button } from "@/components/ui/button";
 import UserLayout from "../UserLayout";
 import Spinner from "@/components/Spinner";
 import VenueCard from "@/components/VenueCard";
