@@ -10,63 +10,114 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { updateSport } from "@/services/sport";
+import Spinner from "@/components/Spinner";
 
-function SportUpdateDailog({sport}) {
-    const [open, setOpen] = useState(false);
-    const [updateData, setUpdateData] = useState({
-      name: sport ? sport.name : "",
-    });
-    const onChange = (e) => {
-      e.preventDefault();
-        setUpdateData((prevState) => ({
-          ...prevState,
-          [e.target.id]: e.target.value,
-        }));
-    };
-    const onSubmit = async (e) => {
-      e.preventDefault();
-      const res = await updateSport(sport, updateData);
-      if (res.status === 204) {
-        setOpen(false);
-        alert("Update Successful");
-      }
-    };
-    return (
+const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
+
+function SportUpdateDailog({ sport }) {
+  const [updateData, setUpdateData] = useState({
+    name: sport ? sport.name : "",
+  });
+  const onChange = (e) => {
+    e.preventDefault();
+    setUpdateData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+  const [loading, setLoading] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const res = await updateSport(sport, updateData);
+    if (res.status === 204) {
+      setOpenAlertDialog(true);
+      setAlertMessage("Sport Update Successfully");
+      wait().then(() => setOpenAlertDialog(false));
+    } else {
+      setOpenAlertDialog(true);
+      setAlertMessage("Sport Update Failed");
+      wait().then(() => setOpenAlertDialog(false));
+    }
+    setOpen(false);
+    setLoading(false);
+  };
+  return (
+    <>
+      <AlertDialog open={openAlertDialog} onOpenChange={setOpenAlertDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogAction>Ok</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="bg-blue-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+          >
             Edit
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
-          <DialogHeader>
-            <DialogTitle>Edit Venue</DialogTitle>
-            <DialogDescription>
-              Make changes to your venue here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-4 py-4">
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                onChange={onChange}
-                defaultValue={updateData.name}
-              />
-            </div>
-           </div>
-          <DialogFooter>
-            <Button type="submit" onClick={onSubmit}>
-              Save changes
-            </Button>
-          </DialogFooter>
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>Edit Venue</DialogTitle>
+              <DialogDescription>
+                Make changes to your venue here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            {loading ? (
+              <div className="flex justify-center p-10">
+                <Spinner />
+              </div>
+            ) : (
+              <>
+                <div className="flex flex-col gap-4 py-4">
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      onChange={onChange}
+                      defaultValue={updateData.name}
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+            <DialogFooter>
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+              >
+                Save changes
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
-    );
+    </>
+  );
 }
 
-export default SportUpdateDailog
+export default SportUpdateDailog;

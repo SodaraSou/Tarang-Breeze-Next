@@ -38,47 +38,71 @@ export const createVenue = async (venue) => {
   }
 };
 
-export const getVenues = async () => {
+export const getAllVenues = async () => {
   try {
-    const res = await axios.get("/api/venues", {
+    const res = await axios.get("/api/venues?all", {
       headers: {
         Accept: "application/json",
-        // Referer",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.log(error);
+    return error.response;
+  }
+};
+
+export const getVenuesWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getVenuesByType = async (sportType) => {
+  try {
+    const res = await axios.get(`/api/venues?type=${sportType}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
     });
     const data = res.data;
     return data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return null;
   }
 };
 
-// export const getVenuesByType = async (sportType) => {
-//   try {
-//     const res = await axios.get(
-//       `/api/venues?type=${sportType}`,
-//       {
-//         headers: {
-//           Accept: "application/json",
-//           Referer",
-//         },
-//       }
-//     );
-//     const data = res.data;
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     return null;
-//   }
-// };
+export const getVenuesByAmenity = async (amenity) => {
+  try {
+    const res = await axios.get(`/api/venues?amenity=${amenity}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    const data = res.data;
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
 
-export const showSingleVenue = async (venueId) => {
+export const getSingleVenue = async (venueId) => {
   try {
     const res = await axios.get(`/api/venues/${venueId}`, {
       headers: {
         Accept: "application/json",
-        // Referer",
       },
     });
     return res.data;
@@ -111,14 +135,12 @@ export const updateVenue = async (venue, updateVenue) => {
     }
     updateVenue.photo = newImgUrl ? newImgUrl : venue.photo;
     updateVenue.amenity_id = updateVenue.amenity_id.map((str) => parseInt(str));
-    console.log(updateVenue);
     const response = await axios.put(`/api/venues/${venue.id}`, updateVenue, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
     });
-    console.log(response);
     return response;
   } catch (error) {
     console.log(error);

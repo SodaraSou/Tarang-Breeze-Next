@@ -37,17 +37,16 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
   const login = async ({ setErrors, setStatus, ...props }) => {
     await csrf();
-
-    setErrors([]);
-    setStatus(null);
+    // setErrors([]);
+    // setStatus(null);
 
     axios
       .post("/login", props)
       .then(() => mutate())
       .catch((error) => {
         if (error.response.status !== 422) throw error;
-
-        setErrors(error.response.data.errors);
+        console.log(error.response);
+        // setErrors(error.response.data.errors);
       });
   };
 
@@ -100,8 +99,9 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   };
 
   useEffect(() => {
-    if (user && user?.is_admin === 0) router.push("/profile");
-    if (user && user?.is_admin === 1) router.push("/admin");
+    if ((user && user?.is_admin === false) || (user && user?.is_admin === true))
+      router.push("/user");
+    // if (user && user?.is_admin === 1) router.push("/admin");
     // if (window.location.pathname === "/verify-email" && user?.email_verified_at)
     //   router.push(redirectIfAuthenticated);
     if (middleware === "auth" && error) logout();

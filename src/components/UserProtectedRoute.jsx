@@ -14,16 +14,16 @@ function UserProtectedRoute({ children }) {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center">
-        <Spinner />
-      </div>
+      <>
+        <Spinner fullScreenSpinner={true} />
+      </>
     );
   }
 
   if (data?.status === 401) {
     router.push("/login");
   }
-  
+
   return <>{children}</>;
 }
 

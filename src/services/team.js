@@ -15,6 +15,34 @@ export const getTeams = async () => {
   }
 };
 
+export const getTeamsByUser = async () => {
+  try {
+    const res = await axios.get("/api/teams?user", {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (error) {
+    console.error(error.response);
+    return error.response;
+  }
+};
+
+export const getTeamsWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
 export const createTeam = async (team) => {
   try {
     const preRes = await axios.post(
@@ -41,7 +69,7 @@ export const createTeam = async (team) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -61,7 +89,7 @@ export const updateTeam = async (team, updateTeam) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
@@ -77,6 +105,144 @@ export const deleteTeam = async (teamId) => {
     return response;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
+  }
+};
+
+export const getMatchGames = async () => {
+  try {
+    const res = await axios.get(`/api/match-games`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getMatchGamesWithPagination = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getMatchGamesByUser = async () => {
+  try {
+    const res = await axios.get(`/api/match-games?user`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const getMatchGamesBySport = async (paginationUrl) => {
+  try {
+    const res = await axios.get(paginationUrl, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const createMatchGame = async (matchGame) => {
+  try {
+    const res = await axios.post("/api/match-games", matchGame, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
+  }
+};
+
+export const updateMatchGame = async (matchGameId) => {
+  try {
+    const res = await axios.put(
+      `/api/match-games/${matchGameId}`,
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const acceptMatchGame = async (matchGameId) => {
+  try {
+    const res = await axios.put(
+      `/api/match-games/accept/${matchGameId}`,
+      {},
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const rejectMatchGame = async (matchGameId, opponentId) => {
+  try {
+    const res = await axios.delete(
+      `/api/match-games/${matchGameId}/${opponentId}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
+export const availableMatchGame = async () => {
+  try {
+    const res = await axios.get(`/api/match-games?no-opponent`, {
+      headers: {
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
   }
 };

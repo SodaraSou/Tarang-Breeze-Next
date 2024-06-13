@@ -2,7 +2,7 @@ import axios from "@/lib/axios";
 
 export const createReservation = async (reservation) => {
   try {
-    console.log(reservation);
+    reservation.date = reservation.date.split("T")[0];
     const res = await axios.post("/api/reservation", reservation, {
       headers: {
         "content-type": "application/json",
@@ -45,41 +45,41 @@ export const deleteReservation = async (reservationId) => {
     return res;
   } catch (error) {
     console.log(error);
-    return error.res;
+    return error.response;
   }
 };
 
-export const getReservation = async () => {
+export const getAllReservations = async () => {
   try {
     const res = await axios.get(`/api/reservation?all`, {
       headers: {
         Accept: "application/json",
       },
     });
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 
-export const getReservationWithPagination = async () => {
+export const getReservationWithPagination = async (paginationUrl) => {
   try {
-    const res = await axios.get(`/api/reservation`, {
+    const res = await axios.get(paginationUrl, {
       headers: {
         Accept: "application/json",
       },
     });
-    return res.data;
+    return res;
   } catch (error) {
     console.log(error);
-    return null;
+    return error.response;
   }
 };
 
-export const getReservationByUser = async () => {
+export const getReservationByUser = async (paginationUrl) => {
   try {
-    const res = await axios.get(`/api/reservations-user`, {
+    const res = await axios.get(paginationUrl, {
       headers: {
         Accept: "application/json",
       },
@@ -91,7 +91,7 @@ export const getReservationByUser = async () => {
   }
 };
 
-export const getReservationWithPaginationPage = async (paginationUrl) => {
+export const getReservationHistoryByUser = async (paginationUrl) => {
   try {
     const res = await axios.get(paginationUrl, {
       headers: {
@@ -100,27 +100,38 @@ export const getReservationWithPaginationPage = async (paginationUrl) => {
     });
     return res.data;
   } catch (error) {
-    console.log(error);
-    return null;
+    console.error(error.response);
+    return error.response.data;
+  }
+};
+export const searchAvailableTime = async (data) => {
+  try {
+    data.date = data.date.split("T")[0];
+    data.sport_type_id = parseInt(data.sport_type_id);
+    const res = await axios.post("/api/available-time", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
   }
 };
 
-export const getAvailableTime = async (date) => {
+export const checkAvailableTime = async (data) => {
   try {
-    const dateWithoutTime = date.split("T")[0];
-    const res = await axios.post(
-      `/api/available-time`,
-      { date: dateWithoutTime },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
-    return res.data;
-  } catch (error) {
-    console.log(error);
-    return null;
+    const res = await axios.post("/api/find-reservation", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
+    return res;
+  } catch (e) {
+    console.log(e.response);
+    return e.response;
   }
 };

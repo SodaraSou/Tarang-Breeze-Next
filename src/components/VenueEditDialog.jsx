@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useGetSportTypes } from "@/data/sport";
 import { updateVenue } from "@/services/venue";
 import {
   Dialog,
@@ -34,11 +33,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Spinner from "./Spinner";
+import { useQuery } from "@tanstack/react-query";
+import { getSportTypes } from "@/services/sport";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function VenueEditDialog({ venue }) {
-  const { data } = useGetSportTypes();
+  const { data: sportTypes, isLoading: sportTypesLoading } = useQuery({
+    queryKey: ["sportTypes"],
+    queryFn: getSportTypes,
+  });
   const venueAmenitiesIds = venue.amenities.map((amenity) =>
     amenity.id.toString()
   );
@@ -50,7 +54,6 @@ function VenueEditDialog({ venue }) {
     amenity_id: venue ? venueAmenitiesIds : [],
     photo: venue ? venue.photo : "",
   });
-  console.log(updateData);
   const onChange = (e) => {
     e.preventDefault();
     if (e.target.id === "photo") {
@@ -83,16 +86,18 @@ function VenueEditDialog({ venue }) {
   };
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [open, setOpen] = useState(false);
+  const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const onSubmit = async (e) => {
     e.preventDefault();
-    setOpen(false);
     setLoading(true);
     if (
       updateData.name === venue.name &&
       updateData.size === venue.size &&
       updateData.sport_type_id === venue.sportTypes.id &&
       updateData.description === venue.description &&
-      JSON.stringify(updateData.amenity_id) === JSON.stringify(venueAmenitiesIds)
+      JSON.stringify(updateData.amenity_id) ===
+        JSON.stringify(venueAmenitiesIds)
     ) {
       setOpenAlertDialog(true);
       setAlertMessage("No Change Made");
@@ -109,13 +114,9 @@ function VenueEditDialog({ venue }) {
         wait().then(() => setOpenAlertDialog(false));
       }
     }
+    setOpen(false);
     setLoading(false);
   };
-  const [open, setOpen] = useState(false);
-  const [openAlertDialog, setOpenAlertDialog] = useState(false);
-  if (loading) {
-    return <Spinner fullScreenSpinner={true} />;
-  }
   return (
     <>
       {/* Alert Dialog */}
@@ -131,134 +132,164 @@ function VenueEditDialog({ venue }) {
       </AlertDialog>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button variant="outline" className="bg-blue-500 text-white">
+          <Button
+            variant="outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+          >
             Edit
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
-          <DialogHeader>
-            <DialogTitle>Edit Venue</DialogTitle>
-            <DialogDescription>
-              Make changes to your venue here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex flex-col gap-4 py-4">
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="name">Name</Label>
-              <Input
-                id="name"
-                onChange={onChange}
-                defaultValue={updateData.name}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="sport_type">Sport Type</Label>
-              <Select
-                defaultValue={updateData.sport_type_id.toString()}
-                onValueChange={(value) => {
-                  setUpdateData((prevState) => ({
-                    ...prevState,
-                    sport_type_id: value,
-                  }));
-                }}
-                required
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select Sport Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup className="bg-white">
-                    <SelectLabel>SportType</SelectLabel>
-                    {data?.sport_types.map((sport) => (
-                      <SelectItem key={sport.id} value={sport.id.toString()}>
-                        {sport.name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="size">Size</Label>
-              <Input
-                id="size"
-                type="number"
-                defaultValue={updateData.size}
-                onChange={onChange}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="size">Description</Label>
-              <Textarea
-                placeholder="Type your message here."
-                id="description"
-                onChange={onChange}
-                defaultValue={updateData.description}
-              />
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="amenities">Amenities</Label>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-                <div>
-                  <input
-                    type="checkbox"
-                    id="amenity_parking"
-                    name="amenities"
-                    value={1}
-                    className="mr-2"
-                    checked={updateData.amenity_id.includes("1")}
-                    onChange={handleAmenitiesChange}
-                  />
-                  <label htmlFor="amenity_wifi">Parking</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="amenity_drinking_water"
-                    name="amenities"
-                    value={2}
-                    className="mr-2"
-                    checked={updateData.amenity_id.includes("2")}
-                    onChange={handleAmenitiesChange}
-                  />
-                  <label htmlFor="amenity_kitchen">Drinking Water</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="amenity_first_aid"
-                    name="amenities"
-                    value={3}
-                    className="mr-2"
-                    checked={updateData.amenity_id.includes("3")}
-                    onChange={handleAmenitiesChange}
-                  />
-                  <label htmlFor="amenity_washer_dryer">First Aid</label>
-                </div>
-                <div>
-                  <input
-                    type="checkbox"
-                    id="amenity_rest_room"
-                    name="amenities"
-                    value={4}
-                    className="mr-2"
-                    checked={updateData.amenity_id.includes("4")}
-                    onChange={handleAmenitiesChange}
-                  />
-                  <label htmlFor="amenity_free_parking">Free Parking</label>
-                </div>
+          <form onSubmit={onSubmit}>
+            <DialogHeader>
+              <DialogTitle>Edit Venue</DialogTitle>
+              <DialogDescription>
+                Make changes to your venue here. Click save when you're done.
+              </DialogDescription>
+            </DialogHeader>
+            {loading ? (
+              <div className="flex justify-center p-10">
+                <Spinner />
               </div>
-            </div>
-            <div className="flex flex-col gap-4">
-              <Label htmlFor="size">Image</Label>
-              <Input type="file" id="photo" onChange={onChange} />
-            </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit" onClick={onSubmit}>
-              Save changes
-            </Button>
-          </DialogFooter>
+            ) : (
+              <>
+                <div className="flex flex-col gap-4 py-4">
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      onChange={onChange}
+                      defaultValue={updateData.name}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="sport_type">Sport Type</Label>
+                    <Select
+                      defaultValue={updateData.sport_type_id.toString()}
+                      onValueChange={(value) => {
+                        setUpdateData((prevState) => ({
+                          ...prevState,
+                          sport_type_id: value,
+                        }));
+                      }}
+                      required
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Sport Type" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectGroup className="bg-white">
+                          <SelectLabel>SportType</SelectLabel>
+                          {sportTypesLoading ? (
+                            <div>
+                              <Spinner />
+                            </div>
+                          ) : (
+                            <>
+                              {sportTypes.data.sport_types.map((sport) => (
+                                <SelectItem
+                                  key={sport.id}
+                                  value={sport.id.toString()}
+                                >
+                                  {sport.name}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
+                        </SelectGroup>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="size">Size</Label>
+                    <Input
+                      id="size"
+                      type="number"
+                      defaultValue={updateData.size}
+                      onChange={onChange}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="size">Description</Label>
+                    <Textarea
+                      placeholder="Type your message here."
+                      id="description"
+                      onChange={onChange}
+                      defaultValue={updateData.description}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="amenities">Amenities</Label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="amenity_parking"
+                          name="amenities"
+                          value={1}
+                          className="mr-2"
+                          checked={updateData.amenity_id.includes("1")}
+                          onChange={handleAmenitiesChange}
+                        />
+                        <label htmlFor="amenity_wifi">Parking</label>
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="amenity_drinking_water"
+                          name="amenities"
+                          value={2}
+                          className="mr-2"
+                          checked={updateData.amenity_id.includes("2")}
+                          onChange={handleAmenitiesChange}
+                        />
+                        <label htmlFor="amenity_kitchen">Drinking Water</label>
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="amenity_first_aid"
+                          name="amenities"
+                          value={3}
+                          className="mr-2"
+                          checked={updateData.amenity_id.includes("3")}
+                          onChange={handleAmenitiesChange}
+                        />
+                        <label htmlFor="amenity_washer_dryer">First Aid</label>
+                      </div>
+                      <div>
+                        <input
+                          type="checkbox"
+                          id="amenity_rest_room"
+                          name="amenities"
+                          value={4}
+                          className="mr-2"
+                          checked={updateData.amenity_id.includes("4")}
+                          onChange={handleAmenitiesChange}
+                        />
+                        <label htmlFor="amenity_free_parking">
+                          Free Parking
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-4">
+                    <Label htmlFor="size">Image</Label>
+                    <Input type="file" id="photo" onChange={onChange} />
+                  </div>
+                </div>
+              </>
+            )}
+            <DialogFooter>
+              <Button
+                type="submit"
+                variant="outline"
+                className="bg-blue-500 hover:bg-blue-700 text-white hover:text-white"
+              >
+                Save changes
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </>

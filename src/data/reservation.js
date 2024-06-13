@@ -1,28 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import {
-  getReservation,
-  getReservationWithPagination,
-  getReservationWithPaginationPage,
-  getReservationByUser,
-} from "@/services/reservation";
+import { getAllReservations } from "@/services/reservation";
 
-export const useGetReservation = () => {
+export const useGetAllReservations = () => {
   return useQuery({
-    queryFn: async () => getReservation(),
-    queryKey: ["reservations"],
+    queryFn: async () => getAllReservations(),
+    queryKey: ["allReservations"],
   });
-};
-
-export const useGetReservationWithPagination = (paginationUrl) => {
-  if (paginationUrl) {
-    return useQuery({
-      queryFn: async () => getReservationWithPaginationPage(paginationUrl),
-      queryKey: ["reservationsWithPagination"],
-    });
-  } else {
-    return useQuery({
-      queryFn: async () => getReservationWithPagination(),
-      queryKey: ["reservationsWithPagination"],
-    });
-  }
 };

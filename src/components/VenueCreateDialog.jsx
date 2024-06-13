@@ -32,13 +32,21 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { getSportTypes } from "@/services/sport";
-import { useQuery } from "@tanstack/react-query";
 import Spinner from "./Spinner";
+import { useGetAmenities } from "@/data/amenity";
+import { useGetSportTypes } from "@/data/sport";
+import { useQuery } from "@tanstack/react-query";
+import { getSportTypes } from "@/services/sport";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
 function VenueCreateDialog() {
+  const { data: amenities } = useGetAmenities();
+  // const { data: sportTypes } = useGetSportTypes();
+  const { data: sportTypes, isLoading: sportTypesLoading } = useQuery({
+    queryKey: ["sportTypes"],
+    queryFn: getSportTypes,
+  });
   const [inputData, setInputData] = useState({
     name: "",
     size: 0,
@@ -77,10 +85,6 @@ function VenueCreateDialog() {
       amenity_id: updatedAmenities,
     }));
   };
-  const { data } = useQuery({
-    queryKey: ["SportTypes"],
-    queryFn: async () => await getSportTypes(),
-  });
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const onSubmit = async (e) => {
@@ -88,7 +92,6 @@ function VenueCreateDialog() {
     setLoading(true);
     const res = await createVenue(inputData);
     if (res.status === 204) {
-      setLoading(false);
       setOpenAlertDialog(true);
       setAlertMessage("Venue Create Successfully");
       wait().then(() => setOpenAlertDialog(false));
@@ -97,13 +100,13 @@ function VenueCreateDialog() {
       setAlertMessage("Venue Create Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
+    setOpen(false);
     setLoading(false);
   };
   const [open, setOpen] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   return (
     <>
-      {/* Alert Dialog */}
       <AlertDialog open={openAlertDialog} onOpenChange={setOpenAlertDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -114,10 +117,14 @@ function VenueCreateDialog() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      {/* Create Venue Dialog */}
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>Create Venue</Button>
+          <Button
+            variant="outline"
+            className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+          >
+            Create Venue
+          </Button>
         </DialogTrigger>
         <DialogContent className="bg-white">
           <form onSubmit={onSubmit}>
@@ -128,7 +135,7 @@ function VenueCreateDialog() {
               </DialogDescription>
             </DialogHeader>
             {loading ? (
-              <div className="flex justify-center">
+              <div className="flex justify-center p-10">
                 <Spinner />
               </div>
             ) : (
@@ -155,14 +162,23 @@ function VenueCreateDialog() {
                       <SelectContent>
                         <SelectGroup className="bg-white">
                           <SelectLabel>SportType</SelectLabel>
-                          {data?.sport_types.map((sport) => (
-                            <SelectItem
-                              key={sport.id}
-                              value={sport.id.toString()}
-                            >
-                              {sport.name}
-                            </SelectItem>
-                          ))}
+                          {sportTypesLoading ? (
+                            <div>
+                              <Spinner />
+                            </div>
+                          ) : (
+                            <>
+                              {" "}
+                              {sportTypes.data.sport_types.map((sport) => (
+                                <SelectItem
+                                  key={sport.id}
+                                  value={sport.id.toString()}
+                                >
+                                  {sport.name}
+                                </SelectItem>
+                              ))}
+                            </>
+                          )}
                         </SelectGroup>
                       </SelectContent>
                     </Select>
@@ -187,61 +203,25 @@ function VenueCreateDialog() {
                   </div>
                   <div className="flex flex-col gap-4">
                     <Label htmlFor="amenities">Amenities</Label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
-                      <div>
-                        <input
-                          type="checkbox"
-                          id="amenity_parking"
-                          name="amenities"
-                          value={1}
-                          className="mr-2"
-                          checked={inputData.amenity_id.includes("1")}
-                          onChange={handleAmenitiesChange}
-                          required
-                        />
-                        <label htmlFor="amenity_wifi">Parking</label>
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          id="amenity_drinking_water"
-                          name="amenities"
-                          value={2}
-                          className="mr-2"
-                          checked={inputData.amenity_id.includes("2")}
-                          onChange={handleAmenitiesChange}
-                          required
-                        />
-                        <label htmlFor="amenity_kitchen">Drinking Water</label>
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          id="amenity_first_aid"
-                          name="amenities"
-                          value={3}
-                          className="mr-2"
-                          checked={inputData.amenity_id.includes("3")}
-                          onChange={handleAmenitiesChange}
-                          required
-                        />
-                        <label htmlFor="amenity_washer_dryer">First Aid</label>
-                      </div>
-                      <div>
-                        <input
-                          type="checkbox"
-                          id="amenity_rest_room"
-                          name="amenities"
-                          value={4}
-                          className="mr-2"
-                          checked={inputData.amenity_id.includes("4")}
-                          onChange={handleAmenitiesChange}
-                          required
-                        />
-                        <label htmlFor="amenity_free_parking">
-                          Free Parking
-                        </label>
-                      </div>
+                    <div className="flex flex-wrap gap-2 text-sm">
+                      {amenities.amenities.map((amenity) => (
+                        <div key={amenity.id}>
+                          <input
+                            type="checkbox"
+                            id={`amenity_${amenity.name}`}
+                            name="amenities"
+                            value={amenity.id}
+                            className="mr-2"
+                            checked={inputData.amenity_id.includes(
+                              amenity.id.toString()
+                            )}
+                            onChange={handleAmenitiesChange}
+                          />
+                          <label htmlFor={`amenity_${amenity.name}`}>
+                            {amenity.name}
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                   <div className="flex flex-col gap-4">
@@ -249,13 +229,17 @@ function VenueCreateDialog() {
                     <Input type="file" id="photo" onChange={onChange} />
                   </div>
                 </div>
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
+                  >
+                    Save
+                  </Button>
+                </DialogFooter>
               </>
             )}
-            <DialogFooter>
-              <Button type="submit" onClick={onSubmit}>
-                Save
-              </Button>
-            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>

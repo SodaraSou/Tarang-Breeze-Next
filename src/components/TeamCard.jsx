@@ -1,56 +1,21 @@
-"use client";
-
-import { CheckCircle } from "lucide-react";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "./ui/button";
+import TeamDeleteDialog from "./TeamDeleteDialog";
+import TeamEditDialog from "./TeamEditDialog";
 
-function TeamCard() {
+function TeamCard({ team }) {
   return (
-    <Card className="bg-white rounded-xl">
+    <Card className="w-full md:w-auto bg-white">
       <CardHeader className="flex flex-col items-center">
         <Avatar className="w-24 h-24">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
+          <AvatarImage src={team.logo} />
+          <AvatarFallback>{team.name}</AvatarFallback>
         </Avatar>
-        <CardTitle>FC Barcelona</CardTitle>
+        <CardTitle>{team.name}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col gap-4">
-          <p className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4" />
-            Available for a match
-          </p>
-          <p className="flex items-center gap-2">
-            <CheckCircle className="w-4 h-4" />
-            Accepting new members
-          </p>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <div className="flex w-full gap-4">
-          <Button
-            variant="outline"
-            className="bg-[#2AD5A5] w-full rounded-xl text-white"
-            onClick={() => {
-              console.log("Button clicked!");
-            }}
-          >
-            Join
-          </Button>
-          <Button
-            variant="outline"
-            className="bg-[#2AD5A5] w-full rounded-xl text-white"
-          >
-            Challenge
-          </Button>
-        </div>
+      <CardFooter className="flex justify-center gap-6">
+        <TeamDeleteDialog teamId={team.id} />
+        <TeamEditDialog team={team} />
       </CardFooter>
     </Card>
   );
