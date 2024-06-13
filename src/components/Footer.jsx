@@ -113,14 +113,6 @@ function Footer() {
                   height={24}
                 />
               </li>
-              <li>
-                <Image
-                  src="/Instagram.png"
-                  alt="facebook"
-                  width={24}
-                  height={24}
-                />
-              </li>
             </ul>
           </div>
         </div>
