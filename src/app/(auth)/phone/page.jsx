@@ -45,7 +45,7 @@ function PhonePage() {
         setPhoneNumber(phoneNumber.slice(1));
       }
       await axios.post(
-        "http://localhost:8000/api/user/phone",
+        "https://api.tarang.site/api/user/phone",
         { phone: phoneNumber },
         {
           headers: {
@@ -63,7 +63,7 @@ function PhonePage() {
     e.preventDefault();
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/user/phone/verify",
+        "https://api.tarang.site/api/user/phone/verify",
         { code: parseInt(value) },
         {
           headers: {
@@ -149,81 +149,6 @@ function PhonePage() {
           </Button>
         </CardFooter>
       </Card>
-      {/* <div className="w-full md:max-w-5xl flex">
-        <div
-          className={`hidden w-full md:w-1/2 md:block ${styles.imgContainer}`}
-        >
-          <Link href="/">
-            <Image
-              src="/logo_latin.png"
-              alt="logo"
-              fill
-              className={styles.img}
-            />
-          </Link>
-        </div>
-        <Card className="w-full md:w-1/2 bg-white">
-          <CardHeader>
-            <CardTitle className="text-2xl md:text-4xl">Sign In</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-4">
-                <Label>Phone Number</Label>
-                <PhoneInput
-                  id="phone"
-                  onChange={setPhoneNumber}
-                  className="rounded-lg"
-                  international
-                  defaultCountry="KH"
-                />
-              </div>
-              <InputGroup
-                title="Password"
-                id="password"
-                type="password"
-                onChange={onChange}
-                placeholder="********"
-                isRequired={true}
-              />
-            </div>
-          </CardContent>
-          <CardFooter className="flex-col justify-center gap-4">
-            <Button
-              onClick={onSubmit}
-              type="submit"
-              variant="outline"
-              className="w-full bg-[#2ad5a5] hover:bg-[#9c87f2] text-white hover:text-white"
-            >
-              Sign In
-            </Button>
-            <p>
-              Don't have Account?{" "}
-              <Link href="/register" className="underline">
-                Sign Up
-              </Link>
-            </p>
-            <div className="flex w-full justify-center gap-10">
-              <a href="#">
-                <Image
-                  src="/facebook.png"
-                  alt="facebook_logo"
-                  width={30}
-                  height={30}
-                />
-              </a>
-              <a href="http://localhost:8000/auth/google/redirect">
-                <Image
-                  src="/google.png"
-                  alt="google_logo"
-                  width={30}
-                  height={30}
-                />
-              </a>
-            </div>
-          </CardFooter>
-        </Card>
-      </div> */}
     </section>
   );
 }

@@ -156,7 +156,7 @@ const Login = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-center gap-10">
-                <a href="#">
+                <a href="https://api.tarang.site/auth/facebook/redirect">
                   <Image
                     src="/facebook.png"
                     alt="facebook_logo"
@@ -164,7 +164,7 @@ const Login = () => {
                     height={30}
                   />
                 </a>
-                <a href="http://localhost:8000/auth/google/redirect">
+                <a href="https://api.tarang.site/auth/google/redirect">
                   <Image
                     src="/google.png"
                     alt="google_logo"

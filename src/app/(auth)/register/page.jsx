@@ -96,7 +96,7 @@ const Page = () => {
         inputData.phone = phoneNumber;
       }
       const res = await axios.post(
-        "http://localhost:8000/register",
+        "https://api.tarang.site/register",
         inputData,
         {
           headers: {
@@ -133,7 +133,7 @@ const Page = () => {
     setOptLoading(true);
     try {
       await axios.post(
-        "http://localhost:8000/api/verify-phone",
+        "https://api.tarang.site/api/verify-phone",
         { user_id: user.id, code: value },
         {
           headers: {
@@ -269,7 +269,7 @@ const Page = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-center gap-10">
-                <a href="#">
+                <a href="https://api.tarang.site/auth/facebook/redirect">
                   <Image
                     src="/facebook.png"
                     alt="facebook_logo"
@@ -277,7 +277,7 @@ const Page = () => {
                     height={30}
                   />
                 </a>
-                <a href="http://localhost:8000/auth/google/redirect">
+                <a href="https://api.tarang.site/auth/google/redirect">
                   <Image
                     src="/google.png"
                     alt="google_logo"

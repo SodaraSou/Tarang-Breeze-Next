@@ -104,7 +104,7 @@ function SingleVenuePage({ params }) {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="bg-white">
+              {/* <Card className="bg-white">
                 <CardHeader>
                   <CardTitle>Check for availability</CardTitle>
                 </CardHeader>
@@ -184,7 +184,7 @@ function SingleVenuePage({ params }) {
                     </Select>
                   </div>
                 </CardContent>
-              </Card>
+              </Card> */}
             </div>
             <div className="w-full">
               <Image
