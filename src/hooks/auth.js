@@ -40,14 +40,27 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     // setErrors([]);
     // setStatus(null);
 
-    axios
-      .post("/login", props)
-      .then(() => mutate())
-      .catch((error) => {
-        if (error.response.status !== 422) throw error;
-        console.log(error.response);
-        // setErrors(error.response.data.errors);
-      });
+    // axios
+    //   .post("/login", props)
+    //   .then(() => mutate())
+    //   .catch((error) => {
+    //     if (error.response.status !== 422) throw error;
+    //     return error.response;
+    //     // setErrors(error.response.data.errors);
+    //   });
+    try {
+      const response = await axios.post("/login", props);
+      mutate(); // Assuming mutate() does not need to await or handle its promise here
+      return response;
+    } catch (error) {
+      if (error.response && error.response.status !== 422) {
+        throw error; // Rethrow the error if it's not a 422 status
+      }
+      // Optionally, you can uncomment and use these if needed
+      // setErrors(error.response.data.errors);
+      // setStatus('error');
+      return error.response; // Return the error response
+    }
   };
 
   const forgotPassword = async ({ setErrors, setStatus, email }) => {

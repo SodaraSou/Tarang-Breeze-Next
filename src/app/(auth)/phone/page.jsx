@@ -1,11 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import axios from "@/lib/axios";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/auth";
+import { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -29,23 +26,45 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import InputGroup from "@/components/InputGroup";
 import { Label } from "@/components/ui/label";
 import { PhoneInput } from "@/components/ui/phone-input";
+import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
+
 function PhonePage() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
-  console.log(value);
+  const [openToast, setOpenToast] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [otpLoading, setOptLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const { toast } = useToast();
   const router = useRouter();
+  useEffect(() => {
+    if (openToast) {
+      toast({
+        variant: "destructive",
+        description: message,
+      });
+    }
+  }, [openToast, toast, message]);
   const handleUpdatePhone = async (e) => {
     e.preventDefault();
+    setOpenToast(false);
+    setMessage("");
+    if (phoneNumber === "") {
+      setMessage("Phone Number is required.");
+      setOpenToast(true);
+      return;
+    }
+    setLoading(true);
     try {
       if (phoneNumber.startsWith("+")) {
         setPhoneNumber(phoneNumber.slice(1));
       }
       await axios.post(
-        "https://api.tarang.site/api/user/phone",
+        "https://api.tarang.site/api/provider/phone",
         { phone: phoneNumber },
         {
           headers: {
@@ -57,12 +76,29 @@ function PhonePage() {
       setOpen(true);
     } catch (e) {
       console.log(e.response);
+      setMessage(e.response.data.message);
+      setOpenToast(true);
+    } finally {
+      setLoading(false);
     }
   };
   const handleOpt = async (e) => {
     e.preventDefault();
+    setOpenToast(false);
+    setMessage("");
+    if (value === "") {
+      setMessage("Fill out the OTP.");
+      setOpenToast(true);
+      return;
+    }
+    if (value.length !== 6) {
+      setMessage("Requrird all 6 pins.");
+      setOpenToast(true);
+      return;
+    }
+    setOptLoading(true);
     try {
-      const res = await axios.post(
+      await axios.post(
         "https://api.tarang.site/api/user/phone/verify",
         { code: parseInt(value) },
         {
@@ -73,11 +109,13 @@ function PhonePage() {
         }
       );
       router.push("/");
-      console.log(res);
     } catch (e) {
-      alert(e);
       console.log(e.response);
+      setMessage(e.response.data.message);
+      setOpenToast(true);
       return e.response;
+    } finally {
+      setOptLoading(false);
     }
   };
   return (
@@ -115,7 +153,9 @@ function PhonePage() {
               type="submit"
               variant="outline"
               className="bg-[#2ad5a5] text-white"
+              disabled={otpLoading}
             >
+              {otpLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Verify
             </Button>
           </DialogFooter>
@@ -144,7 +184,9 @@ function PhonePage() {
             type="submit"
             variant="outline"
             className="w-full bg-[#2ad5a5] text-white"
+            disabled={loading}
           >
+            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Send OTP
           </Button>
         </CardFooter>

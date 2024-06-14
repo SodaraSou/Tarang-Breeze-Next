@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import axios from "@/lib/axios";
 import { useEffect, useState } from "react";
+import { useAuth } from "@/hooks/auth";
 import {
   Card,
   CardContent,
@@ -23,6 +24,7 @@ import { useRouter } from "next/navigation";
 
 const Login = () => {
   const router = useRouter();
+  const { login } = useAuth();
   const { data: user, error } = useSWR("/api/user", () =>
     axios
       .get("/api/user")
@@ -80,20 +82,12 @@ const Login = () => {
       inputData.phone = phoneNumber;
     }
     setLoading(true);
-    try {
-      await axios.post("/login", inputData, {
-        headers: {
-          "content-type": "application/json",
-          Accept: "application/json",
-        },
-      });
+    const res = await login({ ...inputData });
+    console.log(res);
+    if (res.status === 422) {
       setLoading(false);
-    } catch (error) {
-      console.log(error.response);
-      setMessage(error.response.data.message);
+      setMessage(res.data.message);
       setOpenToast(true);
-    } finally {
-      setLoading(false);
     }
   };
   return (
