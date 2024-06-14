@@ -60,6 +60,7 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
     end_time: searchData ? searchData.end_time : "",
     venue_id: venue ? venue.id : 0,
   });
+  console.log(inputData);
   const [teamOptions, setTeamOptions] = useState({
     find_team: false,
     find_member: false,
@@ -251,9 +252,13 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
                     <DatePicker
                       onValue={inputData.date}
                       onDateChange={(date) => {
+                        const timezoneOffset = date.getTimezoneOffset() * 60000;
+                        const adjustedDate = new Date(
+                          date.getTime() - timezoneOffset
+                        );
                         setInputData((prevState) => ({
                           ...prevState,
-                          date: date.toISOString(),
+                          date: adjustedDate.toISOString(),
                         }));
                       }}
                       disabled={searchData.date}
