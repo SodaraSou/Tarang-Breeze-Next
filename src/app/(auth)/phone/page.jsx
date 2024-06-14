@@ -60,8 +60,6 @@ function PhonePage() {
     }
     if (phoneNumber.startsWith("+")) {
       phoneNumber = phoneNumber.slice(1);
-    } else {
-      phoneNumber = phoneNumber;
     }
     setLoading(true);
     try {
