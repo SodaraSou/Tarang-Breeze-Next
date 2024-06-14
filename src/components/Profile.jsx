@@ -146,7 +146,7 @@ function Profile() {
                       disabled={editMode}
                     />
                   </div>
-                  <div className="flex items-end">
+                  {/* <div className="flex items-end">
                     {!editMode ? (
                       <>
                         <Button
@@ -166,7 +166,7 @@ function Profile() {
                         </Button>
                       </>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </CardContent>

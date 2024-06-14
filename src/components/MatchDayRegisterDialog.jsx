@@ -77,7 +77,13 @@ function MatchDayRegisterDialog({ user, matchGame }) {
             <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction
+              variant="outline"
+              className="bg-[#2ad5a5] text-white hover:text-black hover:bg-white"
+              asChild
+            >
+              <Button>Ok</Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -94,7 +100,9 @@ function MatchDayRegisterDialog({ user, matchGame }) {
         </AlertDialogTrigger>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are your sure you want to challenge?</AlertDialogTitle>
+            <AlertDialogTitle>
+              Are your sure you want to challenge?
+            </AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>

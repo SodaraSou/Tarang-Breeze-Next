@@ -21,9 +21,12 @@ import { getUser } from "@/services/user";
 import { getMatchGamesByUser } from "@/services/team";
 import Spinner from "@/components/Spinner";
 import MatchGameCard from "./MatchGameCard";
+import { useEffect, useState } from "react";
+import { RefreshCcw } from "lucide-react";
 
 function MatchGame() {
-  const { data, isLoading } = useQuery({
+  const [refresh, setRefresh] = useState(false);
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["matchGamesByUser"],
     queryFn: getMatchGamesByUser,
   });
@@ -31,10 +34,20 @@ function MatchGame() {
     queryFn: getUser,
     queryKey: ["users"],
   });
+  useEffect(() => {
+    refetch();
+  }, [refresh]);
   return (
     <Card className="bg-white">
       <CardHeader>
-        <CardTitle>Your Match Games</CardTitle>
+        <div className="flex items-center gap-4">
+          <CardTitle onClick={() => setRefresh(!refresh)}>
+            Your Match Games
+          </CardTitle>
+          <button>
+            <RefreshCcw className="w-4 h-4" />
+          </button>
+        </div>
       </CardHeader>
       {isLoading ? (
         <div className="flex justify-center items-center p-10">

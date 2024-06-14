@@ -4,7 +4,7 @@ import UserLayout from "@/app/UserLayout";
 function PolicyPage() {
   return (
     <UserLayout>
-      <div className="p-4 md:p-10">
+      <div className="px-4 md:px-10 md:pb-0 md:pt-10">
         <Card className="max-w-5xl mx-auto bg-white">
           <CardHeader>
             <h1 className="text-3xl font-bold text-center mb-2">
@@ -32,8 +32,8 @@ function PolicyPage() {
                 <p>
                   <b>Change Reservation Requirement:</b> Reservations can be
                   changed at least 24 hours (1 day) before the intended game
-                  day. You need to contact the Tarang for any change to your
-                  reservation.
+                  day. You need to contact the Tarang Admin for any change to
+                  your reservation.
                 </p>
                 <p>
                   <b>Cancel Reservation Requirement:</b> Reservations can be
@@ -42,8 +42,7 @@ function PolicyPage() {
                 </p>
                 <p>
                   <b>On Call Reservation:</b> You can also reserved venue via
-                  Tarang Social or Phone Call. Your reservation will be
-                  confirmed via SMS.
+                  Tarang Social or Phone Call.
                 </p>
               </div>
               <div>

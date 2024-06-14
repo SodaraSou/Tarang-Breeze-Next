@@ -233,6 +233,23 @@ export const rejectMatchGame = async (matchGameId, opponentId) => {
   }
 };
 
+export const deleteMatchGame = async (matchGameId) => {
+  try {
+    const res = await axios.delete(
+      `/api/match-games/${parseInt(matchGameId)}`,
+      {
+        headers: {
+          Accept: "application/json",
+        },
+      }
+    );
+    return res;
+  } catch (e) {
+    console.error(e.response);
+    return e.response;
+  }
+};
+
 export const availableMatchGame = async () => {
   try {
     const res = await axios.get(`/api/match-games?no-opponent`, {

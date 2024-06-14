@@ -6,9 +6,10 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import { Button } from "./ui/button";
 import { format } from "date-fns";
-import { acceptMatchGame, rejectMatchGame } from "@/services/team";
+import MatchGameAcceptDialog from "./MatchGameAcceptDialog";
+import MatchGameRejectDialog from "./MatchGameRejectDialog";
+import MatchGameDeleteDialog from "./MatchGameDeleteDialog";
 
 function MatchGameCard({ matchGame, user }) {
   return (
@@ -16,7 +17,7 @@ function MatchGameCard({ matchGame, user }) {
       <CardHeader>
         <div className="flex justify-between items-center">
           {matchGame.users.length === 1 && (
-            <CardTitle>{matchGame.users[0].name} vs Pending Team</CardTitle>
+            <CardTitle>{matchGame.users[0].name} vs Pending Opponent</CardTitle>
           )}
           {matchGame.users.length === 2 && (
             <CardTitle>
@@ -76,18 +77,23 @@ function MatchGameCard({ matchGame, user }) {
         </div>
       </CardContent>
       {matchGame.is_accepted === 0 &&
-        matchGame.reservation.user.id === user.data.id &&
-        matchGame.users.length === 2 && (
-          <CardFooter>
-            <div className="space-x-2 ml-auto">
-              <Button
+      matchGame.reservation.user.id === user.data.id &&
+      matchGame.users.length === 2 ? (
+        <CardFooter>
+          <div className="space-x-2 ml-auto">
+            {/* <Button
                 variant="outline"
                 className="bg-blue-500 text-white"
                 onClick={() => acceptMatchGame(matchGame.id)}
               >
                 Accept
-              </Button>
-              <Button
+              </Button> */}
+            <MatchGameAcceptDialog matchGameId={matchGame.id} />
+            <MatchGameRejectDialog
+              matchGameId={matchGame.id}
+              opponentId={matchGame.users[1].id}
+            />
+            {/* <Button
                 variant="outline"
                 className="bg-red-500 text-white"
                 onClick={() =>
@@ -95,10 +101,24 @@ function MatchGameCard({ matchGame, user }) {
                 }
               >
                 Reject
-              </Button>
-            </div>
-          </CardFooter>
-        )}
+              </Button> */}
+          </div>
+        </CardFooter>
+      ) : (
+        <>
+          {matchGame.reservation.user.id === user.data.id ? (
+            <>
+              <CardFooter>
+                <div className="ml-auto">
+                  <MatchGameDeleteDialog matchGameId={matchGame.id} />
+                </div>
+              </CardFooter>
+            </>
+          ) : (
+            <></>
+          )}
+        </>
+      )}
     </Card>
   );
 }

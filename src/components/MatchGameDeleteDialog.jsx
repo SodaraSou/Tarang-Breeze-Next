@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { deleteReservation } from "@/services/reservation";
+import { deleteMatchGame } from "@/services/team";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,7 +18,7 @@ import Spinner from "@/components/Spinner";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
-function ReservationDeleteDialog({ reservationId }) {
+function MatchGameDeleteDialog({ matchGameId }) {
   const [open, setOpen] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,14 +26,14 @@ function ReservationDeleteDialog({ reservationId }) {
   const handleDelete = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await deleteReservation(reservationId);
+    const res = await deleteMatchGame(matchGameId);
     if (res.status === 204) {
       setOpenAlertDialog(true);
-      setAlertMessage("Reservation Delete Successfully");
+      setAlertMessage("Match Game delete Successfully");
       wait().then(() => setOpenAlertDialog(false));
     } else {
       setOpenAlertDialog(true);
-      setAlertMessage("Reservation Delete Failed");
+      setAlertMessage("Match Game delete Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
     setOpen(false);
@@ -76,9 +76,8 @@ function ReservationDeleteDialog({ reservationId }) {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently cancel
-                  your reservation and any associated match game will also be
-                  cancel.
+                  This action cannot be undone. This will delete your match
+                  game.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -100,4 +99,4 @@ function ReservationDeleteDialog({ reservationId }) {
   );
 }
 
-export default ReservationDeleteDialog;
+export default MatchGameDeleteDialog;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { deleteReservation } from "@/services/reservation";
+import { rejectMatchGame } from "@/services/team";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,22 +18,23 @@ import Spinner from "@/components/Spinner";
 
 const wait = () => new Promise((resolve) => setTimeout(resolve, 5000));
 
-function ReservationDeleteDialog({ reservationId }) {
+function MatchGameRejectDialog({ matchGameId, opponentId }) {
   const [open, setOpen] = useState(false);
   const [openAlertDialog, setOpenAlertDialog] = useState(false);
   const [loading, setLoading] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const handleDelete = async (e) => {
+  const handleReject = async (e) => {
     e.preventDefault();
     setLoading(true);
-    const res = await deleteReservation(reservationId);
+    const res = await rejectMatchGame(matchGameId, opponentId);
+    console.log(res);
     if (res.status === 204) {
       setOpenAlertDialog(true);
-      setAlertMessage("Reservation Delete Successfully");
+      setAlertMessage("Opponent Reject Successfully");
       wait().then(() => setOpenAlertDialog(false));
     } else {
       setOpenAlertDialog(true);
-      setAlertMessage("Reservation Delete Failed");
+      setAlertMessage("Opponent Reject Failed");
       wait().then(() => setOpenAlertDialog(false));
     }
     setOpen(false);
@@ -63,7 +64,7 @@ function ReservationDeleteDialog({ reservationId }) {
             variant="outline"
             className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
           >
-            Cancel
+            Reject
           </Button>
         </AlertDialogTrigger>
         <AlertDialogContent>
@@ -76,9 +77,7 @@ function ReservationDeleteDialog({ reservationId }) {
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
-                  This action cannot be undone. This will permanently cancel
-                  your reservation and any associated match game will also be
-                  cancel.
+                  This action cannot be undone. This will reject your opponent.
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
@@ -86,7 +85,7 @@ function ReservationDeleteDialog({ reservationId }) {
                 <AlertDialogAction asChild>
                   <Button
                     className="bg-red-500 hover:bg-red-700 text-white hover:text-white"
-                    onClick={handleDelete}
+                    onClick={handleReject}
                   >
                     Continue
                   </Button>
@@ -100,4 +99,4 @@ function ReservationDeleteDialog({ reservationId }) {
   );
 }
 
-export default ReservationDeleteDialog;
+export default MatchGameRejectDialog;

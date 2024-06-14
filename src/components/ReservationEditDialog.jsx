@@ -130,7 +130,13 @@ function ReservationEditDialog({ reservation }) {
             <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction
+              variant="outline"
+              className="bg-[#2ad5a5] text-white hover:text-black hover:bg-white"
+              asChild
+            >
+              <Button>Ok</Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>

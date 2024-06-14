@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getReservationByUser } from "@/services/reservation";
 import {
@@ -22,22 +22,34 @@ import Spinner from "./Spinner";
 import TournamentCard from "./TournamentCard";
 import ReservationHistoryCard from "./ReservationHistoryCard";
 import Image from "next/image";
+import { RefreshCcw } from "lucide-react";
 
 function ReservationHistory() {
+  const [refresh, setRefresh] = useState(false);
   const [paginationUrl, setPaginationUrl] = useState(
     "/api/reservations-user/history"
   );
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["reservationByUser", paginationUrl],
     queryFn: () => getReservationByUser(paginationUrl),
   });
   const handlePaginationChange = (url) => {
     setPaginationUrl(url);
   };
+  useEffect(() => {
+    refetch();
+  }, [refresh]);
   return (
     <Card className="bg-white">
       <CardHeader>
-        <CardTitle>Your Reservations History</CardTitle>
+        <div className="flex items-center gap-4">
+          <CardTitle onClick={() => setRefresh(!refresh)}>
+            Your Reservations History
+          </CardTitle>
+          <button>
+            <RefreshCcw className="w-4 h-4" />
+          </button>
+        </div>
       </CardHeader>
       {isLoading ? (
         <div className="flex justify-center p-10">

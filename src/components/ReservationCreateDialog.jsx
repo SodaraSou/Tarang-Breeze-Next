@@ -183,7 +183,13 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
             <AlertDialogTitle>{alertMessage}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogAction>Ok</AlertDialogAction>
+            <AlertDialogAction
+              variant="outline"
+              className="bg-[#2ad5a5] text-white hover:text-black hover:bg-white"
+              asChild
+            >
+              <Button>Ok</Button>
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
@@ -192,222 +198,225 @@ function ReservationCreateDialog({ venue, triggerContent, searchData }) {
         <DialogTrigger asChild disabled={user.status === 401}>
           {triggerContent}
         </DialogTrigger>
-        {loading ? (
-          <div className="flex justify-center p-10">
-            <Spinner />
-          </div>
-        ) : (
-          <DialogContent>
-            <form onSubmit={onSubmit}>
-              <DialogHeader>
-                <DialogTitle>Create Reservation</DialogTitle>
-                <DialogDescription>
-                  Create your reservation here. Click save when you're done.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="flex flex-col gap-4 py-4">
-                <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor="name">Venue</Label>
-                  <Select
-                    defaultValue={inputData.venue_id.toString()}
-                    disabled
-                    onValueChange={(id) => {
-                      setInputData((prevState) => ({
-                        ...prevState,
-                        venue_id: id,
-                      }));
-                    }}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select venue" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white">
-                      <ScrollArea className="h-32">
-                        <SelectGroup>
-                          <SelectLabel>Venue</SelectLabel>
-                          {isLoading ? (
-                            <div className="flex justify-center py-4">
-                              <Spinner />
-                            </div>
-                          ) : (
-                            <>
-                              {venues.data.venues.map((venue) => (
-                                <SelectItem
-                                  key={venue.id}
-                                  value={venue.id.toString()}
-                                >
-                                  {venue.name} - {venue.sport_type.name}
-                                </SelectItem>
-                              ))}
-                            </>
-                          )}
-                        </SelectGroup>
-                      </ScrollArea>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="name">Date</Label>
-                    <DatePicker
-                      onValue={inputData.date}
-                      onDateChange={(date) => {
-                        const timezoneOffset = date.getTimezoneOffset() * 60000;
-                        const adjustedDate = new Date(
-                          date.getTime() - timezoneOffset
-                        );
+        <DialogContent>
+          {loading ? (
+            <div className="flex justify-center p-10">
+              <Spinner />
+            </div>
+          ) : (
+            <>
+              <form onSubmit={onSubmit}>
+                <DialogHeader>
+                  <DialogTitle>Create Reservation</DialogTitle>
+                  <DialogDescription>
+                    Create your reservation here. Click save when you're done.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex flex-col gap-4 py-4">
+                  <div className="flex flex-col gap-2 w-full">
+                    <Label htmlFor="name">Venue</Label>
+                    <Select
+                      defaultValue={inputData.venue_id.toString()}
+                      disabled
+                      onValueChange={(id) => {
                         setInputData((prevState) => ({
                           ...prevState,
-                          date: adjustedDate.toISOString(),
+                          venue_id: id,
                         }));
                       }}
-                      disabled={searchData.date}
-                    />
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select venue" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white">
+                        <ScrollArea className="h-32">
+                          <SelectGroup>
+                            <SelectLabel>Venue</SelectLabel>
+                            {isLoading ? (
+                              <div className="flex justify-center py-4">
+                                <Spinner />
+                              </div>
+                            ) : (
+                              <>
+                                {venues.data.venues.map((venue) => (
+                                  <SelectItem
+                                    key={venue.id}
+                                    value={venue.id.toString()}
+                                  >
+                                    {venue.name} - {venue.sport_type.name}
+                                  </SelectItem>
+                                ))}
+                              </>
+                            )}
+                          </SelectGroup>
+                        </ScrollArea>
+                      </SelectContent>
+                    </Select>
                   </div>
-                  <p className="text-sm text-gray-400 mt-2">
-                    {checkDateMessage}
-                  </p>
-                </div>
-                <div className="flex flex-col">
-                  <div className="flex gap-4">
-                    <div className="flex flex-col gap-2 w-full">
-                      <Label htmlFor="name">Start Time</Label>
-                      <Select
-                        defaultValue={inputData.start_time
-                          .replace(" AM", "")
-                          .replace(" PM", "")}
-                        onValueChange={(value) => {
+                  <div>
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="name">Date</Label>
+                      <DatePicker
+                        onValue={inputData.date}
+                        onDateChange={(date) => {
+                          const timezoneOffset =
+                            date.getTimezoneOffset() * 60000;
+                          const adjustedDate = new Date(
+                            date.getTime() - timezoneOffset
+                          );
                           setInputData((prevState) => ({
                             ...prevState,
-                            start_time: value,
+                            date: adjustedDate.toISOString(),
                           }));
                         }}
-                        disabled={searchData.start_time}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select start time" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                          <ScrollArea className="h-32">
-                            <SelectGroup>
-                              <SelectItem value="07:00">7:00 AM</SelectItem>
-                              <SelectItem value="08:00">8:00 AM</SelectItem>
-                              <SelectItem value="09:00">9:00 AM</SelectItem>
-                              <SelectItem value="10:00">10:00 AM</SelectItem>
-                              <SelectItem value="11:00">11:00 AM</SelectItem>
-                              <SelectItem value="12:00">12:00 AM</SelectItem>
-                              <SelectItem value="13:00">13:00 PM</SelectItem>
-                              <SelectItem value="14:00">14:00 PM</SelectItem>
-                              <SelectItem value="15:00">15:00 PM</SelectItem>
-                              <SelectItem value="16:00">16:00 PM</SelectItem>
-                              <SelectItem value="17:00">17:00 PM</SelectItem>
-                              <SelectItem value="18:00">18:00 PM</SelectItem>
-                              <SelectItem value="19:00">19:00 PM</SelectItem>
-                              <SelectItem value="20:00">20:00 PM</SelectItem>
-                              <SelectItem value="21:00">21:00 PM</SelectItem>
-                              <SelectItem value="22:00">22:00 PM</SelectItem>
-                            </SelectGroup>
-                          </ScrollArea>
-                        </SelectContent>
-                      </Select>
+                        disabled={searchData.date}
+                      />
                     </div>
-                    <div className="flex flex-col gap-2 w-full">
-                      <Label htmlFor="name">End Time</Label>
-                      <Select
-                        defaultValue={inputData.end_time
-                          .replace(" AM", "")
-                          .replace(" PM", "")}
-                        onValueChange={(value) => {
-                          setInputData((prevState) => ({
-                            ...prevState,
-                            end_time: value,
-                          }));
-                        }}
-                        disabled={searchData.end_time}
-                      >
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select end time" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-white">
-                          <ScrollArea className="h-32">
-                            <SelectGroup>
-                              <SelectItem value="07:00">7:00 AM</SelectItem>
-                              <SelectItem value="08:00">8:00 AM</SelectItem>
-                              <SelectItem value="09:00">9:00 AM</SelectItem>
-                              <SelectItem value="10:00">10:00 AM</SelectItem>
-                              <SelectItem value="11:00">11:00 AM</SelectItem>
-                              <SelectItem value="12:00">12:00 AM</SelectItem>
-                              <SelectItem value="13:00">13:00 PM</SelectItem>
-                              <SelectItem value="14:00">14:00 PM</SelectItem>
-                              <SelectItem value="15:00">15:00 PM</SelectItem>
-                              <SelectItem value="16:00">16:00 PM</SelectItem>
-                              <SelectItem value="17:00">17:00 PM</SelectItem>
-                              <SelectItem value="18:00">18:00 PM</SelectItem>
-                              <SelectItem value="19:00">19:00 PM</SelectItem>
-                              <SelectItem value="20:00">20:00 PM</SelectItem>
-                              <SelectItem value="21:00">21:00 PM</SelectItem>
-                              <SelectItem value="22:00">22:00 PM</SelectItem>
-                            </SelectGroup>
-                          </ScrollArea>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                    <p className="text-sm text-gray-400 mt-2">
+                      {checkDateMessage}
+                    </p>
                   </div>
-                  <p className="text-sm text-gray-400 mt-2">
-                    {checkTimeMessage}
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor="phone_number">Phone Number</Label>
-                  <PhoneInput
-                    id="phone"
-                    onChange={onChange}
-                    className="rounded-lg"
-                    international
-                    defaultCountry="KH"
-                    value={inputData.phone}
-                    disabled={user.data.phone}
-                  />
-                </div>
-                <div className="flex flex-col gap-2 w-full">
-                  <Label htmlFor="name">Number of Player</Label>
-                  <Input
-                    type="number"
-                    id="attendee"
-                    onChange={onChange}
-                    className="rounded-lg"
-                    defaultValue={inputData.attendee}
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="name">Optional</Label>
-                  <div className="flex items-center gap-2 text-sm">
-                    <input
-                      onChange={handleCheck}
-                      checked={teamOptions.find_team}
-                      type="checkbox"
-                      value="find_team"
-                      id="find_team"
-                      name="find_team"
+                  <div className="flex flex-col">
+                    <div className="flex gap-4">
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label htmlFor="name">Start Time</Label>
+                        <Select
+                          defaultValue={inputData.start_time
+                            .replace(" AM", "")
+                            .replace(" PM", "")}
+                          onValueChange={(value) => {
+                            setInputData((prevState) => ({
+                              ...prevState,
+                              start_time: value,
+                            }));
+                          }}
+                          disabled={searchData.start_time}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select start time" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white">
+                            <ScrollArea className="h-32">
+                              <SelectGroup>
+                                <SelectItem value="07:00">7:00 AM</SelectItem>
+                                <SelectItem value="08:00">8:00 AM</SelectItem>
+                                <SelectItem value="09:00">9:00 AM</SelectItem>
+                                <SelectItem value="10:00">10:00 AM</SelectItem>
+                                <SelectItem value="11:00">11:00 AM</SelectItem>
+                                <SelectItem value="12:00">12:00 AM</SelectItem>
+                                <SelectItem value="13:00">13:00 PM</SelectItem>
+                                <SelectItem value="14:00">14:00 PM</SelectItem>
+                                <SelectItem value="15:00">15:00 PM</SelectItem>
+                                <SelectItem value="16:00">16:00 PM</SelectItem>
+                                <SelectItem value="17:00">17:00 PM</SelectItem>
+                                <SelectItem value="18:00">18:00 PM</SelectItem>
+                                <SelectItem value="19:00">19:00 PM</SelectItem>
+                                <SelectItem value="20:00">20:00 PM</SelectItem>
+                                <SelectItem value="21:00">21:00 PM</SelectItem>
+                                <SelectItem value="22:00">22:00 PM</SelectItem>
+                              </SelectGroup>
+                            </ScrollArea>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex flex-col gap-2 w-full">
+                        <Label htmlFor="name">End Time</Label>
+                        <Select
+                          defaultValue={inputData.end_time
+                            .replace(" AM", "")
+                            .replace(" PM", "")}
+                          onValueChange={(value) => {
+                            setInputData((prevState) => ({
+                              ...prevState,
+                              end_time: value,
+                            }));
+                          }}
+                          disabled={searchData.end_time}
+                        >
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select end time" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-white">
+                            <ScrollArea className="h-32">
+                              <SelectGroup>
+                                <SelectItem value="07:00">7:00 AM</SelectItem>
+                                <SelectItem value="08:00">8:00 AM</SelectItem>
+                                <SelectItem value="09:00">9:00 AM</SelectItem>
+                                <SelectItem value="10:00">10:00 AM</SelectItem>
+                                <SelectItem value="11:00">11:00 AM</SelectItem>
+                                <SelectItem value="12:00">12:00 AM</SelectItem>
+                                <SelectItem value="13:00">13:00 PM</SelectItem>
+                                <SelectItem value="14:00">14:00 PM</SelectItem>
+                                <SelectItem value="15:00">15:00 PM</SelectItem>
+                                <SelectItem value="16:00">16:00 PM</SelectItem>
+                                <SelectItem value="17:00">17:00 PM</SelectItem>
+                                <SelectItem value="18:00">18:00 PM</SelectItem>
+                                <SelectItem value="19:00">19:00 PM</SelectItem>
+                                <SelectItem value="20:00">20:00 PM</SelectItem>
+                                <SelectItem value="21:00">21:00 PM</SelectItem>
+                                <SelectItem value="22:00">22:00 PM</SelectItem>
+                              </SelectGroup>
+                            </ScrollArea>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+                    <p className="text-sm text-gray-400 mt-2">
+                      {checkTimeMessage}
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <Label htmlFor="phone_number">Phone Number</Label>
+                    <PhoneInput
+                      id="phone"
+                      onChange={onChange}
+                      className="rounded-lg"
+                      international
+                      defaultCountry="KH"
+                      value={inputData.phone}
+                      disabled={user.data.phone}
                     />
-                    <label htmlFor="find_team">
-                      Find a team to play against
-                    </label>
+                  </div>
+                  <div className="flex flex-col gap-2 w-full">
+                    <Label htmlFor="name">Number of Player</Label>
+                    <Input
+                      type="number"
+                      id="attendee"
+                      onChange={onChange}
+                      className="rounded-lg"
+                      defaultValue={inputData.attendee}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="name">Optional</Label>
+                    <div className="flex items-center gap-2 text-sm">
+                      <input
+                        onChange={handleCheck}
+                        checked={teamOptions.find_team}
+                        type="checkbox"
+                        value="find_team"
+                        id="find_team"
+                        name="find_team"
+                      />
+                      <label htmlFor="find_team">
+                        Find a team to play against
+                      </label>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <DialogFooter>
-                <Button
-                  type="submit"
-                  variant="outline"
-                  className="bg-[#2ad5a5] text-white"
-                >
-                  Confirm Reservation
-                </Button>
-              </DialogFooter>
-            </form>
-          </DialogContent>
-        )}
+                <DialogFooter>
+                  <Button
+                    type="submit"
+                    variant="outline"
+                    className="bg-[#2ad5a5] text-white"
+                  >
+                    Confirm Reservation
+                  </Button>
+                </DialogFooter>
+              </form>
+            </>
+          )}
+        </DialogContent>
       </Dialog>
     </>
   );

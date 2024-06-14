@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getMatchGamesBySport } from "@/services/team";
+import { availableMatchGame } from "@/services/team";
 import {
   Pagination,
   PaginationContent,
@@ -117,16 +118,10 @@ function FeatureTeam({ sportId, pagination }) {
       </div>
     );
   }
-  const [paginationUrl, setPaginationUrl] = useState(
-    `/api/match-games?type=${parseInt(1)}`
-  );
   const { data: matchGames, isLoading: matchGamesLoading } = useQuery({
-    queryKey: ["matchGames", paginationUrl],
-    queryFn: () => getMatchGamesBySport(paginationUrl),
+    queryKey: ["matchGamesHome"],
+    queryFn: availableMatchGame,
   });
-  const handlePaginationChange = (url) => {
-    setPaginationUrl(url);
-  };
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0">
       <h1 className="text-2xl font-semibold mb-4">Feature Teams</h1>
