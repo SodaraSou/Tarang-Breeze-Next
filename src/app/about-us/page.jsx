@@ -161,7 +161,7 @@ function AboutUsPage() {
                 </Card>
                 <div className="flex flex-col gap-2 p-4 items-center">
                   <h3 className="font-bold text-xl">Sun ChengChhay</h3>
-                  <p className="flex flex-wrap text-sm text-gray-400">CEO</p>
+                  <p className="flex flex-wrap text-sm text-gray-400">CTO</p>
                 </div>
               </div>
               <div className="flex flex-col items-center">
@@ -177,16 +177,14 @@ function AboutUsPage() {
                 </Card>
                 <div className="flex flex-col gap-2 p-4 items-center">
                   <h3 className="font-bold text-xl">Sou Sodara</h3>
-                  <p className="flex flex-wrap text-sm text-gray-400">
-                    CEO Quality
-                  </p>
+                  <p className="flex flex-wrap text-sm text-gray-400">CTO</p>
                 </div>
               </div>
               <div className="flex flex-col items-center">
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      // src="/sousodara.webp"
+                      src="/Mengsrun.jpg"
                       alt="Sea MengSrun"
                       width={150}
                       height={150}
@@ -202,7 +200,7 @@ function AboutUsPage() {
                 <Card>
                   <CardHeader className="p-0">
                     <Image
-                      // src="/sousodara.webp"
+                      src="/Sakhana.jpg"
                       alt="San This Sak Khakna"
                       width={150}
                       height={150}
