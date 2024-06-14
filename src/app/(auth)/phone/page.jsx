@@ -32,6 +32,10 @@ import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 
 function PhonePage() {
+  const [inputData, setInputData] = useState({
+    phone: "",
+  });
+  console.log(inputData);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -59,16 +63,15 @@ function PhonePage() {
       return;
     }
     if (phoneNumber.startsWith("+")) {
-      setPhoneNumber(phoneNumber.slice(1))
+      inputData.phone = phoneNumber.slice(1);
+    } else {
+      inputData.phone = phoneNumber;
     }
     setLoading(true);
     try {
-      if (phoneNumber.startsWith("+")) {
-        setPhoneNumber(phoneNumber.slice(1));
-      }
       await axios.post(
         "https://api.tarang.site/api/provider/phone",
-        { phone: phoneNumber },
+        inputData,
         {
           headers: {
             "content-type": "application/json",
