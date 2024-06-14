@@ -59,7 +59,7 @@ function PhonePage() {
       return;
     }
     if (phoneNumber.startsWith("+")) {
-      phoneNumber = phoneNumber.slice(1);
+      setPhoneNumber(phoneNumber.slice(1))
     }
     setLoading(true);
     try {
