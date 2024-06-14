@@ -116,9 +116,9 @@ function Header() {
                 Volleyball
               </Link>
               <Link
-                href="/sport/ping%20pong"
+                href="/sport/ping-pong"
                 className={
-                  pathName === "/sport/ping%20pong"
+                  pathName === "/sport/ping-pong"
                     ? "mx-[-0.65rem] bg-[#f5f5f5] flex items-center gap-4 rounded-lg px-3 py-2"
                     : "flex items-center gap-4 rounded-lg py-2 text-gray-400 transition-all hover:text-black"
                 }
@@ -180,9 +180,9 @@ function Header() {
             Volleyball
           </Link>
           <Link
-            href="/sport/ping%20pong"
+            href="/sport/ping-pong"
             className={
-              pathName === "/sport/ping%20pong"
+              pathName === "/sport/ping-pong"
                 ? "text-black"
                 : "text-gray-400 transition-all hover:text-black"
             }
