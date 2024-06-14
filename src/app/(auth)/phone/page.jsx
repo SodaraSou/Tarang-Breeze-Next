@@ -58,6 +58,11 @@ function PhonePage() {
       setOpenToast(true);
       return;
     }
+    if (phoneNumber.startsWith("+")) {
+      phoneNumber = phoneNumber.slice(1);
+    } else {
+      phoneNumber = phoneNumber;
+    }
     setLoading(true);
     try {
       if (phoneNumber.startsWith("+")) {
