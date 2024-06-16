@@ -17,10 +17,16 @@ import VenueCard from "./VenueCard";
 
 function FeatureVenue({ sport, pagination }) {
   if (sport !== 0 && pagination) {
+    const [paginationUrl, setPaginationUrl] = useState(
+      `/api/venues?type=${sport}`
+    );
     const { data: venuesTest, isLoading } = useQuery({
-      queryKey: ["venues", sport],
-      queryFn: () => getVenuesByType(parseInt(sport)),
+      queryKey: ["venues", sport, paginationUrl],
+      queryFn: () => getVenuesByType(paginationUrl),
     });
+    const handlePaginationChange = (url) => {
+      setPaginationUrl(url);
+    };
     return (
       <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-0">
         <h1 className="text-2xl font-semibold mb-4">Feature Venue</h1>

@@ -269,14 +269,14 @@ const Page = () => {
                 </Link>
               </p>
               <div className="flex w-full justify-center gap-10">
-                <a href="https://api.tarang.site/auth/facebook/redirect">
+                {/* <a href="https://api.tarang.site/auth/facebook/redirect">
                   <Image
                     src="/facebook.png"
                     alt="facebook_logo"
                     width={30}
                     height={30}
                   />
-                </a>
+                </a> */}
                 <a href="https://api.tarang.site/auth/google/redirect">
                   <Image
                     src="/google.png"

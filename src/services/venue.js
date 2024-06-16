@@ -66,9 +66,9 @@ export const getVenuesWithPagination = async (paginationUrl) => {
   }
 };
 
-export const getVenuesByType = async (sportType) => {
+export const getVenuesByType = async (paginationUrl) => {
   try {
-    const res = await axios.get(`/api/venues?type=${sportType}`, {
+    const res = await axios.get(paginationUrl, {
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
